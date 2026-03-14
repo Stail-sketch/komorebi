@@ -29,10 +29,10 @@ const CAMERA_CHAR_POSITIONS = {
 
 // 音量設定（0.0〜1.0 ここで一括調整）
 const SOUND_VOLUMES = {
-  bgm:               0.3,
-  clockTick:          0.2,
-  clockWarning:       0.4,
-  cameraSwitch:       0.5,
+  bgm:               0.5,
+  clockTick:          0.15,
+  clockWarning:       0.3,
+  cameraSwitch:       0.3,
   shutter:            0.6,
   kitsuneJumpscare:   0.8,
   kaaJumpscare:       0.8,
@@ -194,6 +194,8 @@ function openCamera() {
 function closeCamera() {
   gameState.camera.active = false;
   dom.cameraView.classList.add('hidden');
+  stopSound(sounds.clockTick);
+  stopSound(sounds.clockWarning);
 }
 
 function switchCamera(camNum) {
@@ -406,21 +408,18 @@ function updateClockGauge(dt) {
     dom.clockGaugeBar.classList.add('warning');
   }
 
-  // チクタク音の切替
-  if (pct <= 0) {
+  // チクタク音の切替（CAM2表示中のみ再生）
+  const onCam2 = gameState.camera.active && gameState.camera.current === 2;
+  if (!onCam2 || pct <= 0) {
     stopSound(sounds.clockTick);
     stopSound(sounds.clockWarning);
   } else if (pct <= CLOCK_WARNING_THRESHOLD) {
-    if (!sounds.clockWarning.paused && sounds.clockWarning.currentTime > 0) {
-      // already playing
-    } else {
+    if (sounds.clockWarning.paused) {
       stopSound(sounds.clockTick);
       sounds.clockWarning.play().catch(() => {});
     }
   } else {
-    if (!sounds.clockTick.paused && sounds.clockTick.currentTime > 0) {
-      // already playing
-    } else {
+    if (sounds.clockTick.paused) {
       stopSound(sounds.clockWarning);
       sounds.clockTick.play().catch(() => {});
     }
