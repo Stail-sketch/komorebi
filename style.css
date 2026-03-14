@@ -132,21 +132,20 @@ body {
 /* 扉前キャラ画像（共通スタイル - 全キャラ対応） */
 .door-char {
   position: absolute;
-  bottom: 5%;
-  height: 75%;
+  bottom: 10%;
+  height: 65%;
   z-index: 2;
-
   animation: door-char-sway 3s ease-in-out infinite;
 }
 
 .door-char.left {
-  left: 0;
+  left: 2%;
   transform: scaleX(-1);
   animation: door-char-sway-left 3s ease-in-out infinite;
 }
 
 .door-char.right {
-  right: 0;
+  right: 2%;
 }
 
 @keyframes door-char-sway {
