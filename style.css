@@ -99,35 +99,66 @@ body {
   position: absolute;
   top: 0;
   height: 100%;
-  background: repeating-linear-gradient(
-    0deg,
-    #3a3a3a 0px,
-    #3a3a3a 6px,
-    #2a2a2a 6px,
-    #2a2a2a 8px,
-    #333 8px,
-    #333 14px,
-    #252525 14px,
-    #252525 16px
-  );
+  background:
+    repeating-linear-gradient(
+      0deg,
+      #404040 0px,
+      #3a3a3a 3px,
+      #2e2e2e 3px,
+      #2a2a2a 6px,
+      #353535 6px,
+      #333 9px,
+      #282828 9px,
+      #252525 12px
+    );
   z-index: 3;
-  clip-path: inset(0 0 100% 0);
   transition: clip-path 0.4s ease-in-out;
-  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6);
+  box-shadow:
+    inset 0 0 40px rgba(0, 0, 0, 0.7),
+    inset 0 0 10px rgba(0, 0, 0, 0.4);
+  border-top: 3px solid #4a4a4a;
+  border-bottom: 2px solid #1a1a1a;
 }
 
-.shutter-overlay.closed {
-  clip-path: inset(0 0 0 0);
+.shutter-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(80, 80, 80, 0.15) 0%,
+    transparent 20%,
+    transparent 80%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  pointer-events: none;
 }
 
 #left-shutter-overlay {
   left: 0;
   width: 13%;
+  transform: perspective(800px) rotateY(8deg);
+  transform-origin: left center;
+  clip-path: polygon(8% -5%, 100% -5%, 100% -5%, 0% -5%);
+}
+
+#left-shutter-overlay.closed {
+  clip-path: polygon(8% 0, 100% 0, 100% 100%, 0% 100%);
 }
 
 #right-shutter-overlay {
   right: 0;
   width: 13%;
+  transform: perspective(800px) rotateY(-8deg);
+  transform-origin: right center;
+  clip-path: polygon(0 -5%, 92% -5%, 100% -5%, 0% -5%);
+}
+
+#right-shutter-overlay.closed {
+  clip-path: polygon(0 0, 92% 0, 100% 100%, 0% 100%);
 }
 
 /* 扉前キャラ画像（共通スタイル - 全キャラ対応） */
