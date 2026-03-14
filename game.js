@@ -29,13 +29,13 @@ const CAMERA_CHAR_POSITIONS = {
 
 // 音量設定（0.0〜1.0 ここで一括調整）
 const SOUND_VOLUMES = {
-  bgm:               0.35,
+  bgm:                0.15,
   clockTick:          0.15,
   clockWarning:       0.3,
-  cameraSwitch:       0.3,
+  cameraSwitch:       0.1,
   shutter:            0.08,
-  kitsuneJumpscare:   0.8,
-  kaaJumpscare:       0.8,
+  kitsuneJumpscare:   0.2,
+  kaaJumpscare:       0.2,
   clearYay:           0.6,
   clearChime:         0.6,
 };
@@ -80,20 +80,59 @@ function stopAllSounds() {
 
 // --- 定数 ---
 const GAME_DURATION = 300;           // 秒（リアル5分）
-const POWER_BASE_DRAIN = 0.05;       // %/秒
-const POWER_CAMERA_DRAIN = 0.05;     // %/秒
-const POWER_SHUTTER_DRAIN = 0.15;    // %/秒（片方）
-const CLOCK_DRAIN = 0.5;             // ゲージ/秒
-const CLOCK_WIND_PER_CLICK = 3;      // 1クリックあたりの回復量
-const CLOCK_WARNING_THRESHOLD = 30;  // チクタク警告開始
+const POWER_CAMERA_DRAIN = 0.05;     // %/秒（全Night共通）
+const POWER_SHUTTER_DRAIN = 0.15;    // %/秒・片方（全Night共通）
+const CLOCK_WARNING_THRESHOLD = 30;  // チクタク警告開始（全Night共通）
 
-// かあ博士
-const KAA_FIRST_MOVE_MIN = 60;   // 初回移動開始（秒）
-const KAA_FIRST_MOVE_MAX = 90;
-const KAA_MOVE_INTERVAL_MIN = 8; // 移動間隔（秒）
-const KAA_MOVE_INTERVAL_MAX = 15;
-const KAA_DOOR_WAIT_MIN = 5;     // 扉前待機（秒）
-const KAA_DOOR_WAIT_MAX = 10;
+// --- Night別難易度パラメータ ---
+// Night2以降はここに追加するだけでOK
+const NIGHT_PARAMS = {
+  1: {
+    powerBaseDrain:     0.05,   // 電力基本消費率（%/秒）
+    clockDrain:         0.5,    // 時計ゲージ減少速度（/秒）
+    clockWindPerClick:  1,      // 1クリックあたりの回復量（%）
+    kaaFirstMove:       [60, 90],   // かあ博士 初回移動（秒）[min, max]
+    kaaMoveInterval:    [8, 15],    // かあ博士 移動間隔（秒）[min, max]
+    kaaDoorWait:        [5, 10],    // かあ博士 扉前待機（秒）[min, max]
+  },
+  2: {
+    powerBaseDrain:     0.06,
+    clockDrain:         0.7,
+    clockWindPerClick:  1,
+    kaaFirstMove:       [45, 70],
+    kaaMoveInterval:    [6, 12],
+    kaaDoorWait:        [4, 8],
+  },
+  3: {
+    powerBaseDrain:     0.07,
+    clockDrain:         0.9,
+    clockWindPerClick:  1,
+    kaaFirstMove:       [30, 55],
+    kaaMoveInterval:    [5, 10],
+    kaaDoorWait:        [3, 7],
+  },
+  4: {
+    powerBaseDrain:     0.08,
+    clockDrain:         1.2,
+    clockWindPerClick:  1,
+    kaaFirstMove:       [20, 40],
+    kaaMoveInterval:    [4, 8],
+    kaaDoorWait:        [3, 5],
+  },
+  5: {
+    powerBaseDrain:     0.10,
+    clockDrain:         1.5,
+    clockWindPerClick:  1,
+    kaaFirstMove:       [10, 25],
+    kaaMoveInterval:    [3, 6],
+    kaaDoorWait:        [2, 4],
+  },
+};
+
+// 現在のNightのパラメータを取得
+function getNightParams() {
+  return NIGHT_PARAMS[gameState.night] || NIGHT_PARAMS[1];
+}
 
 // --- ゲーム状態 ---
 let gameState = {};
@@ -125,7 +164,7 @@ function initGameState() {
       },
       kaa: {
         position: 'cam4',
-        nextMoveTime: randomRange(KAA_FIRST_MOVE_MIN, KAA_FIRST_MOVE_MAX),
+        nextMoveTime: 0, // startGame()でNight別パラメータから設定
         atDoor: false,
         doorSide: null,
         doorArrivalTime: 0,
@@ -294,7 +333,7 @@ function toggleShutter(side) {
       kaa.position = 'cam4';
       kaa.atDoor = false;
       kaa.doorSide = null;
-      kaa.nextMoveTime = gameState.time + randomRange(KAA_MOVE_INTERVAL_MIN, KAA_MOVE_INTERVAL_MAX);
+      kaa.nextMoveTime = gameState.time + randomRange(getNightParams().kaaMoveInterval[0], getNightParams().kaaMoveInterval[1]);
     }
   }
 
@@ -337,7 +376,7 @@ function updateTime(dt) {
 }
 
 function updatePower(dt) {
-  let drain = POWER_BASE_DRAIN;
+  let drain = getNightParams().powerBaseDrain;
 
   if (gameState.camera.active) {
     drain += POWER_CAMERA_DRAIN;
@@ -394,7 +433,7 @@ function powerOutage() {
 // ===== Step 3: キツネ団長（時計ギミック） =====
 
 function updateClockGauge(dt) {
-  gameState.clockGauge -= CLOCK_DRAIN * dt;
+  gameState.clockGauge -= getNightParams().clockDrain * dt;
   if (gameState.clockGauge < 0) gameState.clockGauge = 0;
 
   // ゲージ表示更新
@@ -437,7 +476,7 @@ function windClock() {
   if (!gameState.camera.active || gameState.camera.current !== 2) return;
   if (gameState.gameOver || gameState.cleared) return;
 
-  gameState.clockGauge = Math.min(100, gameState.clockGauge + CLOCK_WIND_PER_CLICK);
+  gameState.clockGauge = Math.min(100, gameState.clockGauge + getNightParams().clockWindPerClick);
 }
 
 // ===== Step 4: かあ博士（ランダム移動） =====
@@ -450,7 +489,7 @@ function updateKaa(dt) {
   if (kaa.atDoor) {
     // 扉前待機中
     const waitTime = gameState.time - kaa.doorArrivalTime;
-    const maxWait = randomRange(KAA_DOOR_WAIT_MIN, KAA_DOOR_WAIT_MAX);
+    const maxWait = randomRange(getNightParams().kaaDoorWait[0], getNightParams().kaaDoorWait[1]);
 
     if (waitTime >= maxWait) {
       // 判定
@@ -463,7 +502,7 @@ function updateKaa(dt) {
         kaa.position = 'cam4';
         kaa.atDoor = false;
         kaa.doorSide = null;
-        kaa.nextMoveTime = gameState.time + randomRange(KAA_MOVE_INTERVAL_MIN, KAA_MOVE_INTERVAL_MAX);
+        kaa.nextMoveTime = gameState.time + randomRange(getNightParams().kaaMoveInterval[0], getNightParams().kaaMoveInterval[1]);
         updateDoorSilhouettes();
         if (gameState.camera.active) updateCameraCharacter();
       } else {
@@ -481,13 +520,13 @@ function updateKaa(dt) {
   switch (kaa.position) {
     case 'cam4':
       kaa.position = 'cam6';
-      kaa.nextMoveTime = gameState.time + randomRange(KAA_MOVE_INTERVAL_MIN, KAA_MOVE_INTERVAL_MAX);
+      kaa.nextMoveTime = gameState.time + randomRange(getNightParams().kaaMoveInterval[0], getNightParams().kaaMoveInterval[1]);
       break;
 
     case 'cam6':
       // ランダムで左右
       kaa.position = Math.random() < 0.5 ? 'cam7' : 'cam8';
-      kaa.nextMoveTime = gameState.time + randomRange(KAA_MOVE_INTERVAL_MIN, KAA_MOVE_INTERVAL_MAX);
+      kaa.nextMoveTime = gameState.time + randomRange(getNightParams().kaaMoveInterval[0], getNightParams().kaaMoveInterval[1]);
       break;
 
     case 'cam7':
@@ -624,6 +663,8 @@ function gameLoop(timestamp) {
 
 function startGame() {
   initGameState();
+  const np = getNightParams();
+  gameState.characters.kaa.nextMoveTime = randomRange(np.kaaFirstMove[0], np.kaaFirstMove[1]);
   lastTimestamp = 0;
   stopAllSounds();
 
