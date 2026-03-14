@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>木漏れ日遊園地 - Night 1</title>
+  <title>木漏れ日遊園地 - Night 2</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="game-container">
     <!-- イントロ画面 -->
     <div id="intro-screen">
-      <div id="intro-text">Night 1</div>
+      <div id="intro-text">Night 2</div>
       <div id="intro-time">12:00 AM</div>
       <div id="intro-start">Click to Start</div>
     </div>
 
     <!-- HUD -->
     <div id="hud" class="hidden">
-      <div id="night-label">Night 1</div>
+      <div id="night-label">Night 2</div>
       <div id="time-display">12:00 AM</div>
       <div id="power-display">
         <span>電力:</span>
@@ -30,9 +30,7 @@
 
     <!-- メイン画面（通信端末室ビュー） -->
     <div id="office-view">
-      <!-- 背景レイヤー：room_open.png（デフォルト） -->
       <img id="office-bg-open" class="office-bg" src="image/camera/room_open.png" alt="">
-      <!-- 閉鎖レイヤー：room_closed.pngをclip-pathで切り出し -->
       <img id="office-bg-closed" class="office-bg hidden" src="image/camera/room_closed.png" alt="">
 
       <!-- 扉前キャラ画像 -->
@@ -55,16 +53,12 @@
 
     <!-- カメラ画面 -->
     <div id="camera-view" class="hidden">
-      <!-- カメラ映像エリア -->
       <div id="camera-feed">
-        <!-- パンレイヤー（背景＋キャラが一緒に動く） -->
         <div id="camera-pan-layer">
           <img id="camera-bg" src="" alt="カメラ映像">
           <img id="camera-char" class="hidden" src="" alt="">
         </div>
-        <!-- 固定UIレイヤー -->
         <div id="camera-label">CAM1 - メインステージ</div>
-        <!-- 時計ゲージ（CAM2のみ表示） -->
         <div id="clock-gauge-container" class="hidden">
           <div id="clock-gauge-label">時計ゲージ</div>
           <div id="clock-gauge-bar-container">
@@ -72,18 +66,14 @@
           </div>
           <span id="clock-gauge-percent">100%</span>
         </div>
-        <!-- スキャンライン演出 -->
         <div id="scanlines"></div>
-        <!-- ノイズトランジション -->
         <div id="camera-noise" class="hidden"></div>
-        <!-- REC表示 -->
         <div id="rec-indicator">
           <span id="rec-dot"></span>
           <span>REC</span>
         </div>
       </div>
 
-      <!-- カメラ選択パネル -->
       <div id="camera-panel">
         <button class="cam-btn active" data-cam="1">CAM1</button>
         <button class="cam-btn" data-cam="2">CAM2</button>
@@ -95,7 +85,6 @@
         <button class="cam-btn" data-cam="8">CAM8</button>
       </div>
 
-      <!-- カメラ閉じるボタン -->
       <button id="camera-close-btn">カメラ閉じる</button>
     </div>
 
@@ -113,7 +102,7 @@
     <!-- クリア画面 -->
     <div id="clear-screen" class="hidden">
       <div id="clear-time">6:00 AM</div>
-      <div id="clear-text">Night 1 クリア</div>
+      <div id="clear-text">Night 2 クリア</div>
       <button id="continue-btn">続ける</button>
     </div>
 
@@ -121,7 +110,7 @@
     <div id="blackout-overlay" class="hidden"></div>
   </div>
 
-  <script>const CURRENT_NIGHT = 1;</script>
+  <script>const CURRENT_NIGHT = 2;</script>
   <script src="game.js"></script>
 </body>
 </html>
