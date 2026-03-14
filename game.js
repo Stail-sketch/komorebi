@@ -25,6 +25,48 @@ const CAMERA_CHAR_POSITIONS = {
   8: { bottom: '15%', left: '50%', height: '35%' },  // 右通路: 奥（小さく遠景）
 };
 
+// --- サウンド管理 ---
+const sounds = {};
+
+function initSounds() {
+  // ループ音
+  sounds.bgm = createSound('sound/bgm_ambient.wav', { loop: true, volume: 0.3 });
+  sounds.clockTick = createSound('sound/clock_tick.flac', { loop: true, volume: 0.4 });
+  sounds.clockWarning = createSound('sound/clock_warning.wav', { loop: true, volume: 0.5 });
+
+  // 効果音
+  sounds.cameraSwitch = createSound('sound/camera_switch.wav', { volume: 0.5 });
+  sounds.shutter = createSound('sound/shutter.wav', { volume: 0.6 });
+  sounds.kitsuneJumpscare = createSound('sound/kitsune_jumpscare.mp3', { volume: 0.8 });
+  sounds.kaaJumpscare = createSound('sound/kaa_jumpscare.wav', { volume: 0.8 });
+  sounds.clearYay = createSound('sound/clear_yay.mp3', { volume: 0.6 });
+  sounds.clearChime = createSound('sound/clear_chime.mp3', { volume: 0.6 });
+}
+
+function createSound(src, opts = {}) {
+  const audio = new Audio(src);
+  audio.loop = opts.loop || false;
+  audio.volume = opts.volume || 1.0;
+  audio.preload = 'auto';
+  return audio;
+}
+
+function playSound(sound) {
+  if (!sound) return;
+  sound.currentTime = 0;
+  sound.play().catch(() => {});
+}
+
+function stopSound(sound) {
+  if (!sound) return;
+  sound.pause();
+  sound.currentTime = 0;
+}
+
+function stopAllSounds() {
+  Object.values(sounds).forEach(s => stopSound(s));
+}
+
 // --- 定数 ---
 const GAME_DURATION = 300;           // 秒（リアル5分）
 const POWER_BASE_DRAIN = 0.05;       // %/秒
@@ -160,9 +202,9 @@ function switchCamera(camNum) {
 
 function triggerCameraNoise() {
   dom.cameraNoise.classList.remove('hidden', 'active');
-  // リフロー強制でアニメーションリセット
   void dom.cameraNoise.offsetWidth;
   dom.cameraNoise.classList.add('active');
+  playSound(sounds.cameraSwitch);
   setTimeout(() => {
     dom.cameraNoise.classList.remove('active');
     dom.cameraNoise.classList.add('hidden');
@@ -228,6 +270,7 @@ function toggleShutter(side) {
   const btn = isLeft ? dom.leftShutterBtn : dom.rightShutterBtn;
   btn.classList.toggle('closed', closed);
   btn.querySelector('.shutter-state').textContent = closed ? '閉' : '開';
+  playSound(sounds.shutter);
 
   // シャッターを閉じた時、扉前にかあ博士がいれば即撃退
   if (closed) {
@@ -344,12 +387,32 @@ function updateClockGauge(dt) {
   dom.clockGaugeBar.style.width = pct + '%';
   dom.clockGaugePercent.textContent = pct + '%';
 
-  // 色変化
+  // 色変化 + 音切替
   dom.clockGaugeBar.classList.remove('warning', 'danger');
   if (pct <= 15) {
     dom.clockGaugeBar.classList.add('danger');
   } else if (pct <= CLOCK_WARNING_THRESHOLD) {
     dom.clockGaugeBar.classList.add('warning');
+  }
+
+  // チクタク音の切替
+  if (pct <= 0) {
+    stopSound(sounds.clockTick);
+    stopSound(sounds.clockWarning);
+  } else if (pct <= CLOCK_WARNING_THRESHOLD) {
+    if (!sounds.clockWarning.paused && sounds.clockWarning.currentTime > 0) {
+      // already playing
+    } else {
+      stopSound(sounds.clockTick);
+      sounds.clockWarning.play().catch(() => {});
+    }
+  } else {
+    if (!sounds.clockTick.paused && sounds.clockTick.currentTime > 0) {
+      // already playing
+    } else {
+      stopSound(sounds.clockWarning);
+      sounds.clockTick.play().catch(() => {});
+    }
   }
 
   // ゲージ0 → 即死
@@ -455,7 +518,8 @@ function triggerGameOver(character) {
   gameState.gameOver = true;
   gameState.running = false;
 
-  // カメラ閉じる
+  // 全サウンド停止 → ジャンプスケア音
+  stopAllSounds();
   closeCamera();
 
   // ジャンプスケア表示
@@ -463,9 +527,14 @@ function triggerGameOver(character) {
     kitsune: 'image/charas/kitsune_jumpscare.png',
     kaa: 'image/charas/kaa_jumpscare.png',
   };
+  const jumpscareSounds = {
+    kitsune: sounds.kitsuneJumpscare,
+    kaa: sounds.kaaJumpscare,
+  };
 
   dom.jumpscareImg.src = jumpscareImages[character] || jumpscareImages.kitsune;
   dom.jumpscareScreen.classList.remove('hidden');
+  playSound(jumpscareSounds[character] || sounds.kitsuneJumpscare);
 
   // ジャンプスケア後にゲームオーバー画面
   setTimeout(() => {
@@ -480,13 +549,18 @@ function gameClear() {
   gameState.cleared = true;
   gameState.running = false;
 
+  stopAllSounds();
   closeCamera();
 
   // localStorage にクリアフラグ保存
   localStorage.setItem('night1_cleared', 'true');
 
   // クリア画面表示
+  playSound(sounds.clearChime);
   dom.clearScreen.classList.remove('hidden');
+  setTimeout(() => {
+    playSound(sounds.clearYay);
+  }, 500);
 }
 
 function retryGame() {
@@ -539,6 +613,10 @@ function gameLoop(timestamp) {
 function startGame() {
   initGameState();
   lastTimestamp = 0;
+  stopAllSounds();
+
+  // BGM開始
+  sounds.bgm.play().catch(() => {});
 
   // UI初期化
   dom.timeDisplay.textContent = '12:00 AM';
@@ -602,6 +680,7 @@ function setupEventListeners() {
 // --- 起動 ---
 document.addEventListener('DOMContentLoaded', () => {
   cacheDom();
+  initSounds();
   setupEventListeners();
   startGame();
 });
