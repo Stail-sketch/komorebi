@@ -140,7 +140,7 @@ body {
 }
 
 .door-char.left {
-  left: -10%;
+  left: -6.5%;
   transform: scaleX(-1);
   animation: door-char-sway-left 3s ease-in-out infinite;
 }
