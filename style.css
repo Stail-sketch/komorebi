@@ -91,6 +91,7 @@ body {
   height: 100%;
   position: relative;
   background: url('image/camera/room.png') center/cover no-repeat, #050505;
+  overflow: hidden;
 }
 
 /* シャッターオーバーレイ（扉位置に重ねる金属シャッター） */
@@ -139,13 +140,13 @@ body {
 }
 
 .door-char.left {
-  left: 2%;
+  left: -5%;
   transform: scaleX(-1);
   animation: door-char-sway-left 3s ease-in-out infinite;
 }
 
 .door-char.right {
-  right: 2%;
+  right: -5%;
 }
 
 @keyframes door-char-sway {
