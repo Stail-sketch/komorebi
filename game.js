@@ -355,6 +355,7 @@ function windClock() {
 const KAA_MOVE_PATH_AFTER_CAM6 = ['cam7', 'cam8'];
 
 function updateKaa(dt) {
+  if (gameState._debugDoor) return;
   const kaa = gameState.characters.kaa;
 
   if (kaa.atDoor) {
@@ -584,9 +585,42 @@ function setupEventListeners() {
   });
 }
 
+// ===== デバッグ機能 =====
+
+// ?debug=door でかあ博士を右扉前に固定表示
+// コンソールから debugDoor() / debugDoor('left') で呼び出し可
+// debugDoorOff() で解除
+function debugDoor(side = 'right') {
+  const kaa = gameState.characters.kaa;
+  kaa.position = side === 'left' ? 'door_left' : 'door_right';
+  kaa.atDoor = true;
+  kaa.doorSide = side;
+  kaa.doorArrivalTime = Infinity; // タイムアウトしない
+  gameState._debugDoor = true;
+  updateDoorSilhouettes();
+  console.log(`[DEBUG] かあ博士を${side === 'left' ? '左' : '右'}扉前に固定表示`);
+}
+
+function debugDoorOff() {
+  const kaa = gameState.characters.kaa;
+  kaa.position = 'cam4';
+  kaa.atDoor = false;
+  kaa.doorSide = null;
+  kaa.nextMoveTime = gameState.time + randomRange(KAA_FIRST_MOVE_MIN, KAA_FIRST_MOVE_MAX);
+  gameState._debugDoor = false;
+  updateDoorSilhouettes();
+  console.log('[DEBUG] かあ博士の固定表示を解除');
+}
+
 // --- 起動 ---
 document.addEventListener('DOMContentLoaded', () => {
   cacheDom();
   setupEventListeners();
   startGame();
+
+  // URLパラメータチェック
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('debug') === 'door') {
+    debugDoor(params.get('side') || 'right');
+  }
 });
