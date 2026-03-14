@@ -114,6 +114,7 @@ function cacheDom() {
     rightShutterOverlay: $('right-shutter-overlay'),
     leftDoorChar: $('left-door-char'),
     rightDoorChar: $('right-door-char'),
+    cameraNoise: $('camera-noise'),
     clockGaugeContainer: $('clock-gauge-container'),
     clockGaugeBar: $('clock-gauge-bar'),
     clockGaugePercent: $('clock-gauge-percent'),
@@ -133,6 +134,7 @@ function openCamera() {
   if (gameState.gameOver || gameState.cleared) return;
   gameState.camera.active = true;
   dom.cameraView.classList.remove('hidden');
+  triggerCameraNoise();
   updateCameraView();
 }
 
@@ -150,7 +152,21 @@ function switchCamera(camNum) {
     btn.classList.toggle('active', parseInt(btn.dataset.cam) === camNum);
   });
 
+  // ノイズトランジション
+  triggerCameraNoise();
+
   updateCameraView();
+}
+
+function triggerCameraNoise() {
+  dom.cameraNoise.classList.remove('hidden', 'active');
+  // リフロー強制でアニメーションリセット
+  void dom.cameraNoise.offsetWidth;
+  dom.cameraNoise.classList.add('active');
+  setTimeout(() => {
+    dom.cameraNoise.classList.remove('active');
+    dom.cameraNoise.classList.add('hidden');
+  }, 150);
 }
 
 function updateCameraView() {
