@@ -267,19 +267,27 @@ body {
   z-index: 5;
 }
 
+/* パンレイヤー（背景＋キャラが一緒に動く） */
+#camera-pan-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: camera-pan 18s ease-in-out infinite;
+}
+
 #camera-bg {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   filter: brightness(0.7) contrast(1.1) saturate(0.6);
-  animation: camera-pan 18s ease-in-out infinite;
 }
 
 #camera-char {
   position: absolute;
   z-index: 3;
-  animation: camera-pan 18s ease-in-out infinite;
 }
 
 /* スキャンライン */

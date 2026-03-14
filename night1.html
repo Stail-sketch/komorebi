@@ -49,9 +49,13 @@
     <div id="camera-view" class="hidden">
       <!-- カメラ映像エリア -->
       <div id="camera-feed">
+        <!-- パンレイヤー（背景＋キャラが一緒に動く） -->
+        <div id="camera-pan-layer">
+          <img id="camera-bg" src="" alt="カメラ映像">
+          <img id="camera-char" class="hidden" src="" alt="">
+        </div>
+        <!-- 固定UIレイヤー -->
         <div id="camera-label">CAM1 - メインステージ</div>
-        <img id="camera-bg" src="" alt="カメラ映像">
-        <img id="camera-char" class="hidden" src="" alt="">
         <!-- 時計ゲージ（CAM2のみ表示） -->
         <div id="clock-gauge-container" class="hidden">
           <div id="clock-gauge-label">時計ゲージ</div>
