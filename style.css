@@ -271,12 +271,8 @@ body {
 
 #camera-char {
   position: absolute;
-  max-height: 60%;
-  bottom: 10%;
-  left: 50%;
-  transform: translateX(-50%);
   z-index: 3;
-  filter: brightness(0.8);
+  mix-blend-mode: screen;
 }
 
 /* スキャンライン */

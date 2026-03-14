@@ -12,6 +12,19 @@ const CAMERA_NAMES = {
   8: 'CAM8 - 右通路',
 };
 
+// --- カメラごとのキャラ表示位置 ---
+// bottom, left, height はCSS値（%）。left は中心基準で transform: translateX(-50%) 適用
+const CAMERA_CHAR_POSITIONS = {
+  1: { bottom: '8%',  left: '50%', height: '55%' },  // メインステージ: 中央ステージ上
+  2: { bottom: '10%', left: '45%', height: '50%' },  // からくり時計セット: 時計の前
+  3: { bottom: '5%',  left: '55%', height: '50%' },  // ダンスフロア: タイル上
+  4: { bottom: '8%',  left: '50%', height: '55%' },  // 研究室: 中央通路
+  5: { bottom: '8%',  left: '50%', height: '50%' },  // 小道具倉庫: 中央
+  6: { bottom: '10%', left: '50%', height: '55%' },  // バックステージ: 中央通路
+  7: { bottom: '20%', left: '48%', height: '35%' },  // 左通路: 奥（小さく遠景）
+  8: { bottom: '15%', left: '50%', height: '35%' },  // 右通路: 奥（小さく遠景）
+};
+
 // --- 定数 ---
 const GAME_DURATION = 300;           // 秒（リアル5分）
 const POWER_BASE_DRAIN = 0.05;       // %/秒
@@ -174,6 +187,15 @@ function updateCameraCharacter() {
   if (charImg) {
     dom.cameraChar.src = charImg;
     dom.cameraChar.classList.remove('hidden');
+
+    // カメラごとの位置設定を適用
+    const pos = CAMERA_CHAR_POSITIONS[cam];
+    if (pos) {
+      dom.cameraChar.style.bottom = pos.bottom;
+      dom.cameraChar.style.left = pos.left;
+      dom.cameraChar.style.height = pos.height;
+      dom.cameraChar.style.transform = 'translateX(-50%)';
+    }
   } else {
     dom.cameraChar.classList.add('hidden');
   }
