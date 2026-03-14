@@ -89,66 +89,62 @@ body {
 #office-view {
   width: 100%;
   height: 100%;
-  display: flex;
   position: relative;
-  background: #0a0a0a;
+  background: url('image/camera/room.png') center/cover no-repeat, #050505;
 }
 
-/* 扉エリア */
-#left-door-area,
-#right-door-area {
-  width: 200px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-#left-door-area {
-  background: linear-gradient(90deg, #111 0%, #0a0a0a 100%);
-}
-
-#right-door-area {
-  background: linear-gradient(-90deg, #111 0%, #0a0a0a 100%);
-}
-
-/* 扉前シルエット */
-.door-silhouette {
-  width: 120px;
-  height: 200px;
-  background: rgba(0, 0, 0, 0.9);
-  border-radius: 60px 60px 0 0;
+/* シャッターオーバーレイ（扉位置に重ねる金属シャッター） */
+.shutter-overlay {
   position: absolute;
-  top: 50%;
-  transform: translateY(-60%);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-  animation: silhouette-flicker 2s infinite;
+  top: 0;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    #3a3a3a 0px,
+    #3a3a3a 6px,
+    #2a2a2a 6px,
+    #2a2a2a 8px,
+    #333 8px,
+    #333 14px,
+    #252525 14px,
+    #252525 16px
+  );
+  z-index: 3;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.4s ease-in-out;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6);
 }
 
-@keyframes silhouette-flicker {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.85; }
-  75% { opacity: 0.95; }
+.shutter-overlay.closed {
+  clip-path: inset(0 0 0 0);
+}
+
+#left-shutter-overlay {
+  left: 0;
+  width: 13%;
+}
+
+#right-shutter-overlay {
+  right: 0;
+  width: 13%;
 }
 
 /* 扉前キャラ画像 */
 .door-char {
   position: absolute;
-  bottom: 200px;
-  height: 240px;
+  bottom: 15%;
+  height: 45%;
   z-index: 2;
-  filter: brightness(0.4);
+  filter: brightness(0.35) contrast(1.2);
   animation: door-char-sway 3s ease-in-out infinite;
 }
 
 #left-door-char {
-  left: 30px;
+  left: 1%;
 }
 
 #right-door-char {
-  right: 30px;
+  right: 1%;
 }
 
 @keyframes door-char-sway {
@@ -159,14 +155,14 @@ body {
 /* シャッターボタン */
 .shutter-btn {
   position: absolute;
-  bottom: 120px;
-  width: 140px;
-  height: 80px;
-  background: #1a1a1a;
-  border: 2px solid #333;
+  bottom: 15%;
+  width: 120px;
+  height: 70px;
+  background: rgba(20, 20, 20, 0.8);
+  border: 2px solid #444;
   color: #ccc;
   font-family: 'Courier New', monospace;
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -177,13 +173,21 @@ body {
   z-index: 5;
 }
 
+#left-shutter-btn {
+  left: 14%;
+}
+
+#right-shutter-btn {
+  right: 14%;
+}
+
 .shutter-btn:hover {
-  background: #252525;
-  border-color: #555;
+  background: rgba(40, 40, 40, 0.9);
+  border-color: #666;
 }
 
 .shutter-btn.closed {
-  background: #2a1a1a;
+  background: rgba(40, 20, 20, 0.9);
   border-color: #f44;
 }
 
@@ -195,35 +199,6 @@ body {
   font-size: 18px;
   font-weight: bold;
   color: #0f0;
-}
-
-/* シャッター閉鎖時のオーバーレイ */
-#left-door-area.shuttered::before,
-#right-door-area.shuttered::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: repeating-linear-gradient(
-    0deg,
-    #333 0px,
-    #333 8px,
-    #222 8px,
-    #222 16px
-  );
-  z-index: 3;
-  opacity: 0.9;
-}
-
-/* 中央エリア */
-#office-center {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: url('image/camera/ChatGPT Image 2026年3月14日 22_51_29.png') center/cover no-repeat, #050505;
 }
 
 /* カメラ起動ボタン */

@@ -97,10 +97,8 @@ function cacheDom() {
     camButtons: document.querySelectorAll('.cam-btn'),
     leftShutterBtn: $('left-shutter-btn'),
     rightShutterBtn: $('right-shutter-btn'),
-    leftDoorArea: $('left-door-area'),
-    rightDoorArea: $('right-door-area'),
-    leftDoorSilhouette: $('left-door-silhouette'),
-    rightDoorSilhouette: $('right-door-silhouette'),
+    leftShutterOverlay: $('left-shutter-overlay'),
+    rightShutterOverlay: $('right-shutter-overlay'),
     leftDoorChar: $('left-door-char'),
     rightDoorChar: $('right-door-char'),
     clockGaugeContainer: $('clock-gauge-container'),
@@ -190,11 +188,11 @@ function toggleShutter(side) {
   const closed = gameState.shutters[side];
 
   const btn = isLeft ? dom.leftShutterBtn : dom.rightShutterBtn;
-  const doorArea = isLeft ? dom.leftDoorArea : dom.rightDoorArea;
+  const overlay = isLeft ? dom.leftShutterOverlay : dom.rightShutterOverlay;
 
   btn.classList.toggle('closed', closed);
   btn.querySelector('.shutter-state').textContent = closed ? '閉' : '開';
-  doorArea.classList.toggle('shuttered', closed);
+  overlay.classList.toggle('closed', closed);
 
   // シャッターを閉じた時、扉前にかあ博士がいれば即撃退
   if (closed) {
@@ -271,8 +269,8 @@ function powerOutage() {
   dom.rightShutterBtn.classList.remove('closed');
   dom.leftShutterBtn.querySelector('.shutter-state').textContent = '開';
   dom.rightShutterBtn.querySelector('.shutter-state').textContent = '開';
-  dom.leftDoorArea.classList.remove('shuttered');
-  dom.rightDoorArea.classList.remove('shuttered');
+  dom.leftShutterOverlay.classList.remove('closed');
+  dom.rightShutterOverlay.classList.remove('closed');
 
   dom.blackoutOverlay.classList.remove('hidden');
 
@@ -392,10 +390,6 @@ function updateDoorSilhouettes() {
   const atLeft = kaa.atDoor && kaa.doorSide === 'left';
   const atRight = kaa.atDoor && kaa.doorSide === 'right';
 
-  // シルエット
-  dom.leftDoorSilhouette.classList.toggle('hidden', !atLeft);
-  dom.rightDoorSilhouette.classList.toggle('hidden', !atRight);
-
   // kaa_door.png（シャッターが開いている時だけ表示）
   dom.leftDoorChar.classList.toggle('hidden', !(atLeft && !gameState.shutters.left));
   dom.rightDoorChar.classList.toggle('hidden', !(atRight && !gameState.shutters.right));
@@ -505,10 +499,8 @@ function startGame() {
   dom.rightShutterBtn.classList.remove('closed');
   dom.leftShutterBtn.querySelector('.shutter-state').textContent = '開';
   dom.rightShutterBtn.querySelector('.shutter-state').textContent = '開';
-  dom.leftDoorArea.classList.remove('shuttered');
-  dom.rightDoorArea.classList.remove('shuttered');
-  dom.leftDoorSilhouette.classList.add('hidden');
-  dom.rightDoorSilhouette.classList.add('hidden');
+  dom.leftShutterOverlay.classList.remove('closed');
+  dom.rightShutterOverlay.classList.remove('closed');
   dom.leftDoorChar.classList.add('hidden');
   dom.rightDoorChar.classList.add('hidden');
   dom.clockGaugeContainer.classList.add('hidden');

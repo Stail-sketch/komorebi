@@ -23,29 +23,23 @@
 
     <!-- メイン画面（通信端末室ビュー） -->
     <div id="office-view">
-      <!-- 左扉エリア -->
-      <div id="left-door-area">
-        <div id="left-door-silhouette" class="door-silhouette hidden"></div>
-        <img id="left-door-char" class="door-char hidden" src="image/charas/kaa_door.png" alt="">
-        <button id="left-shutter-btn" class="shutter-btn" data-side="left">
-          <span class="shutter-label">左シャッター</span>
-          <span class="shutter-state">開</span>
-        </button>
-      </div>
+      <!-- シャッターオーバーレイ（扉位置に重ねる） -->
+      <div id="left-shutter-overlay" class="shutter-overlay"></div>
+      <div id="right-shutter-overlay" class="shutter-overlay"></div>
 
-      <!-- 中央エリア -->
-      <div id="office-center">
-      </div>
+      <!-- 扉前キャラ画像 -->
+      <img id="left-door-char" class="door-char hidden" src="image/charas/kaa_door.png" alt="">
+      <img id="right-door-char" class="door-char hidden" src="image/charas/kaa_door.png" alt="">
 
-      <!-- 右扉エリア -->
-      <div id="right-door-area">
-        <div id="right-door-silhouette" class="door-silhouette hidden"></div>
-        <img id="right-door-char" class="door-char hidden" src="image/charas/kaa_door.png" alt="">
-        <button id="right-shutter-btn" class="shutter-btn" data-side="right">
-          <span class="shutter-label">右シャッター</span>
-          <span class="shutter-state">開</span>
-        </button>
-      </div>
+      <!-- シャッターボタン -->
+      <button id="left-shutter-btn" class="shutter-btn" data-side="left">
+        <span class="shutter-label">左シャッター</span>
+        <span class="shutter-state">開</span>
+      </button>
+      <button id="right-shutter-btn" class="shutter-btn" data-side="right">
+        <span class="shutter-label">右シャッター</span>
+        <span class="shutter-state">開</span>
+      </button>
 
       <!-- カメラ起動ボタン -->
       <button id="camera-toggle-btn">カメラ起動</button>
