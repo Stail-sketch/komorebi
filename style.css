@@ -379,17 +379,18 @@ body {
 /* カメラ閉じるボタン */
 #camera-close-btn {
   position: absolute;
-  bottom: 12px;
+  bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 8px 24px;
+  padding: 12px 32px;
   background: #2a1a1a;
-  border: 1px solid #644;
+  border: 2px solid #644;
   color: #f88;
   font-family: 'Courier New', monospace;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
-  z-index: 5;
+  letter-spacing: 2px;
+  z-index: 25;
 }
 
 #camera-close-btn:hover {
