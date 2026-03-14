@@ -249,7 +249,6 @@ body {
   position: relative;
   overflow: hidden;
   background: #0a0a0a;
-  animation: camera-pan 18s ease-in-out infinite;
 }
 
 /* 監視カメラの首振り（ゆっくり左右パン） */
@@ -274,12 +273,13 @@ body {
   object-fit: cover;
   object-position: center;
   filter: brightness(0.7) contrast(1.1) saturate(0.6);
+  animation: camera-pan 18s ease-in-out infinite;
 }
 
 #camera-char {
   position: absolute;
   z-index: 3;
-
+  animation: camera-pan 18s ease-in-out infinite;
 }
 
 /* スキャンライン */
