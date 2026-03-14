@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>木漏れ日遊園地 - Night 3</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-container">
+    <!-- イントロ画面 -->
+    <div id="intro-screen">
+      <div id="intro-text">Night 3</div>
+      <div id="intro-time">12:00 AM</div>
+      <div id="intro-start">Click to Start</div>
+    </div>
+
+    <!-- HUD -->
+    <div id="hud" class="hidden">
+      <div id="night-label">Night 3</div>
+      <div id="time-display">12:00 AM</div>
+      <div id="power-display">
+        <span>電力:</span>
+        <div id="power-bar-container">
+          <div id="power-bar"></div>
+        </div>
+        <span id="power-percent">100%</span>
+      </div>
+    </div>
+
+    <!-- メイン画面（通信端末室ビュー） -->
+    <div id="office-view">
+      <img id="office-bg-open" class="office-bg" src="image/camera/room_open.png" alt="">
+      <img id="office-bg-closed" class="office-bg hidden" src="image/camera/room_closed.png" alt="">
+
+      <img id="left-door-char" class="door-char left hidden" src="image/charas/kaa_door.png" alt="">
+      <img id="right-door-char" class="door-char right hidden" src="image/charas/kaa_door.png" alt="">
+
+      <button id="left-shutter-btn" class="shutter-btn" data-side="left">
+        <span class="shutter-label">左シャッター</span>
+        <span class="shutter-state">開</span>
+      </button>
+      <button id="right-shutter-btn" class="shutter-btn" data-side="right">
+        <span class="shutter-label">右シャッター</span>
+        <span class="shutter-state">開</span>
+      </button>
+
+      <button id="camera-toggle-btn">カメラ起動</button>
+    </div>
+
+    <!-- カメラ画面 -->
+    <div id="camera-view" class="hidden">
+      <div id="camera-feed">
+        <div id="camera-pan-layer">
+          <img id="camera-bg" src="" alt="カメラ映像">
+          <img id="camera-char" class="hidden" src="" alt="">
+        </div>
+        <div id="camera-label">CAM1 - メインステージ</div>
+        <div id="clock-gauge-container" class="hidden">
+          <div id="clock-gauge-label">時計ゲージ</div>
+          <div id="clock-gauge-bar-container">
+            <div id="clock-gauge-bar"></div>
+          </div>
+          <span id="clock-gauge-percent">100%</span>
+        </div>
+        <div id="scanlines"></div>
+        <div id="camera-noise" class="hidden"></div>
+        <div id="rec-indicator">
+          <span id="rec-dot"></span>
+          <span>REC</span>
+        </div>
+      </div>
+
+      <div id="camera-panel">
+        <button class="cam-btn active" data-cam="1">CAM1</button>
+        <button class="cam-btn" data-cam="2">CAM2</button>
+        <button class="cam-btn" data-cam="3">CAM3</button>
+        <button class="cam-btn" data-cam="4">CAM4</button>
+        <button class="cam-btn" data-cam="5">CAM5</button>
+        <button class="cam-btn" data-cam="6">CAM6</button>
+        <button class="cam-btn" data-cam="7">CAM7</button>
+        <button class="cam-btn" data-cam="8">CAM8</button>
+      </div>
+
+      <button id="camera-close-btn">カメラ閉じる</button>
+    </div>
+
+    <div id="jumpscare-screen" class="hidden">
+      <img id="jumpscare-img" src="" alt="">
+    </div>
+
+    <div id="gameover-screen" class="hidden">
+      <div id="gameover-text">GAME OVER</div>
+      <button id="retry-btn">リトライ</button>
+    </div>
+
+    <div id="clear-screen" class="hidden">
+      <div id="clear-time">6:00 AM</div>
+      <div id="clear-text">Night 3 クリア</div>
+      <button id="continue-btn">続ける</button>
+    </div>
+
+    <div id="blackout-overlay" class="hidden"></div>
+  </div>
+
+  <script>const CURRENT_NIGHT = 3;</script>
+  <script src="game.js"></script>
+</body>
+</html>
