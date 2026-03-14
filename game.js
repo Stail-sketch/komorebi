@@ -81,7 +81,7 @@ function stopAllSounds() {
 // --- 定数 ---
 const GAME_DURATION = 300;           // 秒（リアル5分）
 const POWER_CAMERA_DRAIN = 0.05;     // %/秒（全Night共通）
-const POWER_SHUTTER_DRAIN = 0.15;    // %/秒・片方（全Night共通）
+const POWER_SHUTTER_DRAIN = 0.25;    // %/秒・片方（全Night共通）
 const CLOCK_WARNING_THRESHOLD = 30;  // チクタク警告開始（全Night共通）
 
 // --- Night別難易度パラメータ ---
