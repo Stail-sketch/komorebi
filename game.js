@@ -110,8 +110,10 @@ function cacheDom() {
     camButtons: document.querySelectorAll('.cam-btn'),
     leftShutterBtn: $('left-shutter-btn'),
     rightShutterBtn: $('right-shutter-btn'),
-    leftShutterOverlay: $('left-shutter-overlay'),
-    rightShutterOverlay: $('right-shutter-overlay'),
+    officeBgOpen: $('office-bg-open'),
+    officeBgClosed: $('office-bg-closed'),
+    leftShutterAnim: $('left-shutter-anim'),
+    rightShutterAnim: $('right-shutter-anim'),
     leftDoorChar: $('left-door-char'),
     rightDoorChar: $('right-door-char'),
     cameraNoise: $('camera-noise'),
@@ -226,11 +228,8 @@ function toggleShutter(side) {
   const closed = gameState.shutters[side];
 
   const btn = isLeft ? dom.leftShutterBtn : dom.rightShutterBtn;
-  const overlay = isLeft ? dom.leftShutterOverlay : dom.rightShutterOverlay;
-
   btn.classList.toggle('closed', closed);
   btn.querySelector('.shutter-state').textContent = closed ? '閉' : '開';
-  overlay.classList.toggle('closed', closed);
 
   // シャッターを閉じた時、扉前にかあ博士がいれば即撃退
   if (closed) {
@@ -243,7 +242,64 @@ function toggleShutter(side) {
     }
   }
 
+  // シャッターアニメーション
+  if (closed) {
+    animateShutterClose(side);
+  } else {
+    animateShutterOpen(side);
+  }
+
   updateDoorSilhouettes();
+}
+
+function animateShutterClose(side) {
+  const anim = side === 'left' ? dom.leftShutterAnim : dom.rightShutterAnim;
+
+  // CSSシャッターをスライドダウン
+  anim.classList.remove('slide-up', 'slide-down');
+  void anim.offsetWidth;
+  anim.classList.add('slide-down');
+
+  // アニメ完了後：closed画像を表示、CSSシャッターを非表示
+  setTimeout(() => {
+    updateClosedBgClip();
+    anim.classList.remove('slide-down');
+    anim.style.clipPath = 'inset(100% 0 0 0)';
+  }, 300);
+}
+
+function animateShutterOpen(side) {
+  const anim = side === 'left' ? dom.leftShutterAnim : dom.rightShutterAnim;
+
+  // CSSシャッターを表示してからスライドアップ
+  anim.style.clipPath = '';
+  anim.classList.remove('slide-down', 'slide-up');
+  void anim.offsetWidth;
+  anim.classList.add('slide-up');
+
+  // アニメ完了後：closed画像を更新、CSSシャッターを非表示
+  setTimeout(() => {
+    updateClosedBgClip();
+    anim.classList.remove('slide-up');
+    anim.style.clipPath = 'inset(100% 0 0 0)';
+  }, 300);
+}
+
+function updateClosedBgClip() {
+  const leftClosed = gameState.shutters.left;
+  const rightClosed = gameState.shutters.right;
+
+  dom.officeBgClosed.classList.remove('hidden', 'show-left', 'show-right', 'show-both');
+
+  if (leftClosed && rightClosed) {
+    dom.officeBgClosed.classList.add('show-both');
+  } else if (leftClosed) {
+    dom.officeBgClosed.classList.add('show-left');
+  } else if (rightClosed) {
+    dom.officeBgClosed.classList.add('show-right');
+  } else {
+    dom.officeBgClosed.classList.add('hidden');
+  }
 }
 
 // ===== Step 2: ゲームタイマーと電力 =====
@@ -307,8 +363,8 @@ function powerOutage() {
   dom.rightShutterBtn.classList.remove('closed');
   dom.leftShutterBtn.querySelector('.shutter-state').textContent = '開';
   dom.rightShutterBtn.querySelector('.shutter-state').textContent = '開';
-  dom.leftShutterOverlay.classList.remove('closed');
-  dom.rightShutterOverlay.classList.remove('closed');
+  dom.officeBgClosed.classList.remove('show-left', 'show-right', 'show-both');
+  dom.officeBgClosed.classList.add('hidden');
 
   dom.blackoutOverlay.classList.remove('hidden');
 
@@ -537,8 +593,12 @@ function startGame() {
   dom.rightShutterBtn.classList.remove('closed');
   dom.leftShutterBtn.querySelector('.shutter-state').textContent = '開';
   dom.rightShutterBtn.querySelector('.shutter-state').textContent = '開';
-  dom.leftShutterOverlay.classList.remove('closed');
-  dom.rightShutterOverlay.classList.remove('closed');
+  dom.officeBgClosed.classList.remove('show-left', 'show-right', 'show-both');
+  dom.officeBgClosed.classList.add('hidden');
+  dom.leftShutterAnim.classList.remove('slide-down', 'slide-up');
+  dom.leftShutterAnim.style.clipPath = 'inset(100% 0 0 0)';
+  dom.rightShutterAnim.classList.remove('slide-down', 'slide-up');
+  dom.rightShutterAnim.style.clipPath = 'inset(100% 0 0 0)';
   dom.leftDoorChar.classList.add('hidden');
   dom.rightDoorChar.classList.add('hidden');
   dom.clockGaugeContainer.classList.add('hidden');

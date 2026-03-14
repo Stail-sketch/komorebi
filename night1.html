@@ -23,9 +23,14 @@
 
     <!-- メイン画面（通信端末室ビュー） -->
     <div id="office-view">
-      <!-- シャッターオーバーレイ（扉位置に重ねる） -->
-      <div id="left-shutter-overlay" class="shutter-overlay"></div>
-      <div id="right-shutter-overlay" class="shutter-overlay"></div>
+      <!-- 背景レイヤー：room_open.png（デフォルト） -->
+      <img id="office-bg-open" class="office-bg" src="image/camera/room_open.png" alt="">
+      <!-- 閉鎖レイヤー：room_closed.pngをclip-pathで切り出し -->
+      <img id="office-bg-closed" class="office-bg hidden" src="image/camera/room_closed.png" alt="">
+
+      <!-- CSSシャッターアニメーション用（一時的に表示） -->
+      <div id="left-shutter-anim" class="shutter-anim"></div>
+      <div id="right-shutter-anim" class="shutter-anim"></div>
 
       <!-- 扉前キャラ画像 -->
       <img id="left-door-char" class="door-char left hidden" src="image/charas/kaa_door.png" alt="">

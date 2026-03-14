@@ -90,12 +90,44 @@ body {
   width: 100%;
   height: 100%;
   position: relative;
-  background: url('image/camera/room.png') center/cover no-repeat, #050505;
+  background: #050505;
   overflow: hidden;
 }
 
-/* シャッターオーバーレイ（扉位置に重ねる金属シャッター） */
-.shutter-overlay {
+/* 背景画像（open/closed共通） */
+.office-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+#office-bg-open {
+  z-index: 0;
+}
+
+#office-bg-closed {
+  z-index: 1;
+}
+
+/* 閉鎖画像のclip-path（片方だけ表示用） */
+#office-bg-closed.show-left {
+  clip-path: inset(0 50% 0 0);
+}
+
+#office-bg-closed.show-right {
+  clip-path: inset(0 0 0 50%);
+}
+
+#office-bg-closed.show-both {
+  clip-path: none;
+}
+
+/* CSSシャッターアニメーション用（一時表示） */
+.shutter-anim {
   position: absolute;
   top: 0;
   height: 100%;
@@ -111,54 +143,38 @@ body {
       #282828 9px,
       #252525 12px
     );
-  z-index: 3;
-  transition: clip-path 0.4s ease-in-out;
-  box-shadow:
-    inset 0 0 40px rgba(0, 0, 0, 0.7),
-    inset 0 0 10px rgba(0, 0, 0, 0.4);
-  border-top: 3px solid #4a4a4a;
-  border-bottom: 2px solid #1a1a1a;
-}
-
-.shutter-overlay::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    180deg,
-    rgba(80, 80, 80, 0.15) 0%,
-    transparent 20%,
-    transparent 80%,
-    rgba(0, 0, 0, 0.3) 100%
-  );
+  z-index: 2;
   pointer-events: none;
+  clip-path: inset(100% 0 0 0);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.7);
 }
 
-#left-shutter-overlay {
+.shutter-anim.slide-down {
+  animation: shutter-slide-down 0.3s ease-in forwards;
+}
+
+.shutter-anim.slide-up {
+  animation: shutter-slide-up 0.3s ease-out forwards;
+}
+
+@keyframes shutter-slide-down {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes shutter-slide-up {
+  from { clip-path: inset(0 0 0 0); }
+  to { clip-path: inset(100% 0 0 0); }
+}
+
+#left-shutter-anim {
   left: 0;
   width: 13%;
-  transform: perspective(800px) rotateY(8deg);
-  transform-origin: left center;
-  clip-path: polygon(8% -5%, 100% -5%, 100% -5%, 0% -5%);
 }
 
-#left-shutter-overlay.closed {
-  clip-path: polygon(8% 0, 100% 0, 100% 100%, 0% 100%);
-}
-
-#right-shutter-overlay {
+#right-shutter-anim {
   right: 0;
   width: 13%;
-  transform: perspective(800px) rotateY(-8deg);
-  transform-origin: right center;
-  clip-path: polygon(0 -5%, 92% -5%, 100% -5%, 0% -5%);
-}
-
-#right-shutter-overlay.closed {
-  clip-path: polygon(0 0, 92% 0, 100% 100%, 0% 100%);
 }
 
 /* 扉前キャラ画像（共通スタイル - 全キャラ対応） */
