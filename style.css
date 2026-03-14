@@ -126,57 +126,6 @@ body {
   clip-path: none;
 }
 
-/* CSSシャッターアニメーション用（一時表示） */
-.shutter-anim {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      #404040 0px,
-      #3a3a3a 3px,
-      #2e2e2e 3px,
-      #2a2a2a 6px,
-      #353535 6px,
-      #333 9px,
-      #282828 9px,
-      #252525 12px
-    );
-  z-index: 2;
-  pointer-events: none;
-  clip-path: inset(100% 0 0 0);
-  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.7);
-}
-
-.shutter-anim.slide-down {
-  animation: shutter-slide-down 0.3s ease-in forwards;
-}
-
-.shutter-anim.slide-up {
-  animation: shutter-slide-up 0.3s ease-out forwards;
-}
-
-@keyframes shutter-slide-down {
-  from { clip-path: inset(0 0 100% 0); }
-  to { clip-path: inset(0 0 0 0); }
-}
-
-@keyframes shutter-slide-up {
-  from { clip-path: inset(0 0 0 0); }
-  to { clip-path: inset(100% 0 0 0); }
-}
-
-#left-shutter-anim {
-  left: 0;
-  width: 13%;
-}
-
-#right-shutter-anim {
-  right: 0;
-  width: 13%;
-}
-
 /* 扉前キャラ画像（共通スタイル - 全キャラ対応） */
 .door-char {
   position: absolute;
