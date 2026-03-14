@@ -53,6 +53,25 @@ body {
   to { opacity: 1; }
 }
 
+#intro-start {
+  font-size: 20px;
+  color: #aaa;
+  letter-spacing: 3px;
+  margin-top: 32px;
+  opacity: 0;
+  animation: intro-start-fadein 0.5s ease-in 2.5s forwards, intro-start-blink 1.5s ease-in-out 3s infinite;
+  cursor: pointer;
+}
+
+@keyframes intro-start-fadein {
+  to { opacity: 1; }
+}
+
+@keyframes intro-start-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
 /* ===== ゲームコンテナ ===== */
 #game-container {
   width: 100vw;

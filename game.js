@@ -691,24 +691,35 @@ function startGame() {
     btn.classList.toggle('active', btn.dataset.cam === '1');
   });
 
-  // イントロ演出
+  // イントロ演出（クリック待ち）
   dom.introScreen.classList.remove('fade-out');
   dom.introScreen.classList.remove('hidden');
   dom.hud.classList.add('hidden');
 
-  // 2.5秒後にフェードアウト開始 & BGM再生
-  setTimeout(() => {
+  // クリックでゲーム開始（ブラウザ自動再生ポリシー回避）
+  function onIntroClick() {
+    dom.introScreen.removeEventListener('click', onIntroClick);
+
+    // AudioContext resume（自動再生制限の解除）
+    if (window.AudioContext || window.webkitAudioContext) {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      ctx.resume().then(() => ctx.close());
+    }
+
+    // フェードアウト開始 & BGM再生
     dom.introScreen.classList.add('fade-out');
     sounds.bgm.play().catch(() => {});
-  }, 2500);
 
-  // 3.5秒後（フェードアウト完了後）にゲーム開始
-  setTimeout(() => {
-    dom.introScreen.classList.add('hidden');
-    dom.hud.classList.remove('hidden');
-    gameState.running = true;
-    requestAnimationFrame(gameLoop);
-  }, 3500);
+    // フェードアウト完了後にゲーム開始
+    setTimeout(() => {
+      dom.introScreen.classList.add('hidden');
+      dom.hud.classList.remove('hidden');
+      gameState.running = true;
+      requestAnimationFrame(gameLoop);
+    }, 1000);
+  }
+
+  dom.introScreen.addEventListener('click', onIntroClick);
 }
 
 function setupEventListeners() {
