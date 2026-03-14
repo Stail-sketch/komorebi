@@ -655,18 +655,18 @@ function startGame() {
   dom.introScreen.classList.remove('hidden');
   dom.hud.classList.add('hidden');
 
-  // 2.5秒後にフェードアウト開始
+  // 2.5秒後にフェードアウト開始 & BGM再生
   setTimeout(() => {
     dom.introScreen.classList.add('fade-out');
-    dom.hud.classList.remove('hidden');
     sounds.bgm.play().catch(() => {});
-    gameState.running = true;
-    requestAnimationFrame(gameLoop);
   }, 2500);
 
-  // フェードアウト完了後にイントロ画面を非表示
+  // 3.5秒後（フェードアウト完了後）にゲーム開始
   setTimeout(() => {
     dom.introScreen.classList.add('hidden');
+    dom.hud.classList.remove('hidden');
+    gameState.running = true;
+    requestAnimationFrame(gameLoop);
   }, 3500);
 }
 
