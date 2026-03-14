@@ -129,27 +129,34 @@ body {
   width: 13%;
 }
 
-/* 扉前キャラ画像 */
+/* 扉前キャラ画像（共通スタイル - 全キャラ対応） */
 .door-char {
   position: absolute;
-  bottom: 15%;
-  height: 45%;
+  bottom: 5%;
+  height: 75%;
   z-index: 2;
-  filter: brightness(0.35) contrast(1.2);
+  mix-blend-mode: screen;
   animation: door-char-sway 3s ease-in-out infinite;
 }
 
-#left-door-char {
-  left: 1%;
+.door-char.left {
+  left: 0;
+  transform: scaleX(-1);
+  animation: door-char-sway-left 3s ease-in-out infinite;
 }
 
-#right-door-char {
-  right: 1%;
+.door-char.right {
+  right: 0;
 }
 
 @keyframes door-char-sway {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-4px); }
+}
+
+@keyframes door-char-sway-left {
+  0%, 100% { transform: scaleX(-1) translateY(0); }
+  50% { transform: scaleX(-1) translateY(-4px); }
 }
 
 /* シャッターボタン */
