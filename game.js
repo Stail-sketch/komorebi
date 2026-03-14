@@ -29,11 +29,11 @@ const CAMERA_CHAR_POSITIONS = {
 
 // 音量設定（0.0〜1.0 ここで一括調整）
 const SOUND_VOLUMES = {
-  bgm:               0.5,
+  bgm:               0.35,
   clockTick:          0.15,
   clockWarning:       0.3,
   cameraSwitch:       0.3,
-  shutter:            0.02,
+  shutter:            0.08,
   kitsuneJumpscare:   0.8,
   kaaJumpscare:       0.8,
   clearYay:           0.6,
