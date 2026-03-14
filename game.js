@@ -26,21 +26,32 @@ const CAMERA_CHAR_POSITIONS = {
 };
 
 // --- サウンド管理 ---
+
+// 音量設定（0.0〜1.0 ここで一括調整）
+const SOUND_VOLUMES = {
+  bgm:               0.3,
+  clockTick:          0.2,
+  clockWarning:       0.4,
+  cameraSwitch:       0.5,
+  shutter:            0.6,
+  kitsuneJumpscare:   0.8,
+  kaaJumpscare:       0.8,
+  clearYay:           0.6,
+  clearChime:         0.6,
+};
+
 const sounds = {};
 
 function initSounds() {
-  // ループ音
-  sounds.bgm = createSound('sound/bgm_ambient.wav', { loop: true, volume: 0.3 });
-  sounds.clockTick = createSound('sound/clock_tick.flac', { loop: true, volume: 0.4 });
-  sounds.clockWarning = createSound('sound/clock_warning.wav', { loop: true, volume: 0.5 });
-
-  // 効果音
-  sounds.cameraSwitch = createSound('sound/camera_switch.wav', { volume: 0.5 });
-  sounds.shutter = createSound('sound/shutter.wav', { volume: 0.6 });
-  sounds.kitsuneJumpscare = createSound('sound/kitsune_jumpscare.mp3', { volume: 0.8 });
-  sounds.kaaJumpscare = createSound('sound/kaa_jumpscare.wav', { volume: 0.8 });
-  sounds.clearYay = createSound('sound/clear_yay.mp3', { volume: 0.6 });
-  sounds.clearChime = createSound('sound/clear_chime.mp3', { volume: 0.6 });
+  sounds.bgm              = createSound('sound/bgm_ambient.wav',      { loop: true, volume: SOUND_VOLUMES.bgm });
+  sounds.clockTick         = createSound('sound/clock_tick.flac',       { loop: true, volume: SOUND_VOLUMES.clockTick });
+  sounds.clockWarning      = createSound('sound/clock_warning.wav',     { loop: true, volume: SOUND_VOLUMES.clockWarning });
+  sounds.cameraSwitch      = createSound('sound/camera_switch.wav',     { volume: SOUND_VOLUMES.cameraSwitch });
+  sounds.shutter           = createSound('sound/shutter.wav',           { volume: SOUND_VOLUMES.shutter });
+  sounds.kitsuneJumpscare  = createSound('sound/kitsune_jumpscare.mp3', { volume: SOUND_VOLUMES.kitsuneJumpscare });
+  sounds.kaaJumpscare      = createSound('sound/kaa_jumpscare.wav',     { volume: SOUND_VOLUMES.kaaJumpscare });
+  sounds.clearYay          = createSound('sound/clear_yay.mp3',         { volume: SOUND_VOLUMES.clearYay });
+  sounds.clearChime        = createSound('sound/clear_chime.mp3',       { volume: SOUND_VOLUMES.clearChime });
 }
 
 function createSound(src, opts = {}) {
