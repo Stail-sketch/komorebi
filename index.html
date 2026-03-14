@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>木漏れ日遊園地</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    h1 {
+      font-size: 48px;
+      letter-spacing: 8px;
+      margin-bottom: 48px;
+      text-shadow: 0 0 20px rgba(255,255,255,0.15);
+    }
+    .night-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 320px;
+    }
+    .night-btn {
+      display: block;
+      padding: 16px 24px;
+      background: #111;
+      border: 2px solid #444;
+      color: #ccc;
+      font-family: 'Courier New', monospace;
+      font-size: 20px;
+      letter-spacing: 3px;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .night-btn:hover {
+      border-color: #8f8;
+      color: #fff;
+      background: #1a2a1a;
+    }
+    .night-btn.locked {
+      border-color: #222;
+      color: #333;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .night-btn.locked::after {
+      content: ' \1F512';
+    }
+    .night-btn.cleared::after {
+      content: ' \2713';
+      color: #4a4;
+    }
+    .night-btn.night6 {
+      border-color: #222;
+      color: #444;
+      font-size: 16px;
+      margin-top: 16px;
+    }
+    .night-btn.night6:hover {
+      border-color: #644;
+      color: #a88;
+      background: #1a1515;
+    }
+    .night-btn.night6.locked {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>木漏れ日遊園地</h1>
+  <div class="night-list" id="night-list"></div>
+
+  <script>
+    // URLパラメータで直接Night遷移
+    const params = new URLSearchParams(window.location.search);
+    const directNight = parseInt(params.get('night'));
+    if (directNight >= 1 && directNight <= 6) {
+      window.location.href = `night${directNight}.html`;
+    }
+
+    // Night選択リスト生成
+    const list = document.getElementById('night-list');
+
+    for (let i = 1; i <= 6; i++) {
+      const a = document.createElement('a');
+      const cleared = localStorage.getItem(`night${i}_cleared`) === 'true';
+      // Night1は常に解放、Night2〜5は前Nightクリアで解放、Night6はNight5クリアで表示
+      const prevCleared = i === 1 || localStorage.getItem(`night${i - 1}_cleared`) === 'true';
+      const unlocked = prevCleared;
+
+      a.textContent = i <= 5 ? `Night ${i}` : 'Night 6';
+      a.href = `night${i}.html`;
+
+      a.classList.add('night-btn');
+      if (i === 6) a.classList.add('night6');
+
+      if (!unlocked) {
+        a.classList.add('locked');
+        a.removeAttribute('href');
+      } else if (cleared) {
+        a.classList.add('cleared');
+      }
+
+      list.appendChild(a);
+    }
+  </script>
+</body>
+</html>
