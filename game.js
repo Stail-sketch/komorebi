@@ -1,6 +1,8 @@
 // ===== 木漏れ日遊園地 ゲームエンジン =====
 // CURRENT_NIGHT はHTMLの<script>で事前定義（未定義時はNight1）
-const NIGHT_NUMBER = (typeof CURRENT_NIGHT !== 'undefined') ? CURRENT_NIGHT : 1;
+// デバッグ: ?night=N のURLパラメータで上書き可能
+const _urlNight = parseInt(new URLSearchParams(window.location.search).get('night'));
+const NIGHT_NUMBER = (_urlNight >= 1 && _urlNight <= 6) ? _urlNight : (typeof CURRENT_NIGHT !== 'undefined') ? CURRENT_NIGHT : 1;
 
 // --- カメラ名マッピング ---
 const CAMERA_NAMES = {
