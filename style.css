@@ -133,7 +133,7 @@ body {
 /* 扉前キャラ画像（共通スタイル - 全キャラ対応） */
 .door-char {
   position: absolute;
-  bottom: 10%;
+  top: 20%;
   height: 65%;
   z-index: 2;
   animation: door-char-sway 3s ease-in-out infinite;
