@@ -148,6 +148,8 @@ let dom = {};
 
 function cacheDom() {
   dom = {
+    introScreen: $('intro-screen'),
+    hud: $('hud'),
     nightLabel: $('night-label'),
     timeDisplay: $('time-display'),
     powerBar: $('power-bar'),
@@ -625,9 +627,6 @@ function startGame() {
   lastTimestamp = 0;
   stopAllSounds();
 
-  // BGM開始
-  sounds.bgm.play().catch(() => {});
-
   // UI初期化
   dom.timeDisplay.textContent = '12:00 AM';
   dom.powerBar.style.width = '100%';
@@ -651,8 +650,24 @@ function startGame() {
     btn.classList.toggle('active', btn.dataset.cam === '1');
   });
 
-  gameState.running = true;
-  requestAnimationFrame(gameLoop);
+  // イントロ演出
+  dom.introScreen.classList.remove('fade-out');
+  dom.introScreen.classList.remove('hidden');
+  dom.hud.classList.add('hidden');
+
+  // 2.5秒後にフェードアウト開始
+  setTimeout(() => {
+    dom.introScreen.classList.add('fade-out');
+    dom.hud.classList.remove('hidden');
+    sounds.bgm.play().catch(() => {});
+    gameState.running = true;
+    requestAnimationFrame(gameLoop);
+  }, 2500);
+
+  // フェードアウト完了後にイントロ画面を非表示
+  setTimeout(() => {
+    dom.introScreen.classList.add('hidden');
+  }, 3500);
 }
 
 function setupEventListeners() {
