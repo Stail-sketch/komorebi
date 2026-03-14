@@ -33,7 +33,7 @@ const SOUND_VOLUMES = {
   clockTick:          0.15,
   clockWarning:       0.3,
   cameraSwitch:       0.3,
-  shutter:            1.0,
+  shutter:            0.02,
   kitsuneJumpscare:   0.8,
   kaaJumpscare:       0.8,
   clearYay:           0.6,
