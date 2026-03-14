@@ -833,6 +833,75 @@ function gameClear() {
   setTimeout(() => {
     playSound(sounds.clearYay);
   }, 500);
+
+  // Night5: メインエンディング演出
+  if (NIGHT_NUMBER === 5) {
+    setTimeout(() => night5Ending(), 3000);
+  }
+}
+
+// ===== Night5 メインエンディング演出 =====
+function night5Ending() {
+  const endingScreen = document.getElementById('ending-screen');
+  const endingText = document.getElementById('ending-text');
+  const metaScreen = document.getElementById('meta-screen');
+  const metaMessage = document.getElementById('meta-message');
+  const night6Btn = document.getElementById('night6-btn');
+
+  if (!endingScreen || !metaScreen) return;
+
+  // クリア画面をフェードアウト
+  dom.clearScreen.classList.add('hidden');
+
+  // エンディング画面表示
+  endingScreen.classList.remove('hidden');
+
+  // テキスト演出シーケンス
+  const sequence = [
+    { text: '全員の記録が正常化されました', delay: 1000 },
+    { text: '', delay: 4000 },   // フェードアウト
+    { text: '悠具志 業\u3000状態：変化なし', delay: 6000 },
+    { text: '', delay: 10000 },  // フェードアウト
+  ];
+
+  let i = 0;
+  function showNext() {
+    if (i >= sequence.length) {
+      // メタ的ページへ
+      endingScreen.classList.add('hidden');
+      showMetaScreen();
+      return;
+    }
+
+    const step = sequence[i];
+    if (step.text) {
+      endingText.textContent = step.text;
+      endingText.classList.add('visible');
+    } else {
+      endingText.classList.remove('visible');
+    }
+
+    i++;
+    setTimeout(showNext, i < sequence.length ? sequence[i].delay - sequence[i - 1].delay : 2000);
+  }
+
+  setTimeout(showNext, sequence[0].delay);
+
+  function showMetaScreen() {
+    metaScreen.classList.remove('hidden');
+    metaMessage.innerHTML =
+      'おめでとうございます。ゲームをクリアしました。<br><br>' +
+      'このゲームを遊んでくれてありがとう。';
+
+    // Night6入口（仮表示）
+    if (night6Btn) {
+      night6Btn.classList.remove('hidden');
+      night6Btn.textContent = '...';
+      night6Btn.addEventListener('click', () => {
+        window.location.href = 'night6.html';
+      });
+    }
+  }
 }
 
 function retryGame() {
@@ -842,6 +911,11 @@ function retryGame() {
   dom.clearScreen.classList.add('hidden');
   dom.blackoutOverlay.classList.add('hidden');
   dom.cameraView.classList.add('hidden');
+  // エンディング画面（Night5用）
+  const endingScreen = document.getElementById('ending-screen');
+  const metaScreen = document.getElementById('meta-screen');
+  if (endingScreen) endingScreen.classList.add('hidden');
+  if (metaScreen) metaScreen.classList.add('hidden');
 
   startGame();
 }
