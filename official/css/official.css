@@ -1,6 +1,18 @@
 /* ===== 木漏れ日遊園地 公式アーカイブ v2 ===== */
 /* 2000年代NHK教育テレビ番組サイト風 */
 
+/* 画像保護：ドラッグ・右クリック保存防止 */
+img {
+    -webkit-user-drag: none;
+    user-drag: none;
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: none;
+}
+a img, .ukkichi-image-container img {
+    pointer-events: auto;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
 
 /* ===== 背景：空＋草原 ===== */

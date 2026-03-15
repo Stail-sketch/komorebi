@@ -1,5 +1,14 @@
 /* ===== 木漏れ日遊園地ファンサイト 2000年代個人サイト再現CSS ===== */
 
+/* 画像保護：ドラッグ・右クリック保存防止 */
+img {
+    -webkit-user-drag: none;
+    user-drag: none;
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: none;
+}
+
 /* 背景：パステル系単色 */
 body {
     background-color: #ffffee;
