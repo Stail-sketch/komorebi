@@ -219,6 +219,12 @@ hr {
     border-radius: 4px;
 }
 
+img.placeholder-character {
+    object-fit: contain;
+    border: 2px dashed #99cc99;
+    background-color: #fafafa;
+}
+
 /* サイトマップツリー */
 .sitemap-tree {
     font-family: "ＭＳ ゴシック", "MS Gothic", monospace;
