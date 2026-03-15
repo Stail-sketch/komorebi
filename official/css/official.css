@@ -402,10 +402,10 @@ img.char-placeholder {
 }
 
 /* キャラ別の顔位置調整 */
-.char-face-kitsune { object-position: center 18%; transform-origin: center 18%; }
-.char-face-kaa { object-position: center 22%; transform-origin: center 22%; }
+.char-face-kitsune { object-position: 60% 18%; transform-origin: 60% 18%; }
+.char-face-kaa { object-position: center 28%; transform-origin: center 28%; }
 .char-face-potamaru { object-position: center 15%; transform-origin: center 15%; }
-.char-face-ukkichi { object-position: center 18%; transform-origin: center 18%; }
+.char-face-ukkichi { object-position: center 14%; transform-origin: center 14%; }
 
 .char-kitsune { background-color: #ff8c00; border-color: #FF8C00; }
 .char-kaa { background-color: #555555; border-color: #555; }
