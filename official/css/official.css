@@ -1,0 +1,360 @@
+/* ===== 公式アーカイブCSS ===== */
+
+body {
+    background-color: #ffffff;
+    font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", sans-serif;
+    font-size: 13px;
+    color: #333333;
+    margin: 0;
+    padding: 0;
+}
+
+/* ヘッダー */
+.official-header {
+    background: linear-gradient(to bottom, #4a8c3f, #6ab85e);
+    padding: 15px 0;
+    text-align: center;
+    border-bottom: 3px solid #2d6b25;
+}
+
+.official-header .logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    letter-spacing: 4px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.official-header .subtitle {
+    font-size: 12px;
+    color: #d4f0cd;
+    margin-top: 4px;
+}
+
+/* ナビゲーション */
+.official-nav {
+    background-color: #f0f8ee;
+    border-bottom: 1px solid #cce5c5;
+    padding: 8px 0;
+    text-align: center;
+}
+
+.official-nav a {
+    color: #336633;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.official-nav a:hover {
+    color: #4a8c3f;
+    text-decoration: underline;
+}
+
+/* メインコンテンツ */
+.official-main {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* セクション見出し */
+.section-title {
+    font-size: 18px;
+    color: #336633;
+    border-left: 4px solid #4a8c3f;
+    padding-left: 10px;
+    margin: 25px 0 15px;
+}
+
+/* カード */
+.card {
+    border: 1px solid #dde8da;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #fafcf9;
+}
+
+/* キャラクターグリッド */
+.char-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.char-card {
+    border: 1px solid #dde8da;
+    border-radius: 4px;
+    padding: 15px;
+    background-color: #fafcf9;
+    text-align: center;
+}
+
+.char-card h3 {
+    color: #336633;
+    margin: 10px 0 5px;
+}
+
+.char-card a {
+    color: #4a8c3f;
+    font-size: 12px;
+}
+
+/* プレースホルダー画像 */
+.char-placeholder {
+    display: inline-block;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    width: 200px;
+    height: 250px;
+    line-height: 250px;
+}
+
+.char-placeholder-thumb {
+    width: 150px;
+    height: 180px;
+    line-height: 180px;
+    display: inline-block;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 12px;
+    color: #fff;
+}
+
+.char-kitsune { background-color: #ff8c00; }
+.char-kaa { background-color: #333333; }
+.char-potamaru { background-color: #d2b48c; color: #333; }
+.char-ukkichi { background-color: #b5651d; }
+
+/* ロゴのプレースホルダー */
+.logo-placeholder {
+    background-color: #4a8c3f;
+    color: #fff;
+    padding: 20px 40px;
+    font-size: 28px;
+    font-weight: bold;
+    display: inline-block;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* フッター */
+.official-footer {
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+    font-size: 10px;
+    color: #999;
+    margin-top: 40px;
+}
+
+.official-footer p {
+    margin: 2px 0;
+}
+
+/* テーブル */
+table.official-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+table.official-table th {
+    background-color: #4a8c3f;
+    color: #fff;
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 12px;
+}
+
+table.official-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 12px;
+}
+
+table.official-table tr:nth-child(even) td {
+    background-color: #f8faf7;
+}
+
+/* 塗りつぶし表現 */
+.redacted {
+    background-color: #1a1a1a;
+    color: #1a1a1a;
+    padding: 1px 4px;
+    border-radius: 1px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    cursor: default;
+}
+
+/* 基本情報テーブル */
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.info-table th {
+    background-color: #f0f8ee;
+    border: 1px solid #cce5c5;
+    padding: 6px 12px;
+    text-align: left;
+    font-size: 12px;
+    width: 140px;
+    color: #336633;
+}
+
+.info-table td {
+    border: 1px solid #dde8da;
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+/* Night2入口：うっきち画像のホバー効果 */
+.ukkichi-image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.ukkichi-image-container .normal {
+    display: block;
+}
+
+.ukkichi-image-container .hover-image {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.ukkichi-image-container:hover .normal {
+    display: none;
+}
+
+.ukkichi-image-container:hover .hover-image {
+    display: block;
+    cursor: pointer;
+}
+
+/* おしらせリスト */
+.news-list {
+    margin: 10px 0;
+}
+
+.news-list .news-item {
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 12px;
+}
+
+.news-list .news-date {
+    color: #999;
+    margin-right: 10px;
+}
+
+/* メインビジュアル */
+.main-visual {
+    width: 100%;
+    height: 200px;
+    background-color: #eeffee;
+    border: 1px solid #cce5c5;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #669966;
+    margin: 15px 0;
+}
+
+/* フォーム */
+.form-group {
+    margin: 10px 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 12px;
+    color: #336633;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    max-width: 400px;
+    padding: 6px 8px;
+    border: 1px solid #cce5c5;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    max-width: 500px;
+}
+
+.form-group .radio-group label {
+    display: inline;
+    margin-right: 15px;
+}
+
+.form-submit {
+    background-color: #4a8c3f;
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.form-submit:hover {
+    background-color: #3a7a30;
+}
+
+#form-result {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #fff3f3;
+    border: 1px solid #ffcccc;
+    border-radius: 3px;
+    font-size: 12px;
+    color: #cc3333;
+}
+
+/* プロフィール詳細 */
+.profile-section {
+    margin: 15px 0;
+}
+
+.profile-section h3 {
+    color: #336633;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.back-link {
+    margin-top: 20px;
+}
+
+.back-link a {
+    color: #4a8c3f;
+    font-size: 12px;
+}

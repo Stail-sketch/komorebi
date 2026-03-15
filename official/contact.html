@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お問い合わせ - 木漏れ日遊園地 公式アーカイブ</title>
+  <link rel="stylesheet" href="css/official.css">
+</head>
+<body>
+  <header class="official-header">
+    <div class="logo">木漏れ日遊園地</div>
+    <div class="subtitle">きらら放送 毎週土曜 8:30〜9:00</div>
+  </header>
+
+  <nav class="official-nav">
+    <a href="index.html">トップ</a> |
+    <a href="about.html">番組紹介</a> |
+    <a href="characters/index.html">キャラクター</a> |
+    <a href="staff.html">スタッフ</a> |
+    <a href="episodes.html">放送リスト</a> |
+    <a href="contact.html">お問い合わせ</a>
+  </nav>
+
+  <main class="official-main">
+    <h2 class="section-title">お問い合わせ</h2>
+
+    <p>番組に関するお問い合わせは、下記のフォームよりお送りください。</p>
+
+    <hr style="border:none; border-top:1px solid #eee; margin:20px 0;">
+
+    <form id="contact-form" onsubmit="return handleContactSubmit(event)">
+      <div class="form-group">
+        <label for="name">お名前：</label>
+        <input type="text" id="name" name="name">
+      </div>
+
+      <div class="form-group">
+        <label for="email">ご連絡先（メール）：</label>
+        <input type="email" id="email" name="email">
+      </div>
+
+      <div class="form-group">
+        <label>お問い合わせ種別：</label>
+        <div class="radio-group">
+          <label><input type="radio" name="type" value="program"> 番組について</label>
+          <label><input type="radio" name="type" value="recording"> 収録参加について</label>
+          <label><input type="radio" name="type" value="other"> その他</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="message">お問い合わせ内容：</label>
+        <textarea id="message" name="message" rows="5"></textarea>
+      </div>
+
+      <button type="submit" class="form-submit">送信する</button>
+    </form>
+
+    <div id="form-result"></div>
+
+    <hr style="border:none; border-top:1px solid #eee; margin:20px 0;">
+
+    <p style="font-size:11px; color:#999;">
+      ※お返事までに1〜2週間程度お時間をいただくことがございます。<br>
+      ※いただいた個人情報は、お問い合わせへの対応以外の目的では使用いたしません。
+    </p>
+  </main>
+
+  <footer class="official-footer">
+    <p>「木漏れ日遊園地」</p>
+    <p>制作：株式会社ゆめスタジオプロダクション</p>
+    <p>放送：きらら放送</p>
+    <p>&copy; YUME STUDIO PRODUCTION / KIRARA BROADCASTING</p>
+  </footer>
+
+  <script>
+    function handleContactSubmit(event) {
+      event.preventDefault();
+
+      // Night5入口チェック（Night4クリア後に有効化）
+      // 初期状態では単にメッセージを表示
+      var resultDiv = document.getElementById('form-result');
+      resultDiv.textContent = '申し訳ございません。現在お問い合わせは受け付けておりません。';
+      resultDiv.style.display = 'block';
+
+      return false;
+    }
+  </script>
+</body>
+</html>
