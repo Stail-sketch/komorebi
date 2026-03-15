@@ -1,57 +1,132 @@
-/* ===== 公式アーカイブCSS ===== */
+/* ===== 公式アーカイブCSS（子ども番組公式サイト風） ===== */
+
+@import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
 
 body {
-    background-color: #ffffff;
-    font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", sans-serif;
+    background-color: #fffef5;
+    background-image: radial-gradient(circle, #f0eedd 1px, transparent 1px);
+    background-size: 20px 20px;
+    font-family: "Kosugi Maru", "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ ProN", "Hiragino Maru Gothic Pro", "ＭＳ Ｐゴシック", sans-serif;
     font-size: 13px;
-    color: #333333;
+    color: #4a3728;
     margin: 0;
     padding: 0;
 }
 
 /* ヘッダー */
 .official-header {
-    background: linear-gradient(to bottom, #4a8c3f, #6ab85e);
-    padding: 15px 0;
+    background: linear-gradient(to bottom, #4a8c3f, #5cb85c);
+    padding: 25px 0 15px;
     text-align: center;
-    border-bottom: 3px solid #2d6b25;
+    border-bottom: 4px solid #ffcc00;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 木のシルエット装飾 */
+.official-header::before {
+    content: "🌳";
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    font-size: 40px;
+    opacity: 0.3;
+}
+
+.official-header::after {
+    content: "🌳";
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    font-size: 40px;
+    opacity: 0.3;
+    transform: scaleX(-1);
 }
 
 .official-header .logo {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
     color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    letter-spacing: 4px;
+    text-shadow: 2px 2px 0px #2d6b25, 0 0 10px rgba(255,204,0,0.3);
+    letter-spacing: 6px;
     cursor: pointer;
     display: inline-block;
+    position: relative;
+}
+
+/* タイトル周りの星装飾 */
+.official-header .logo::before {
+    content: "☆★";
+    font-size: 18px;
+    margin-right: 8px;
+    color: #ffcc00;
+    text-shadow: none;
+    letter-spacing: 2px;
+}
+
+.official-header .logo::after {
+    content: "★☆";
+    font-size: 18px;
+    margin-left: 8px;
+    color: #ffcc00;
+    text-shadow: none;
+    letter-spacing: 2px;
 }
 
 .official-header .subtitle {
-    font-size: 12px;
+    font-size: 13px;
     color: #d4f0cd;
-    margin-top: 4px;
+    margin-top: 6px;
+    letter-spacing: 2px;
+}
+
+/* ヘッダー下キャラクターシルエット */
+.header-characters {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.header-char-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 2px solid rgba(255,255,255,0.5);
+    font-size: 10px;
+    color: rgba(255,255,255,0.8);
+    line-height: 40px;
+    text-align: center;
 }
 
 /* ナビゲーション */
 .official-nav {
-    background-color: #f0f8ee;
-    border-bottom: 1px solid #cce5c5;
-    padding: 8px 0;
+    background-color: #fff8e1;
+    padding: 10px 0;
     text-align: center;
+    border-bottom: 3px dotted #ffcc00;
 }
 
 .official-nav a {
-    color: #336633;
+    display: inline-block;
+    background-color: #66bb6a;
+    color: #ffffff;
     text-decoration: none;
-    margin: 0 15px;
-    font-size: 12px;
+    margin: 3px 5px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
     font-weight: bold;
+    border: 2px solid #4a8c3f;
+    transition: background-color 0.2s, border-color 0.2s;
 }
 
 .official-nav a:hover {
-    color: #4a8c3f;
-    text-decoration: underline;
+    background-color: #ff9900;
+    border-color: #e68a00;
+    color: #ffffff;
+    text-decoration: none;
 }
 
 /* メインコンテンツ */
@@ -63,77 +138,110 @@ body {
 
 /* セクション見出し */
 .section-title {
-    font-size: 18px;
+    font-size: 20px;
     color: #336633;
-    border-left: 4px solid #4a8c3f;
-    padding-left: 10px;
+    padding: 8px 15px;
     margin: 25px 0 15px;
+    background-color: #f0f8e8;
+    border-radius: 8px;
+    border-left: 5px solid #ff9900;
+    position: relative;
+}
+
+.section-title::before {
+    content: "★";
+    color: #ffcc00;
+    margin-right: 8px;
 }
 
 /* カード */
 .card {
-    border: 1px solid #dde8da;
-    border-radius: 4px;
+    border: 3px solid #99cc99;
+    border-radius: 12px;
     padding: 15px;
-    margin: 10px 0;
-    background-color: #fafcf9;
+    margin: 15px 0;
+    background-color: #ffffff;
+    box-shadow: 3px 3px 0px #dde8da;
 }
 
 /* キャラクターグリッド */
 .char-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
 }
 
 .char-card {
-    border: 1px solid #dde8da;
-    border-radius: 4px;
-    padding: 15px;
-    background-color: #fafcf9;
+    display: inline-block;
+    width: 200px;
     text-align: center;
+    margin: 0;
+    padding: 15px;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+    border: 2px solid #dde8da;
+}
+
+.char-card:hover {
+    transform: scale(1.05);
 }
 
 .char-card h3 {
+    font-size: 16px;
+    font-weight: bold;
     color: #336633;
-    margin: 10px 0 5px;
+    margin: 8px 0 4px;
+}
+
+.char-card p {
+    font-size: 12px;
+    color: #666;
+    margin: 4px 0 8px;
 }
 
 .char-card a {
-    color: #4a8c3f;
+    color: #ff9900;
     font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.char-card a:hover {
+    text-decoration: underline;
 }
 
 /* プレースホルダー画像 */
 .char-placeholder {
     display: inline-block;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 50%;
     text-align: center;
     font-size: 14px;
     color: #fff;
     width: 200px;
-    height: 250px;
-    line-height: 250px;
+    height: 200px;
+    line-height: 200px;
 }
 
 .char-placeholder-thumb {
     width: 150px;
-    height: 180px;
-    line-height: 180px;
-    display: inline-block;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    height: 150px;
+    line-height: 150px;
+    display: block;
+    margin: 0 auto 10px;
+    border-radius: 50%;
     text-align: center;
     font-size: 12px;
     color: #fff;
 }
 
-.char-kitsune { background-color: #ff8c00; }
-.char-kaa { background-color: #333333; }
-.char-potamaru { background-color: #d2b48c; color: #333; }
-.char-ukkichi { background-color: #b5651d; }
+.char-kitsune { background-color: #ff8c00; border: 3px solid #e67e00; }
+.char-kaa { background-color: #555555; border: 3px solid #444444; }
+.char-potamaru { background-color: #d2b48c; color: #333; border: 3px solid #c4a67a; }
+.char-ukkichi { background-color: #b5651d; border: 3px solid #a05a1a; }
 
 /* ロゴのプレースホルダー */
 .logo-placeholder {
@@ -149,13 +257,21 @@ body {
 
 /* フッター */
 .official-footer {
-    background-color: #f5f5f5;
-    border-top: 1px solid #ddd;
-    padding: 15px;
+    background-color: #4a8c3f;
+    color: #d4f0cd;
+    padding: 20px 15px;
     text-align: center;
-    font-size: 10px;
-    color: #999;
+    font-size: 11px;
     margin-top: 40px;
+    border-top: 4px solid #ffcc00;
+}
+
+.official-footer::before {
+    content: "🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿";
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+    letter-spacing: 5px;
 }
 
 .official-footer p {
@@ -167,6 +283,8 @@ table.official-table {
     width: 100%;
     border-collapse: collapse;
     margin: 10px 0;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 table.official-table th {
@@ -204,22 +322,26 @@ table.official-table tr:nth-child(even) td {
     width: 100%;
     border-collapse: collapse;
     margin: 10px 0;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .info-table th {
-    background-color: #f0f8ee;
+    background-color: #f0f8e8;
     border: 1px solid #cce5c5;
-    padding: 6px 12px;
+    padding: 8px 12px;
     text-align: left;
     font-size: 12px;
     width: 140px;
     color: #336633;
+    font-weight: bold;
 }
 
 .info-table td {
     border: 1px solid #dde8da;
-    padding: 6px 12px;
+    padding: 8px 12px;
     font-size: 12px;
+    background-color: #fff;
 }
 
 /* Night2入口：うっきち画像のホバー効果 */
@@ -254,41 +376,74 @@ table.official-table tr:nth-child(even) td {
 }
 
 .news-list .news-item {
-    padding: 6px 0;
-    border-bottom: 1px solid #eee;
+    padding: 10px 12px;
+    border-bottom: 1px dashed #cce5c5;
     font-size: 12px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+}
+
+.news-list .news-item::before {
+    content: "🍀";
+    font-size: 10px;
+    flex-shrink: 0;
 }
 
 .news-list .news-date {
     color: #999;
-    margin-right: 10px;
+    font-size: 12px;
+    white-space: nowrap;
 }
 
 /* メインビジュアル */
 .main-visual {
-    width: 100%;
-    height: 200px;
-    background-color: #eeffee;
-    border: 1px solid #cce5c5;
-    border-radius: 4px;
+    background: linear-gradient(135deg, #e8f5e9 0%, #fff8e1 50%, #e8f5e9 100%);
+    border: 3px solid #99cc99;
+    border-radius: 12px;
+    padding: 30px;
+    margin: 20px 0;
+    text-align: center;
+    min-height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
     font-size: 16px;
     color: #669966;
-    margin: 15px 0;
+}
+
+.main-visual::before {
+    content: "🍃";
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-size: 24px;
+    opacity: 0.5;
+}
+
+.main-visual::after {
+    content: "🍃";
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    font-size: 24px;
+    opacity: 0.5;
+    transform: scaleX(-1);
 }
 
 /* フォーム */
 .form-group {
-    margin: 10px 0;
+    margin: 12px 0;
 }
 
 .form-group label {
     display: block;
     margin-bottom: 4px;
-    font-size: 12px;
+    font-size: 13px;
     color: #336633;
+    font-weight: bold;
 }
 
 .form-group input[type="text"],
@@ -296,12 +451,20 @@ table.official-table tr:nth-child(even) td {
 .form-group textarea {
     width: 100%;
     max-width: 400px;
-    padding: 6px 8px;
-    border: 1px solid #cce5c5;
-    border-radius: 3px;
-    font-size: 12px;
+    padding: 8px 10px;
+    border: 2px solid #cce5c5;
+    border-radius: 8px;
+    font-size: 13px;
     font-family: inherit;
     box-sizing: border-box;
+    background-color: #fff;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group textarea:focus {
+    border-color: #66bb6a;
+    outline: none;
 }
 
 .form-group textarea {
@@ -311,30 +474,35 @@ table.official-table tr:nth-child(even) td {
 .form-group .radio-group label {
     display: inline;
     margin-right: 15px;
+    font-weight: normal;
 }
 
 .form-submit {
-    background-color: #4a8c3f;
+    background-color: #66bb6a;
     color: #fff;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 3px;
+    border: 2px solid #4a8c3f;
+    padding: 8px 24px;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: inherit;
     margin-top: 10px;
+    transition: background-color 0.2s;
 }
 
 .form-submit:hover {
-    background-color: #3a7a30;
+    background-color: #ff9900;
+    border-color: #e68a00;
 }
 
 #form-result {
     display: none;
     margin-top: 10px;
-    padding: 10px;
+    padding: 12px;
     background-color: #fff3f3;
-    border: 1px solid #ffcccc;
-    border-radius: 3px;
+    border: 2px solid #ffcccc;
+    border-radius: 8px;
     font-size: 12px;
     color: #cc3333;
 }
@@ -355,6 +523,27 @@ table.official-table tr:nth-child(even) td {
 }
 
 .back-link a {
-    color: #4a8c3f;
-    font-size: 12px;
+    color: #ff9900;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}
+
+/* リスト装飾 */
+ul {
+    padding-left: 20px;
+}
+
+ul li {
+    margin: 4px 0;
+    list-style-type: none;
+}
+
+ul li::before {
+    content: "🍀 ";
+    font-size: 10px;
 }
