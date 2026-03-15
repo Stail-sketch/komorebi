@@ -404,7 +404,7 @@ img.char-placeholder {
 /* キャラ別の顔位置調整 */
 .char-face-kitsune { object-position: 40% 18%; transform-origin: 40% 18%; }
 .char-face-kaa { object-position: center 16%; transform-origin: center 16%; }
-.char-face-potamaru { object-position: center 15%; transform-origin: center 15%; }
+.char-face-potamaru { object-position: center 18%; transform-origin: center 18%; }
 .char-face-ukkichi { object-position: center 22%; transform-origin: center 22%; }
 
 .char-kitsune { background-color: #ff8c00; border-color: #FF8C00; }
