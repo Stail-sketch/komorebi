@@ -391,6 +391,7 @@ img.char-placeholder {
     font-size: 12px;
     color: #fff;
     object-fit: cover;
+    object-position: top;
 }
 
 img.char-placeholder-thumb {
