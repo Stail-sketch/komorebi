@@ -376,7 +376,7 @@ h3.section-title {
 /* キャラ紹介冒頭の吹き出し */
 .char-intro-speech {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 15px;
     margin: 20px 0;
 }
