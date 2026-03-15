@@ -364,11 +364,248 @@ h3.section-title {
     border-bottom: 10px solid #FFD700;
 }
 
-/* ===== キャラクター画像 ===== */
+/* ===== キャラクター画像（一覧ページ用） ===== */
 .char-placeholder {
     display: inline-block;
     max-width: 300px;
     height: auto;
+}
+
+/* ===== キャラ詳細ページ ===== */
+
+/* テーマカラー変数 */
+.char-page.kitsune {
+    --theme-primary: #FF8C00;
+    --theme-secondary: #2856A3;
+    --theme-light: #FFF3E0;
+    --theme-accent: #FFD700;
+    --theme-gradient: linear-gradient(135deg, #FF8C00, #FFA940);
+    --theme-bg-pattern: radial-gradient(circle at 30% 50%, rgba(255,140,0,0.08) 0%, transparent 50%);
+}
+
+.char-page.kaa {
+    --theme-primary: #333333;
+    --theme-secondary: #FFFFFF;
+    --theme-light: #F5F5F5;
+    --theme-accent: #4FC3F7;
+    --theme-gradient: linear-gradient(135deg, #444, #666);
+    --theme-bg-pattern: radial-gradient(circle at 70% 30%, rgba(79,195,247,0.08) 0%, transparent 50%);
+}
+
+.char-page.potamaru {
+    --theme-primary: #D2A06C;
+    --theme-secondary: #FF6B9D;
+    --theme-light: #FFF5EB;
+    --theme-accent: #FF6B9D;
+    --theme-gradient: linear-gradient(135deg, #D2A06C, #E8C49A);
+    --theme-bg-pattern: radial-gradient(circle at 50% 50%, rgba(255,107,157,0.08) 0%, transparent 50%);
+}
+
+.char-page.ukkichi {
+    --theme-primary: #8B5E3C;
+    --theme-secondary: #4CAF50;
+    --theme-light: #FFF8F0;
+    --theme-accent: #FFD700;
+    --theme-gradient: linear-gradient(135deg, #8B5E3C, #A97850);
+    --theme-bg-pattern: radial-gradient(circle at 40% 60%, rgba(76,175,80,0.08) 0%, transparent 50%);
+}
+
+.char-page {
+    background-image: var(--theme-bg-pattern);
+}
+
+/* キャラ専用ヘッダー帯 */
+.char-header {
+    background: var(--theme-gradient);
+    padding: 20px 30px;
+    text-align: center;
+    border-radius: 20px 20px 0 0;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 5px solid var(--theme-accent);
+}
+
+.char-header h1 {
+    font-size: 36px;
+    color: #fff;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+    letter-spacing: 4px;
+    margin: 0;
+}
+
+.char-header::before {
+    content: "⭐ ✨ ⭐ ✨ ⭐";
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    font-size: 12px;
+    opacity: 0.6;
+}
+.char-header::after {
+    content: "⭐ ✨ ⭐ ✨ ⭐";
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+/* メインエリア：画像＋プロフィール横並び */
+.char-main {
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+    align-items: flex-start;
+}
+
+/* キャラ画像 */
+.char-image-area {
+    flex: 0 0 350px;
+    text-align: center;
+}
+
+.char-image-area img {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.2));
+    animation: charFloat 3s ease-in-out infinite;
+}
+
+@keyframes charFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* プロフィールカード */
+.char-profile-card {
+    flex: 1;
+    background: var(--theme-light);
+    border: 3px solid var(--theme-primary);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+}
+
+.char-profile-card table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.char-profile-card th {
+    background: var(--theme-primary);
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 8px 0 0 8px;
+    font-size: 14px;
+    width: 80px;
+    text-align: center;
+}
+
+.char-profile-card td {
+    background: #fff;
+    padding: 8px 15px;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    border: 1px solid #eee;
+}
+
+/* キャラのセリフ吹き出し */
+.char-quote {
+    background: #fff;
+    border: 3px solid var(--theme-accent);
+    border-radius: 20px;
+    padding: 15px 20px;
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--theme-primary);
+    text-align: center;
+    position: relative;
+}
+
+.char-quote::before {
+    content: "💬";
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    font-size: 20px;
+}
+
+/* 紹介セクション */
+.char-intro {
+    background: linear-gradient(to right, var(--theme-light), #fff);
+    border-left: 6px solid var(--theme-primary);
+    border-radius: 0 15px 15px 0;
+    padding: 20px 25px;
+    margin: 20px 30px;
+    font-size: 15px;
+    line-height: 2;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+/* 得意なこと＆出演コーナー：2カラム */
+.char-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 0 30px 30px;
+}
+
+.char-detail-box {
+    background: #fff;
+    border: 3px solid var(--theme-primary);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.08);
+}
+
+.char-detail-box h3 {
+    font-size: 18px;
+    color: #fff;
+    background: var(--theme-gradient);
+    display: inline-block;
+    padding: 5px 20px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+}
+
+.char-detail-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.char-detail-box li {
+    padding: 6px 0;
+    font-size: 14px;
+    border-bottom: 1px dashed #eee;
+}
+
+.char-detail-box li::before {
+    content: "🌟 ";
+}
+
+/* 戻るボタン */
+.char-back-btn {
+    display: inline-block;
+    background: var(--theme-primary);
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 20px 30px 30px;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.char-back-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 0 rgba(0,0,0,0.2);
+    color: #fff;
+    text-decoration: none;
 }
 
 /* キャラサムネイル：顔ドアップ用ラッパー */
