@@ -7,15 +7,19 @@
   <link rel="stylesheet" href="css/official.css">
 </head>
 <body>
+  <!-- 雲 -->
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
+
   <header class="official-header">
+    <span class="header-tree-left">🌳</span>
+    <span class="header-tree-right">🌳</span>
+    <div class="header-char-left"><img src="../images/characters/kitsune_normal.png" alt="キツネ団長"></div>
+    <div class="header-char-right"><img src="../images/characters/potamaru_normal.png" alt="ぽたまる"></div>
     <div class="logo" id="official-logo">木漏れ日遊園地</div>
     <div class="subtitle">きらら放送 毎週土曜 8:30〜9:00</div>
-    <div class="header-characters">
-      <span class="header-char-icon" style="background-color:#ff8c00;">団長</span>
-      <span class="header-char-icon" style="background-color:#555;">博士</span>
-      <span class="header-char-icon" style="background-color:#d2b48c;">ぽた</span>
-      <span class="header-char-icon" style="background-color:#b5651d;">うき</span>
-    </div>
+    <div class="header-welcome">あそびにきてくれて ありがとう！</div>
   </header>
 
   <nav class="official-nav">
@@ -50,6 +54,7 @@
   </main>
 
   <footer class="official-footer">
+    <div class="footer-message">またあそびにきてね！</div>
     <p>「木漏れ日遊園地」</p>
     <p>制作：株式会社ゆめスタジオプロダクション</p>
     <p>放送：きらら放送</p>
@@ -57,7 +62,6 @@
   </footer>
 
   <script>
-    // Night3入口用（Night2クリア後に有効化）
     let logoClickCount = 0;
     const logo = document.getElementById('official-logo');
 
@@ -70,7 +74,6 @@
       });
     }
 
-    // Night2クリアフラグチェック
     if (localStorage.getItem('night2_clear') === 'true') {
       enableLogoSecret();
     }

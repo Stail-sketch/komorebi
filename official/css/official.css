@@ -1,170 +1,284 @@
-/* ===== 公式アーカイブCSS（子ども番組公式サイト風） ===== */
+/* ===== 木漏れ日遊園地 公式アーカイブ v2 ===== */
+/* 2000年代NHK教育テレビ番組サイト風 */
 
 @import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
 
+/* ===== 背景：空＋草原 ===== */
 body {
-    background-color: #fffef5;
-    background-image: radial-gradient(circle, #f0eedd 1px, transparent 1px);
-    background-size: 20px 20px;
-    font-family: "Kosugi Maru", "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ ProN", "Hiragino Maru Gothic Pro", "ＭＳ Ｐゴシック", sans-serif;
-    font-size: 13px;
+    background: linear-gradient(180deg, #87CEEB 0%, #b5e8f7 40%, #d4f5d4 80%, #90EE90 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    font-family: 'Kosugi Maru', 'ヒラギノ丸ゴ Pro', 'Hiragino Maru Gothic Pro', sans-serif;
+    font-size: 14px;
     color: #4a3728;
     margin: 0;
     padding: 0;
 }
 
-/* ヘッダー */
+/* 雲 */
+.cloud {
+    position: fixed;
+    background: white;
+    border-radius: 50px;
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none;
+}
+.cloud::before, .cloud::after {
+    content: '';
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+}
+.cloud-1 {
+    width: 120px; height: 40px; top: 30px; left: 5%;
+}
+.cloud-1::before { width: 50px; height: 50px; top: -25px; left: 20px; }
+.cloud-1::after { width: 40px; height: 40px; top: -15px; left: 55px; }
+
+.cloud-2 {
+    width: 150px; height: 45px; top: 80px; right: 10%;
+}
+.cloud-2::before { width: 60px; height: 55px; top: -28px; left: 25px; }
+.cloud-2::after { width: 45px; height: 45px; top: -18px; left: 70px; }
+
+.cloud-3 {
+    width: 100px; height: 35px; top: 140px; left: 50%;
+}
+.cloud-3::before { width: 45px; height: 45px; top: -22px; left: 15px; }
+.cloud-3::after { width: 35px; height: 35px; top: -12px; left: 45px; }
+
+/* ===== ヘッダー：番組セット風 ===== */
 .official-header {
-    background: linear-gradient(to bottom, #4a8c3f, #5cb85c);
-    padding: 25px 0 15px;
+    background: linear-gradient(to bottom, #228B22, #32CD32);
+    padding: 20px 20px 10px;
     text-align: center;
-    border-bottom: 4px solid #ffcc00;
     position: relative;
     overflow: hidden;
-}
-
-/* 木のシルエット装飾 */
-.official-header::before {
-    content: "🌳";
-    position: absolute;
-    top: 5px;
-    left: 20px;
-    font-size: 40px;
-    opacity: 0.3;
-}
-
-.official-header::after {
-    content: "🌳";
-    position: absolute;
-    top: 5px;
-    right: 20px;
-    font-size: 40px;
-    opacity: 0.3;
-    transform: scaleX(-1);
+    min-height: 180px;
+    border-bottom: 8px solid #FFD700;
+    z-index: 1;
 }
 
 .official-header .logo {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: bold;
-    color: #ffffff;
-    text-shadow: 2px 2px 0px #2d6b25, 0 0 10px rgba(255,204,0,0.3);
+    color: #FFD700;
+    text-shadow:
+        3px 3px 0 #1a6b1a,
+        -1px -1px 0 #1a6b1a,
+        1px -1px 0 #1a6b1a,
+        -1px 1px 0 #1a6b1a;
     letter-spacing: 6px;
     cursor: pointer;
     display: inline-block;
     position: relative;
+    z-index: 2;
 }
 
-/* タイトル周りの星装飾 */
 .official-header .logo::before {
-    content: "☆★";
-    font-size: 18px;
-    margin-right: 8px;
-    color: #ffcc00;
+    content: "✦ ";
+    color: #fff;
+    font-size: 20px;
     text-shadow: none;
-    letter-spacing: 2px;
 }
 
 .official-header .logo::after {
-    content: "★☆";
-    font-size: 18px;
-    margin-left: 8px;
-    color: #ffcc00;
+    content: " ✦";
+    color: #fff;
+    font-size: 20px;
     text-shadow: none;
-    letter-spacing: 2px;
 }
 
 .official-header .subtitle {
-    font-size: 13px;
+    font-size: 14px;
     color: #d4f0cd;
-    margin-top: 6px;
+    margin-top: 4px;
     letter-spacing: 2px;
+    position: relative;
+    z-index: 2;
 }
 
-/* ヘッダー下キャラクターシルエット */
+.header-welcome {
+    font-size: 13px;
+    color: #ffffcc;
+    margin-top: 6px;
+    position: relative;
+    z-index: 2;
+}
+
+/* ヘッダーのキャラ立ち絵 */
+.header-char-left,
+.header-char-right {
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+}
+.header-char-left { left: 20px; }
+.header-char-right { right: 20px; }
+
+.header-char-left img,
+.header-char-right img {
+    height: 150px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.3));
+}
+
+/* ヘッダー中央のキャラアイコン行（立ち絵がない場合のフォールバック） */
 .header-characters {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
     margin-top: 10px;
+    position: relative;
+    z-index: 2;
 }
 
 .header-char-icon {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     display: inline-block;
-    border: 2px solid rgba(255,255,255,0.5);
+    border: 3px solid rgba(255,255,255,0.7);
     font-size: 10px;
-    color: rgba(255,255,255,0.8);
-    line-height: 40px;
+    color: #fff;
+    line-height: 50px;
     text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    overflow: hidden;
 }
 
-/* ナビゲーション */
+.header-char-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 木の装飾 */
+.header-tree-left,
+.header-tree-right {
+    position: absolute;
+    bottom: 0;
+    font-size: 60px;
+    opacity: 0.3;
+    z-index: 1;
+}
+.header-tree-left { left: 5px; }
+.header-tree-right { right: 5px; transform: scaleX(-1); }
+
+/* ===== ナビゲーション：積み木ボタン ===== */
 .official-nav {
-    background-color: #fff8e1;
-    padding: 10px 0;
-    text-align: center;
-    border-bottom: 3px dotted #ffcc00;
+    background: rgba(255,255,255,0.85);
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-bottom: 4px dashed #FFD700;
+    position: relative;
+    z-index: 1;
 }
 
 .official-nav a {
     display: inline-block;
-    background-color: #66bb6a;
-    color: #ffffff;
-    text-decoration: none;
-    margin: 3px 5px;
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 13px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    font-size: 15px;
     font-weight: bold;
-    border: 2px solid #4a8c3f;
-    transition: background-color 0.2s, border-color 0.2s;
+    text-decoration: none;
+    color: #fff;
+    border: 3px solid rgba(0,0,0,0.12);
+    box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+    transition: transform 0.15s, box-shadow 0.15s;
+    position: relative;
+    top: 0;
 }
 
 .official-nav a:hover {
-    background-color: #ff9900;
-    border-color: #e68a00;
-    color: #ffffff;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 0 rgba(0,0,0,0.2);
     text-decoration: none;
+    color: #fff;
 }
 
-/* メインコンテンツ */
+.official-nav a:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+}
+
+.official-nav a:nth-child(1) { background: #FF6B6B; }
+.official-nav a:nth-child(2) { background: #4ECDC4; }
+.official-nav a:nth-child(3) { background: #FFB347; }
+.official-nav a:nth-child(4) { background: #87CEEB; }
+.official-nav a:nth-child(5) { background: #DDA0DD; }
+.official-nav a:nth-child(6) { background: #98D8C8; }
+
+/* ===== コンテンツエリア：看板風 ===== */
 .official-main {
     max-width: 900px;
-    margin: 20px auto;
-    padding: 0 20px;
+    margin: 25px auto;
+    background: rgba(255,255,255,0.92);
+    border-radius: 25px;
+    border: 4px solid #8B4513;
+    box-shadow:
+        0 6px 0 #6B3410,
+        0 8px 20px rgba(0,0,0,0.15);
+    padding: 30px;
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 0.4s ease-out;
 }
 
-/* セクション見出し */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== 見出し：リボン風 ===== */
 .section-title {
-    font-size: 20px;
-    color: #336633;
-    padding: 8px 15px;
+    font-size: 22px;
+    color: #fff;
+    background: #FF6B6B;
+    display: inline-block;
+    padding: 8px 30px;
+    border-radius: 30px;
     margin: 25px 0 15px;
-    background-color: #f0f8e8;
-    border-radius: 8px;
-    border-left: 5px solid #ff9900;
+    box-shadow: 0 3px 0 #cc5555;
     position: relative;
 }
 
 .section-title::before {
-    content: "★";
-    color: #ffcc00;
+    content: "⭐";
     margin-right: 8px;
 }
 
-/* カード */
-.card {
-    border: 3px solid #99cc99;
-    border-radius: 12px;
-    padding: 15px;
-    margin: 15px 0;
-    background-color: #ffffff;
-    box-shadow: 3px 3px 0px #dde8da;
+.section-title::after {
+    content: "⭐";
+    margin-left: 8px;
 }
 
-/* キャラクターグリッド */
+h3.section-title {
+    font-size: 18px;
+    background: #4ECDC4;
+    box-shadow: 0 3px 0 #3bafa7;
+}
+
+/* ===== カード ===== */
+.card {
+    border: 3px solid #FFD700;
+    border-radius: 20px;
+    padding: 18px;
+    margin: 15px 0;
+    background-color: #FFFEF5;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+}
+
+.card strong {
+    color: #336633;
+}
+
+/* ===== キャラクターグリッド ===== */
 .char-grid {
     display: flex;
     flex-wrap: wrap;
@@ -174,47 +288,83 @@ body {
 }
 
 .char-card {
-    display: inline-block;
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 0;
     width: 200px;
     text-align: center;
-    margin: 0;
-    padding: 15px;
-    border-radius: 16px;
-    background: #ffffff;
-    box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+    border: 4px solid #dde8da;
+    box-shadow: 0 5px 0 rgba(0,0,0,0.12);
     transition: transform 0.2s;
-    border: 2px solid #dde8da;
+    position: relative;
 }
 
 .char-card:hover {
-    transform: scale(1.05);
+    transform: translateY(-5px) rotate(-1deg);
 }
 
+.char-card.kitsune, .char-card:nth-child(1) { border-color: #FF8C00; }
+.char-card.kaa, .char-card:nth-child(2) { border-color: #555; }
+.char-card.potamaru, .char-card:nth-child(3) { border-color: #D2B48C; }
+.char-card.ukkichi, .char-card:nth-child(4) { border-color: #B5651D; }
+
 .char-card h3 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
-    color: #336633;
+    color: #4a3728;
     margin: 8px 0 4px;
 }
 
 .char-card p {
-    font-size: 12px;
+    font-size: 13px;
     color: #666;
     margin: 4px 0 8px;
 }
 
 .char-card a {
-    color: #ff9900;
-    font-size: 12px;
+    display: inline-block;
+    background: #FFB347;
+    color: #fff;
+    font-size: 13px;
     font-weight: bold;
     text-decoration: none;
+    padding: 5px 15px;
+    border-radius: 15px;
+    border: 2px solid #e6952e;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.15);
+    transition: transform 0.15s;
 }
 
 .char-card a:hover {
-    text-decoration: underline;
+    transform: translateY(-2px);
+    text-decoration: none;
+    color: #fff;
 }
 
-/* キャラクター画像 */
+/* キャラ吹き出し */
+.char-speech {
+    background: #FFFACD;
+    border: 2px solid #FFD700;
+    border-radius: 15px;
+    padding: 8px 15px;
+    margin-top: 10px;
+    font-size: 12px;
+    position: relative;
+}
+
+.char-speech::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    margin-left: -8px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 10px solid #FFD700;
+}
+
+/* ===== キャラクター画像 ===== */
 .char-placeholder {
     display: inline-block;
     border-radius: 50%;
@@ -227,8 +377,8 @@ body {
 }
 
 img.char-placeholder {
-    border: 3px solid #99cc99;
-    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    border: 4px solid #FFD700;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.15);
 }
 
 .char-placeholder-thumb {
@@ -244,75 +394,75 @@ img.char-placeholder {
 }
 
 img.char-placeholder-thumb {
-    border: 3px solid #99cc99;
-    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    border: 4px solid #FFD700;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.15);
 }
 
-.char-kitsune { background-color: #ff8c00; border: 3px solid #e67e00; }
-.char-kaa { background-color: #555555; border: 3px solid #444444; }
-.char-potamaru { background-color: #d2b48c; color: #333; border: 3px solid #c4a67a; }
-.char-ukkichi { background-color: #b5651d; border: 3px solid #a05a1a; }
+.char-kitsune { background-color: #ff8c00; border-color: #FF8C00; }
+.char-kaa { background-color: #555555; border-color: #555; }
+.char-potamaru { background-color: #d2b48c; color: #333; border-color: #D2B48C; }
+.char-ukkichi { background-color: #b5651d; border-color: #B5651D; }
 
-/* ロゴのプレースホルダー */
-.logo-placeholder {
-    background-color: #4a8c3f;
-    color: #fff;
-    padding: 20px 40px;
-    font-size: 28px;
-    font-weight: bold;
-    display: inline-block;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-/* フッター */
+/* ===== フッター：草むら＋空 ===== */
 .official-footer {
-    background-color: #4a8c3f;
-    color: #d4f0cd;
-    padding: 20px 15px;
+    background: linear-gradient(to bottom, #90EE90, #228B22);
+    color: #fff;
+    padding: 30px 15px 20px;
     text-align: center;
-    font-size: 11px;
+    font-size: 12px;
     margin-top: 40px;
-    border-top: 4px solid #ffcc00;
+    position: relative;
+    border-top: 6px solid #FFD700;
+    z-index: 1;
 }
 
 .official-footer::before {
-    content: "🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿";
+    content: "🌳🌿🌸🌿🌳🌿🌸🌿🌳";
     display: block;
-    font-size: 16px;
+    font-size: 24px;
     margin-bottom: 10px;
-    letter-spacing: 5px;
+    letter-spacing: 8px;
+}
+
+.footer-message {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #FFD700;
+    text-shadow: 1px 1px 0 #228B22;
 }
 
 .official-footer p {
     margin: 2px 0;
+    color: #d4f0cd;
 }
 
-/* テーブル */
+/* ===== テーブル ===== */
 table.official-table {
     width: 100%;
     border-collapse: collapse;
     margin: 10px 0;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
+    border: 2px solid #8B4513;
 }
 
 table.official-table th {
-    background-color: #4a8c3f;
+    background-color: #228B22;
     color: #fff;
-    padding: 8px 12px;
+    padding: 10px 12px;
     text-align: left;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 table.official-table td {
     padding: 8px 12px;
-    border-bottom: 1px solid #eee;
-    font-size: 12px;
+    border-bottom: 1px solid #e0d8c8;
+    font-size: 13px;
 }
 
 table.official-table tr:nth-child(even) td {
-    background-color: #f8faf7;
+    background-color: #fefdf5;
 }
 
 /* 塗りつぶし表現 */
@@ -320,7 +470,7 @@ table.official-table tr:nth-child(even) td {
     background-color: #1a1a1a;
     color: #1a1a1a;
     padding: 1px 4px;
-    border-radius: 1px;
+    border-radius: 2px;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -332,29 +482,30 @@ table.official-table tr:nth-child(even) td {
     width: 100%;
     border-collapse: collapse;
     margin: 10px 0;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
+    border: 2px solid #8B4513;
 }
 
 .info-table th {
-    background-color: #f0f8e8;
-    border: 1px solid #cce5c5;
-    padding: 8px 12px;
+    background-color: #FFF8DC;
+    border: 1px solid #DEB887;
+    padding: 10px 14px;
     text-align: left;
-    font-size: 12px;
-    width: 140px;
-    color: #336633;
+    font-size: 13px;
+    width: 150px;
+    color: #8B4513;
     font-weight: bold;
 }
 
 .info-table td {
-    border: 1px solid #dde8da;
-    padding: 8px 12px;
-    font-size: 12px;
+    border: 1px solid #DEB887;
+    padding: 10px 14px;
+    font-size: 13px;
     background-color: #fff;
 }
 
-/* Night2入口：うっきち画像のホバー効果 */
+/* ===== Night2入口：うっきちホバー ===== */
 .ukkichi-image-container {
     position: relative;
     display: inline-block;
@@ -380,37 +531,38 @@ table.official-table tr:nth-child(even) td {
     cursor: pointer;
 }
 
-/* おしらせリスト */
+/* ===== おしらせリスト ===== */
 .news-list {
-    margin: 10px 0;
+    margin: 15px 0;
 }
 
 .news-list .news-item {
-    padding: 10px 12px;
-    border-bottom: 1px dashed #cce5c5;
-    font-size: 12px;
+    padding: 12px 15px;
+    border-bottom: 2px dashed #FFD700;
+    font-size: 14px;
     display: flex;
     align-items: baseline;
     gap: 12px;
 }
 
 .news-list .news-item::before {
-    content: "🍀";
-    font-size: 10px;
+    content: "📢";
+    font-size: 14px;
     flex-shrink: 0;
 }
 
 .news-list .news-date {
-    color: #999;
-    font-size: 12px;
+    color: #8B4513;
+    font-size: 13px;
+    font-weight: bold;
     white-space: nowrap;
 }
 
-/* メインビジュアル */
+/* ===== メインビジュアル ===== */
 .main-visual {
-    background: linear-gradient(135deg, #e8f5e9 0%, #fff8e1 50%, #e8f5e9 100%);
-    border: 3px solid #99cc99;
-    border-radius: 12px;
+    background: linear-gradient(135deg, #e8f5e9 0%, #fff8e1 30%, #ffe0ec 60%, #e8f5e9 100%);
+    border: 4px solid #FFD700;
+    border-radius: 20px;
     padding: 30px;
     margin: 20px 0;
     text-align: center;
@@ -420,39 +572,39 @@ table.official-table tr:nth-child(even) td {
     justify-content: center;
     position: relative;
     overflow: hidden;
-    font-size: 16px;
-    color: #669966;
+    font-size: 18px;
+    color: #8B4513;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.1);
 }
 
 .main-visual::before {
-    content: "🍃";
+    content: "🌸";
     position: absolute;
     top: 10px;
     left: 15px;
-    font-size: 24px;
+    font-size: 28px;
     opacity: 0.5;
 }
 
 .main-visual::after {
-    content: "🍃";
+    content: "🌸";
     position: absolute;
     bottom: 10px;
     right: 15px;
-    font-size: 24px;
+    font-size: 28px;
     opacity: 0.5;
-    transform: scaleX(-1);
 }
 
-/* フォーム */
+/* ===== フォーム ===== */
 .form-group {
-    margin: 12px 0;
+    margin: 15px 0;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 4px;
-    font-size: 13px;
-    color: #336633;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #8B4513;
     font-weight: bold;
 }
 
@@ -460,11 +612,11 @@ table.official-table tr:nth-child(even) td {
 .form-group input[type="email"],
 .form-group textarea {
     width: 100%;
-    max-width: 400px;
-    padding: 8px 10px;
-    border: 2px solid #cce5c5;
-    border-radius: 8px;
-    font-size: 13px;
+    max-width: 420px;
+    padding: 10px 12px;
+    border: 3px solid #DEB887;
+    border-radius: 12px;
+    font-size: 14px;
     font-family: inherit;
     box-sizing: border-box;
     background-color: #fff;
@@ -473,12 +625,13 @@ table.official-table tr:nth-child(even) td {
 .form-group input[type="text"]:focus,
 .form-group input[type="email"]:focus,
 .form-group textarea:focus {
-    border-color: #66bb6a;
+    border-color: #FFD700;
     outline: none;
+    box-shadow: 0 0 0 3px rgba(255,215,0,0.2);
 }
 
 .form-group textarea {
-    max-width: 500px;
+    max-width: 520px;
 }
 
 .form-group .radio-group label {
@@ -488,59 +641,75 @@ table.official-table tr:nth-child(even) td {
 }
 
 .form-submit {
-    background-color: #66bb6a;
+    background-color: #FF6B6B;
     color: #fff;
-    border: 2px solid #4a8c3f;
-    padding: 8px 24px;
+    border: 3px solid #cc5555;
+    padding: 10px 30px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     font-family: inherit;
-    margin-top: 10px;
-    transition: background-color 0.2s;
+    margin-top: 12px;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+    transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .form-submit:hover {
-    background-color: #ff9900;
-    border-color: #e68a00;
+    transform: translateY(-3px);
+    box-shadow: 0 7px 0 rgba(0,0,0,0.2);
+}
+
+.form-submit:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.2);
 }
 
 #form-result {
     display: none;
-    margin-top: 10px;
-    padding: 12px;
-    background-color: #fff3f3;
-    border: 2px solid #ffcccc;
-    border-radius: 8px;
-    font-size: 12px;
+    margin-top: 12px;
+    padding: 14px;
+    background-color: #FFF0F0;
+    border: 3px solid #FFB0B0;
+    border-radius: 12px;
+    font-size: 14px;
     color: #cc3333;
 }
 
-/* プロフィール詳細 */
+/* ===== その他 ===== */
 .profile-section {
     margin: 15px 0;
 }
 
 .profile-section h3 {
-    color: #336633;
-    font-size: 14px;
+    color: #8B4513;
+    font-size: 16px;
     margin-bottom: 8px;
 }
 
 .back-link {
-    margin-top: 20px;
+    margin-top: 25px;
+    text-align: center;
 }
 
 .back-link a {
-    color: #ff9900;
-    font-size: 13px;
+    display: inline-block;
+    background: #98D8C8;
+    color: #fff;
+    font-size: 14px;
     font-weight: bold;
     text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 2px solid #7cc0b0;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.15);
+    transition: transform 0.15s;
 }
 
 .back-link a:hover {
-    text-decoration: underline;
+    transform: translateY(-2px);
+    text-decoration: none;
+    color: #fff;
 }
 
 /* リスト装飾 */
@@ -549,11 +718,32 @@ ul {
 }
 
 ul li {
-    margin: 4px 0;
+    margin: 6px 0;
     list-style-type: none;
+    font-size: 14px;
 }
 
 ul li::before {
-    content: "🍀 ";
-    font-size: 10px;
+    content: "🌟 ";
+    font-size: 12px;
+}
+
+/* hr */
+hr {
+    border: none;
+    border-top: 3px dashed #FFD700;
+    margin: 20px 0;
+}
+
+/* ロゴプレースホルダー */
+.logo-placeholder {
+    background-color: #228B22;
+    color: #FFD700;
+    padding: 20px 40px;
+    font-size: 28px;
+    font-weight: bold;
+    display: inline-block;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 3px solid #FFD700;
 }
