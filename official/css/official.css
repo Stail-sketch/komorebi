@@ -107,31 +107,33 @@ body {
     z-index: 2;
 }
 
-/* ヘッダーのキャラ立ち絵（左右2体ずつ） */
+/* ヘッダー中央横一列レイアウト */
+.header-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    z-index: 2;
+}
+
 .header-chars-left,
 .header-chars-right {
-    position: absolute;
-    bottom: 0;
-    z-index: 2;
     display: flex;
     align-items: flex-end;
     gap: 5px;
 }
-.header-chars-left { left: 10px; }
-.header-chars-right { right: 10px; }
 
 .header-chars-left img,
 .header-chars-right img {
-    height: 130px;
+    height: 110px;
     width: auto;
     object-fit: contain;
     filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.3));
 }
 
-/* 後ろ側のキャラを少し小さく */
-.header-chars-left img:first-child,
-.header-chars-right img:last-child {
-    height: 120px;
+.header-title-area {
+    text-align: center;
 }
 
 /* ヘッダー中央のキャラアイコン行（立ち絵がない場合のフォールバック） */
