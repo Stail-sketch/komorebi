@@ -51,11 +51,11 @@ body {
 /* ===== ヘッダー：番組セット風 ===== */
 .official-header {
     background: linear-gradient(to bottom, #228B22, #32CD32);
-    padding: 20px 20px 10px;
+    padding: 10px 20px 5px;
     text-align: center;
     position: relative;
     overflow: hidden;
-    min-height: 180px;
+    min-height: 120px;
     border-bottom: 8px solid #FFD700;
     z-index: 1;
 }
