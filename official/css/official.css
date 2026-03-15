@@ -373,6 +373,60 @@ h3.section-title {
     border-bottom: 10px solid #FFD700;
 }
 
+/* キャラ紹介冒頭の吹き出し */
+.char-intro-speech {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.char-intro-icon {
+    width: 80px;
+    height: auto;
+    flex-shrink: 0;
+    filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.2));
+}
+
+.char-intro-bubble {
+    background: #FFFACD;
+    border: 3px solid #FFD700;
+    border-radius: 20px;
+    padding: 15px 20px;
+    font-size: 15px;
+    line-height: 1.8;
+    position: relative;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.08);
+}
+
+.char-intro-bubble::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 20px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 12px solid #FFD700;
+}
+
+.char-intro-bubble::after {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 22px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 10px solid #FFFACD;
+}
+
+.char-intro-name {
+    display: block;
+    font-weight: bold;
+    color: #FF8C00;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
 /* ===== キャラクター画像（一覧ページ用） ===== */
 .char-placeholder {
     display: inline-block;
