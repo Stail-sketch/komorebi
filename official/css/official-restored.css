@@ -1,0 +1,22 @@
+/* official-restored.css
+   Night2クリア後「復元されたアーカイブデータ」専用スタイル
+   既存 official.css の上にオーバーライドする（差分3点のみ）
+*/
+
+/* 1. 背景色がわずかに暖色寄り（褪色した古いデータの印象） */
+body {
+  background: linear-gradient(180deg, #f0ece4 0%, #ede8df 40%, #e8e2d6 100%);
+}
+
+/* 2. 本文フォントを明朝系に（見出し・ナビは変更しない） */
+.restored-article,
+.restored-article p,
+.restored-article td,
+.restored-article li {
+  font-family: "游明朝", "Yu Mincho", "HG明朝E", serif, sans-serif;
+}
+
+/* 3. メインコンテンツにわずかなセピアフィルター（ヘッダー・ナビには適用しない） */
+main {
+  filter: sepia(0.05);
+}
