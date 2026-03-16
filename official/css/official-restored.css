@@ -13,17 +13,6 @@ main {
   filter: sepia(0.05);
 }
 
-/* ===== 復元バナー ===== */
-.archive-restored-banner {
-  width: 100%;
-  text-align: center;
-  padding: 6px 0;
-  font-size: 0.85rem;
-  color: #888;
-  letter-spacing: 0.05em;
-  font-family: monospace, sans-serif;
-}
-
 /* ===== 復元記事エリア ===== */
 .restored-article {
   background: rgba(255, 255, 250, 0.95);
