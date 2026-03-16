@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>回復記録</title>
+  <style>
+    body { margin:0; padding:0; background:#000; color:#ddd; font-family:'Courier New',monospace; font-size:0.9rem; overflow-y:auto; }
+    .terminal { padding:40px; max-width:700px; margin:0 auto; }
+    .terminal-line { opacity:0; transition:opacity 0.2s; margin:2px 0; }
+    .terminal-line.visible { opacity:1; }
+    .terminal-line.status-ok { color:#aaa; }
+    .terminal-line.status-fail { color:#c44; font-weight:bold; }
+    .terminal-line.system-msg { color:#888; margin-top:12px; margin-bottom:12px; }
+  </style>
+</head>
+<body>
+  <div class="terminal" id="terminal"></div>
+  <script>
+  if (!localStorage.getItem('night5_cleared')) { location.href = '../index.html'; }
+
+  var terminal = document.getElementById('terminal');
+
+  var subjects = [
+    {no:'001',id:'K-009'},{no:'002',id:'K-018'},{no:'003',id:'K-019'},
+    {no:'004',id:'K-024'},{no:'005',id:'K-032'},{no:'006',id:'K-041'},
+    {no:'007',id:'K-047'},{no:'008',id:'K-003'},{no:'009',id:'K-005'},
+    {no:'010',id:'K-007'},{no:'011',id:'K-010'},{no:'012',id:'K-012'},
+    {no:'013',id:'K-014'},{no:'014',id:'K-016'},{no:'015',id:'K-020'},
+    {no:'016',id:'K-021'},{no:'017',id:'K-023'},{no:'018',id:'K-025'},
+    {no:'019',id:'K-026'},{no:'020',id:'K-028'},{no:'021',id:'K-029'},
+    {no:'022',id:'K-030'},{no:'023',id:'K-033'},{no:'024',id:'K-034'},
+    {no:'025',id:'K-036'},{no:'026',id:'K-037'},{no:'027',id:'K-038'},
+    {no:'028',id:'K-039'},{no:'029',id:'K-040'},{no:'030',id:'K-042'},
+    {no:'031',id:'K-043'},{no:'032',id:'K-044'},{no:'033',id:'K-045'},
+    {no:'034',id:'K-046'},{no:'035',id:'K-048'},{no:'036',id:'K-049'},
+    {no:'037',id:'K-050'},{no:'038',id:'K-051'},{no:'039',id:'K-052'},
+    {no:'040',id:'K-053'},{no:'041',id:'K-054'},{no:'042',id:'K-055'},
+    {no:'043',id:'K-056'},{no:'044',id:'K-057'},{no:'045',id:'K-058'},
+    {no:'046',id:'K-???'},{no:'047',id:'K-???'},
+    {no:'048',id:'S-003'},{no:'049',id:'S-007'},
+    {no:'050',id:'S-012',name:'悠具志 業',fail:true}
+  ];
+
+  function addLine(text, cls) {
+    var line = document.createElement('div');
+    line.className = 'terminal-line ' + (cls||'');
+    line.textContent = text;
+    terminal.appendChild(line);
+    requestAnimationFrame(function(){line.classList.add('visible');});
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+
+  function sleep(ms) { return new Promise(function(r){setTimeout(r,ms);}); }
+
+  async function runSequence() {
+    addLine('実験パターン解除プロセス...完了', 'system-msg');
+    await sleep(2000);
+    addLine('被験者状態を更新しています...', 'system-msg');
+    await sleep(2000);
+    addLine('', '');
+    await sleep(500);
+
+    for (var i = 0; i < subjects.length; i++) {
+      var s = subjects[i];
+      if (s.fail) {
+        addLine(s.no + ' | ' + s.id + ' ...', 'status-ok');
+        await sleep(3000);
+        await sleep(3000);
+        terminal.lastChild.remove();
+        addLine(s.no + ' | ' + s.id + ' ... ' + s.name + '\u3000\u2500\u2500\u3000変化なし', 'status-fail');
+      } else {
+        var delay;
+        if (i < 3) delay = 1500 - (i * 150);
+        else if (i < 10) delay = 800 - (i * 30);
+        else if (i < 30) delay = 300;
+        else delay = 100;
+        addLine(s.no + ' | ' + s.id + ' ... 正常化', 'status-ok');
+        await sleep(Math.max(delay, 80));
+      }
+    }
+
+    await sleep(5000);
+    document.body.style.transition = 'opacity 3s';
+    document.body.style.opacity = '0';
+    await sleep(3500);
+    window.location.href = 'complete.html';
+  }
+
+  window.addEventListener('load', function(){ setTimeout(runSequence, 1000); });
+  </script>
+</body>
+</html>

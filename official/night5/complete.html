@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <style>
+    body { margin:0; padding:0; background:#000; color:#fff; font-family:'Courier New',monospace; display:flex; align-items:center; justify-content:center; min-height:100vh; overflow:hidden; }
+    .complete-container { text-align:center; }
+    .complete-title { font-size:1.6rem; letter-spacing:0.15em; opacity:0; transition:opacity 2s; }
+    .complete-msg { font-size:1rem; margin-top:30px; opacity:0; transition:opacity 2s; color:#aaa; }
+    .complete-counter { font-size:1.2rem; margin-top:50px; opacity:0; transition:opacity 1.5s; color:#666; }
+    @keyframes noise { 0%{filter:none;} 10%{filter:brightness(1.5) contrast(2) hue-rotate(90deg);} 20%{filter:invert(0.8);} 30%{filter:brightness(0.5) hue-rotate(180deg);} 40%{filter:none;} 100%{filter:none;} }
+    .glitch-active { animation:noise 0.4s linear; }
+  </style>
+</head>
+<body>
+  <div class="complete-container">
+    <div class="complete-title">NIGHT 5 COMPLETE</div>
+    <div class="complete-msg">おめでとうございます。</div>
+    <div class="complete-counter">5 / 6</div>
+  </div>
+  <script>
+  function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
+  async function completeSequence(){
+    var title=document.querySelector('.complete-title');
+    var msg=document.querySelector('.complete-msg');
+    var counter=document.querySelector('.complete-counter');
+    await sleep(1500);
+    title.style.opacity='1';
+    await sleep(3000);
+    msg.style.opacity='1';
+    await sleep(10000);
+    document.body.classList.add('glitch-active');
+    await sleep(400);
+    document.body.classList.remove('glitch-active');
+    await sleep(1000);
+    counter.style.opacity='1';
+    await sleep(3000);
+    window.location.href='../../index.html';
+  }
+  window.addEventListener('load',function(){
+    localStorage.setItem('night5_cleared','true');
+    setTimeout(completeSequence,500);
+  });
+  </script>
+</body>
+</html>
