@@ -158,7 +158,7 @@ document.getElementById('quiz-submit-btn').addEventListener('click', function() 
   var msgEl = document.getElementById('quiz-message');
 
   if (answer === 'みつけてね') {
-    if (localStorage.getItem('night3_cleared') === 'true') {
+    if (localStorage.getItem('night3_cleared') === 'true' && !localStorage.getItem('night4_cleared')) {
       document.body.style.pointerEvents = 'none';
       document.body.classList.add('glitch-effect');
       setTimeout(function() {
