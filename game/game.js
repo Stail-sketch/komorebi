@@ -25,7 +25,7 @@ const NIGHT_NUMBER = (typeof CURRENT_NIGHT !== 'undefined') ? CURRENT_NIGHT : 1;
 
 // --- Night進行チェック（Night2以降は前Nightクリア必須） ---
 if (NIGHT_NUMBER >= 2 && !localStorage.getItem(`night${NIGHT_NUMBER - 1}_cleared`)) {
-  window.location.href = '../index.html';
+  window.location.href = '/index.html';
 }
 
 // --- カメラ名マッピング ---
@@ -867,7 +867,7 @@ function gameClear() {
     // Night1〜4: 数秒後にファンサイトTOPへ自動遷移
     setTimeout(() => {
       allowNavigation();
-      window.location.href = '../index.html';
+      window.location.href = '/index.html';
     }, 4000);
   }
 }
@@ -1098,7 +1098,7 @@ function setupEventListeners() {
   // 続ける → ファンサイトTOPへ
   dom.continueBtn.addEventListener('click', () => {
     allowNavigation();
-    window.location.href = '../index.html';
+    window.location.href = '/index.html';
   });
 }
 
