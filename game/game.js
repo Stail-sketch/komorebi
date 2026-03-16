@@ -1,6 +1,26 @@
 // ===== こもれびゆうえんち ゲームエンジン =====
 // CURRENT_NIGHT はHTMLの<script>で事前定義（未定義時はNight1）
 // デバッグ: ?night=N のURLパラメータで上書き可能
+
+// --- ブラウザの戻る・リロードを無効化 ---
+history.pushState(null, '', location.href);
+window.addEventListener('popstate', () => {
+  history.pushState(null, '', location.href);
+});
+function _blockUnload(e) { e.preventDefault(); }
+window.addEventListener('beforeunload', _blockUnload);
+function allowNavigation() {
+  window.removeEventListener('beforeunload', _blockUnload);
+}
+window.addEventListener('keydown', (e) => {
+  // F5 リロード無効化
+  if (e.key === 'F5') { e.preventDefault(); }
+  // Ctrl+R リロード無効化
+  if ((e.ctrlKey || e.metaKey) && e.key === 'r') { e.preventDefault(); }
+  // Alt+← 戻る無効化
+  if (e.altKey && e.key === 'ArrowLeft') { e.preventDefault(); }
+  // Ctrl+W タブ閉じは無効化しない（ブラウザが許可しない）
+});
 const _urlNight = parseInt(new URLSearchParams(window.location.search).get('night'));
 const NIGHT_NUMBER = (_urlNight >= 1 && _urlNight <= 6) ? _urlNight : (typeof CURRENT_NIGHT !== 'undefined') ? CURRENT_NIGHT : 1;
 
@@ -900,6 +920,7 @@ function night5Ending() {
       night6Btn.classList.remove('hidden');
       night6Btn.textContent = '...';
       night6Btn.addEventListener('click', () => {
+        allowNavigation();
         window.location.href = 'night6.html';
       });
     }
@@ -1068,6 +1089,7 @@ function setupEventListeners() {
   dom.continueBtn.addEventListener('click', () => {
     const nextNight = NIGHT_NUMBER + 1;
     if (nextNight <= 6) {
+      allowNavigation();
       window.location.href = `night${nextNight}.html`;
     } else {
       alert('おめでとうございます！全Nightクリア！');
