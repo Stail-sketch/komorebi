@@ -24,10 +24,6 @@ main {
   font-family: monospace, sans-serif;
 }
 
-.archive-restored-banner .restored-date {
-  color: #999;
-}
-
 /* ===== 復元記事エリア ===== */
 .restored-article {
   background: rgba(255, 255, 250, 0.95);
