@@ -840,13 +840,9 @@ table.official-table tr:nth-child(even) td {
     opacity: 0;
 }
 
-.ukkichi-image-container:hover .normal {
-    opacity: 0;
-}
-
-.ukkichi-image-container:hover .hover-image {
-    opacity: 1;
-    cursor: pointer;
+.ukkichi-image-container .normal,
+.ukkichi-image-container .hover-image {
+    transition: opacity 1s;
 }
 
 /* ===== おしらせリスト ===== */
