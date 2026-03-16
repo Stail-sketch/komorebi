@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>お問い合わせ - こもれびゆうえんち 公式アーカイブ</title>
   <link rel="stylesheet" href="css/official.css">
+  <style>
+    .glitch-effect { animation: glitch 0.3s infinite; }
+    @keyframes glitch { 0%{filter:none;} 25%{filter:hue-rotate(90deg) saturate(3);} 50%{filter:invert(1);} 75%{filter:hue-rotate(270deg) contrast(2);} 100%{filter:none;} }
+    .night-entrance-overlay { position:fixed; top:0;left:0;right:0;bottom:0; background:rgba(0,0,0,0.95); display:flex; align-items:center; justify-content:center; z-index:9999; color:#ccc; font-size:1.2rem; letter-spacing:0.1em; font-family:monospace; }
+  </style>
 </head>
 <body>
   <!-- 雲 -->
@@ -88,13 +93,46 @@
     function handleContactSubmit(event) {
       event.preventDefault();
 
-      // Night5入口チェック（Night4クリア後に有効化）
-      // 初期状態では単にメッセージを表示
+      var email = document.getElementById('email').value.trim();
+      var typeRadios = document.getElementsByName('type');
+      var selectedType = '';
+      for (var i = 0; i < typeRadios.length; i++) {
+        if (typeRadios[i].checked) { selectedType = typeRadios[i].value; break; }
+      }
+      var content = document.getElementById('message').value.trim();
+
+      // Night5入口判定（Night4クリア後のみ）
+      if (
+        email === 'k-project@yume-studio.co.jp' &&
+        selectedType === 'recording' &&
+        content === '1986年の初期構想について' &&
+        localStorage.getItem('night4_cleared') === 'true' &&
+        !localStorage.getItem('night5_cleared')
+      ) {
+        triggerNight5Entrance();
+        return false;
+      }
+
+      // 通常の送信（エラー表示）
       var resultDiv = document.getElementById('form-result');
       resultDiv.textContent = '申し訳ございません。現在お問い合わせは受け付けておりません。';
       resultDiv.style.display = 'block';
-
       return false;
+    }
+
+    function triggerNight5Entrance() {
+      document.body.style.pointerEvents = 'none';
+      document.body.classList.add('glitch-effect');
+      setTimeout(function() {
+        document.body.classList.remove('glitch-effect');
+        var overlay = document.createElement('div');
+        overlay.className = 'night-entrance-overlay';
+        overlay.innerHTML = '<p>── アクセスを許可します ──</p>';
+        document.body.appendChild(overlay);
+        setTimeout(function() {
+          window.location.href = '../game/night5.html';
+        }, 2500);
+      }, 1500);
     }
   </script>
 </body>
