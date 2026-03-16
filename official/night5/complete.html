@@ -104,15 +104,16 @@
 
     // アナログTV砂嵐 1.5秒
     startSnow(0.85);
-    await sleep(1500);
-    stopSnow();
+    await sleep(500);
 
-    // 1秒の静寂
-    await sleep(1000);
-
-    // 5/6 パルス明滅
+    // 砂嵐の裏で5/6を表示（砂嵐に隠れて見えない）
     counterEl.style.opacity='1';
     counterEl.classList.add('pulse');
+
+    await sleep(1000);
+    stopSnow();
+
+    // 砂嵐が晴れた瞬間、5/6がもう出ている
 
     // 3秒後にファンサイトTOPへ
     await sleep(3000);
