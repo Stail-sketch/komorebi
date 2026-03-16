@@ -1,4 +1,4 @@
-// ===== 木漏れ日遊園地 ゲームエンジン =====
+// ===== こもれびゆうえんち ゲームエンジン =====
 // CURRENT_NIGHT はHTMLの<script>で事前定義（未定義時はNight1）
 // デバッグ: ?night=N のURLパラメータで上書き可能
 const _urlNight = parseInt(new URLSearchParams(window.location.search).get('night'));
@@ -1088,7 +1088,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (introText) introText.textContent = `Night ${NIGHT_NUMBER}`;
   if (nightLabel) nightLabel.textContent = `Night ${NIGHT_NUMBER}`;
   if (clearText) clearText.textContent = `Night ${NIGHT_NUMBER} クリア`;
-  document.title = `木漏れ日遊園地 - Night ${NIGHT_NUMBER}`;
+  document.title = `こもれびゆうえんち - Night ${NIGHT_NUMBER}`;
 
   startGame();
 });
