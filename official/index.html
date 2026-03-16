@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>こもれびゆうえんち 公式アーカイブ</title>
   <link rel="stylesheet" href="css/official.css">
-  <style>.night2-content { display: none; }</style>
+  <style>.night2-content { display: none; }
+.night3-content { display: none; }
+.night4-content { display: none; }</style>
 </head>
 <body>
   <!-- 雲 -->
@@ -46,6 +48,8 @@
     <h2 class="section-title">おしらせ</h2>
 
     <div class="news-list">
+      <div class="news-item night4-content"><span class="news-date">────.──.──</span><a href="restored_n4.html">アーカイブが復元されました。</a></div>
+      <div class="news-item night3-content"><span class="news-date">────.──.──</span><a href="restored_n3.html">アーカイブが復元されました。</a></div>
       <div class="news-item night2-content"><span class="news-date">────.──.──</span><a href="restored.html">アーカイブが復元されました。</a></div>
       <div class="news-item"><span class="news-date">1997.09.20</span>来週の放送予定について</div>
       <div class="news-item"><span class="news-date">1997.09.13</span>秋の特別企画のお知らせ</div>
@@ -79,6 +83,12 @@
     if (localStorage.getItem('night2_cleared') === 'true') {
       enableLogoSecret();
       document.querySelectorAll('.night2-content').forEach(function(el) { el.style.display = ''; });
+    }
+    if (localStorage.getItem('night3_cleared') === 'true') {
+      document.querySelectorAll('.night3-content').forEach(function(el) { el.style.display = ''; });
+    }
+    if (localStorage.getItem('night4_cleared') === 'true') {
+      document.querySelectorAll('.night4-content').forEach(function(el) { el.style.display = ''; });
     }
   </script>
 </body>
