@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>スタッフ紹介 - こもれびゆうえんち 公式アーカイブ</title>
   <link rel="stylesheet" href="css/official.css">
+  <style>.night2-content { display: none; }</style>
 </head>
 <body>
   <!-- 雲 -->
@@ -48,6 +49,10 @@
       <tr><th>音楽</th><td>中村 由紀</td></tr>
       <tr><th>美術</th><td>吉田 一郎</td></tr>
       <tr><th>技術</th><td>松本 幸男</td></tr>
+      <tr class="night2-content"><th>人形製作</th><td><span class="redacted" title="">██████████</span></td></tr>
+      <tr class="night2-content"><th>衣装デザイン</th><td><span class="redacted" title="">██████████</span></td></tr>
+      <tr class="night2-content"><th>セット設計</th><td><span class="redacted" title="">██████████</span>（指示書に基づき制作：吉田 一郎）</td></tr>
+      <tr class="night2-content"><th>広報</th><td>鈴木 真理</td></tr>
       <tr><th>制作</th><td>株式会社ゆめスタジオプロダクション</td></tr>
       <tr><th>放送</th><td>きらら放送</td></tr>
     </table>
@@ -71,6 +76,14 @@
       「子どもたちが夢中になれるお話を書くことを心がけています。<br>
       キツネ団長の冒険は、私自身も毎回ワクワクしながら書いています。」
     </div>
+
+    <div class="card night2-content">
+      <strong>◆ 広報 鈴木 真理</strong><br>
+      「収録レポートや撮影現場レポートを書いています。<br>
+      番組の裏側を皆さんにお届けできるのが嬉しいです。」
+    </div>
+
+    <p class="night2-content" style="margin-top:20px; text-align:center;"><a href="blog/index.html">→ スタッフブログはこちら</a></p>
   </main>
 
   <footer class="official-footer">
@@ -80,5 +93,10 @@
     <p>放送：きらら放送</p>
     <p>&copy; YUME STUDIO PRODUCTION / KIRARA BROADCASTING</p>
   </footer>
+<script>
+if (localStorage.getItem('night2_cleared')) {
+  document.querySelectorAll('.night2-content').forEach(function(el) { el.style.display = ''; });
+}
+</script>
 </body>
 </html>

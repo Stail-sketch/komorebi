@@ -49,6 +49,7 @@
       <h3>キツネ団長</h3>
       <p>遊園地のリーダー！みんなを楽しませるのが大好き。</p>
       <a href="kitsune.html">→ 詳しく見る</a>
+      <a href="kitsune-extra.html" class="night2-content" style="display:none; font-size:0.85em; color:#cc6600;">→ もっと見る</a>
       <div class="char-speech">「時間だぞー！今日も冒険だ！」</div>
     </div>
     <div class="char-card">
@@ -58,6 +59,7 @@
       <h3>かあ博士</h3>
       <p>なんでも知ってる物知り博士。</p>
       <a href="kaa.html">→ 詳しく見る</a>
+      <a href="kaa-extra.html" class="night2-content" style="display:none; font-size:0.85em; color:#cc6600;">→ もっと見る</a>
       <div class="char-speech">「なぜなぜ？ふむ、調べてみよう」</div>
     </div>
     <div class="char-card">
@@ -67,6 +69,7 @@
       <h3>ぽたまる</h3>
       <p>ダンスが得意なまんまるのなかま！</p>
       <a href="potamaru.html">→ 詳しく見る</a>
+      <a href="potamaru-extra.html" class="night2-content" style="display:none; font-size:0.85em; color:#cc6600;">→ もっと見る</a>
       <div class="char-speech">「ポンポコポン♪ いっしょにおどろう！」</div>
     </div>
     <div class="char-card">
@@ -76,6 +79,7 @@
       <h3>うっきち</h3>
       <p>みんなを笑顔にするムードメーカー。</p>
       <a href="ukkichi.html">→ 詳しく見る</a>
+      <a href="ukkichi-extra.html" class="night2-content" style="display:none; font-size:0.85em; color:#cc6600;">→ もっと見る</a>
       <div class="char-speech">「えへへ、いたずら大成功〜！…あれ？」</div>
     </div>
   </div>
@@ -89,5 +93,10 @@
     <p>&copy; YUME STUDIO PRODUCTION / KIRARA BROADCASTING</p>
   </footer>
 
+<script>
+if (localStorage.getItem('night2_cleared')) {
+  document.querySelectorAll('.night2-content').forEach(function(el) { el.style.display = ''; });
+}
+</script>
 </body>
 </html>

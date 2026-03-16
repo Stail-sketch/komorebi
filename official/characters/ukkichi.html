@@ -74,6 +74,7 @@
     </div>
   </div>
 
+  <p class="night2-content" style="display:none; text-align:center; margin:15px 0;"><a href="ukkichi-extra.html" style="color:#8B5E3C;">→ うっきちのエピソードをもっと見る</a></p>
   <a href="index.html" class="char-back-btn">← キャラクター一覧にもどる</a>
 </main>
 
@@ -100,6 +101,10 @@ ukkichiContainer.addEventListener('click', function() {
     window.location.href = '../../game/night2.html';
   }
 });
+
+if (localStorage.getItem('night2_cleared')) {
+  document.querySelectorAll('.night2-content').forEach(function(el) { el.style.display = ''; });
+}
 </script>
 
 </body>

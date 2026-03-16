@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>こもれびゆうえんち 公式アーカイブ</title>
   <link rel="stylesheet" href="css/official.css">
+  <style>.night2-content { display: none; }</style>
 </head>
 <body>
   <!-- 雲 -->
@@ -29,6 +30,9 @@
     <a href="staff.html">スタッフ</a>
     <a href="episodes.html">放送リスト</a>
     <a href="contact.html">お問い合わせ</a>
+    <a href="reports/index.html" class="night2-content" style="display:none;">収録レポート</a>
+    <a href="blog/index.html" class="night2-content" style="display:none;">スタッフブログ</a>
+    <a href="reports/set-index.html" class="night2-content" style="display:none;">撮影現場</a>
   </nav>
 
   <main class="official-main">
@@ -45,6 +49,7 @@
     <h2 class="section-title">おしらせ</h2>
 
     <div class="news-list">
+      <div class="news-item night2-content"><span class="news-date">────.──.──</span><a href="reports/index.html">アーカイブが復元されました。</a></div>
       <div class="news-item"><span class="news-date">1997.09.20</span>来週の放送予定について</div>
       <div class="news-item"><span class="news-date">1997.09.13</span>秋の特別企画のお知らせ</div>
       <div class="news-item"><span class="news-date">1997.08.30</span>夏休みスペシャル放送ありがとうございました</div>
@@ -76,6 +81,7 @@
 
     if (localStorage.getItem('night2_cleared') === 'true') {
       enableLogoSecret();
+      document.querySelectorAll('.night2-content').forEach(function(el) { el.style.display = ''; });
     }
   </script>
 </body>

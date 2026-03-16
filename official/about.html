@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>番組紹介 - こもれびゆうえんち 公式アーカイブ</title>
   <link rel="stylesheet" href="css/official.css">
+  <style>.night2-content { display: none; }</style>
 </head>
 <body>
   <!-- 雲 -->
@@ -77,6 +78,9 @@
       「みんなであそぼう！」のコーナーでは、スタジオにお子さまをお招きして<br>
       キャラクターたちと一緒に遊ぶことができます。参加者は応募の中から抽選で選ばれます。
     </div>
+
+    <p class="night2-content" style="margin-top:20px; text-align:center;"><a href="reports/index.html">→ 収録レポートはこちら</a></p>
+    <p class="night2-content" style="text-align:center;"><a href="reports/set-index.html">→ 撮影現場レポートはこちら</a></p>
   </main>
 
   <footer class="official-footer">
@@ -86,5 +90,10 @@
     <p>放送：きらら放送</p>
     <p>&copy; YUME STUDIO PRODUCTION / KIRARA BROADCASTING</p>
   </footer>
+<script>
+if (localStorage.getItem('night2_cleared')) {
+  document.querySelectorAll('.night2-content').forEach(function(el) { el.style.display = ''; });
+}
+</script>
 </body>
 </html>
