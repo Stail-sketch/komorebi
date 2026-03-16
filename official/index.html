@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>こもれびゆうえんち 公式アーカイブ</title>
   <link rel="stylesheet" href="css/official.css">
-  <style>.night2-content { display: none; }
-.night3-content { display: none; }
-.night4-content { display: none; }</style>
+  <style>
+    .night2-content { display: none !important; }
+    .night3-content { display: none !important; }
+    .night4-content { display: none !important; }
+  </style>
 </head>
 <body>
   <!-- 雲 -->
@@ -82,13 +84,13 @@
 
     if (localStorage.getItem('night2_cleared') === 'true') {
       enableLogoSecret();
-      document.querySelectorAll('.night2-content').forEach(function(el) { el.style.display = ''; });
+      document.querySelectorAll('.night2-content').forEach(function(el) { el.style.setProperty('display', '', 'important'); el.classList.remove('night2-content'); });
     }
     if (localStorage.getItem('night3_cleared') === 'true') {
-      document.querySelectorAll('.night3-content').forEach(function(el) { el.style.display = ''; });
+      document.querySelectorAll('.night3-content').forEach(function(el) { el.style.setProperty('display', '', 'important'); el.classList.remove('night3-content'); });
     }
     if (localStorage.getItem('night4_cleared') === 'true') {
-      document.querySelectorAll('.night4-content').forEach(function(el) { el.style.display = ''; });
+      document.querySelectorAll('.night4-content').forEach(function(el) { el.style.setProperty('display', '', 'important'); el.classList.remove('night4-content'); });
     }
   </script>
 </body>
