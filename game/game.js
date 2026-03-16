@@ -21,8 +21,12 @@ window.addEventListener('keydown', (e) => {
   if (e.altKey && e.key === 'ArrowLeft') { e.preventDefault(); }
   // Ctrl+W タブ閉じは無効化しない（ブラウザが許可しない）
 });
-const _urlNight = parseInt(new URLSearchParams(window.location.search).get('night'));
-const NIGHT_NUMBER = (_urlNight >= 1 && _urlNight <= 6) ? _urlNight : (typeof CURRENT_NIGHT !== 'undefined') ? CURRENT_NIGHT : 1;
+const NIGHT_NUMBER = (typeof CURRENT_NIGHT !== 'undefined') ? CURRENT_NIGHT : 1;
+
+// --- Night進行チェック（Night2以降は前Nightクリア必須） ---
+if (NIGHT_NUMBER >= 2 && !localStorage.getItem(`night${NIGHT_NUMBER - 1}_cleared`)) {
+  window.location.href = '../index.html';
+}
 
 // --- カメラ名マッピング ---
 const CAMERA_NAMES = {
