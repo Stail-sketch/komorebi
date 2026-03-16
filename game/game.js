@@ -111,7 +111,7 @@ function stopAllSounds() {
 }
 
 // --- 定数 ---
-const GAME_DURATION = 300;           // 秒（リアル5分）
+const GAME_DURATION = 180;           // 秒（リアル3分）
 const POWER_CAMERA_DRAIN = 0.05;     // %/秒（全Night共通）
 const POWER_SHUTTER_DRAIN = 0.25;    // %/秒・片方（全Night共通）
 const CLOCK_WARNING_THRESHOLD = 30;  // チクタク警告開始（全Night共通）
@@ -123,8 +123,8 @@ const NIGHT_PARAMS = {
     powerBaseDrain:     0.05,
     clockDrain:         0.5,
     clockWindPerClick:  1,
-    kaaFirstMove:       [60, 90],
-    kaaMoveInterval:    [8, 15],
+    kaaFirstMove:       [36, 54],
+    kaaMoveInterval:    [5, 9],
     kaaDoorWait:        [5, 10],
     // うっきち・ぽたまる: Night1では未登場
   },
@@ -132,53 +132,53 @@ const NIGHT_PARAMS = {
     powerBaseDrain:     0.06,
     clockDrain:         0.6,
     clockWindPerClick:  1,
-    kaaFirstMove:       [45, 70],
-    kaaMoveInterval:    [7, 13],
+    kaaFirstMove:       [27, 42],
+    kaaMoveInterval:    [4, 8],
     kaaDoorWait:        [5, 9],
-    ukkichiFirstMove:     [50, 80],
-    ukkichiMoveInterval:  [10, 18],
+    ukkichiFirstMove:     [30, 48],
+    ukkichiMoveInterval:  [6, 11],
     ukkichiDoorWait:      [6, 10],
   },
   3: {
     powerBaseDrain:     0.07,
     clockDrain:         0.7,
     clockWindPerClick:  1,
-    kaaFirstMove:       [30, 55],
-    kaaMoveInterval:    [6, 11],
+    kaaFirstMove:       [18, 33],
+    kaaMoveInterval:    [4, 7],
     kaaDoorWait:        [4, 8],
-    ukkichiFirstMove:     [40, 65],
-    ukkichiMoveInterval:  [8, 15],
+    ukkichiFirstMove:     [24, 39],
+    ukkichiMoveInterval:  [5, 9],
     ukkichiDoorWait:      [5, 8],
-    potamaruFirstMusic:   [40, 70],
-    potamaruMusicInterval:[30, 60],
+    potamaruFirstMusic:   [24, 42],
+    potamaruMusicInterval:[18, 36],
     potamaruRushTime:     3,
   },
   4: {
     powerBaseDrain:     0.08,
     clockDrain:         1.0,
     clockWindPerClick:  1,
-    kaaFirstMove:       [20, 40],
-    kaaMoveInterval:    [4, 8],
+    kaaFirstMove:       [12, 24],
+    kaaMoveInterval:    [2, 5],
     kaaDoorWait:        [3, 6],
-    ukkichiFirstMove:     [30, 50],
-    ukkichiMoveInterval:  [6, 11],
+    ukkichiFirstMove:     [18, 30],
+    ukkichiMoveInterval:  [4, 7],
     ukkichiDoorWait:      [4, 7],
-    potamaruFirstMusic:   [30, 55],
-    potamaruMusicInterval:[20, 45],
+    potamaruFirstMusic:   [18, 33],
+    potamaruMusicInterval:[12, 27],
     potamaruRushTime:     2.5,
   },
   5: {
     powerBaseDrain:     0.10,
     clockDrain:         1.5,
     clockWindPerClick:  1,
-    kaaFirstMove:       [10, 25],
-    kaaMoveInterval:    [3, 6],
+    kaaFirstMove:       [6, 15],
+    kaaMoveInterval:    [2, 4],
     kaaDoorWait:        [2, 4],
-    ukkichiFirstMove:     [20, 35],
-    ukkichiMoveInterval:  [4, 8],
+    ukkichiFirstMove:     [12, 21],
+    ukkichiMoveInterval:  [2, 5],
     ukkichiDoorWait:      [3, 5],
-    potamaruFirstMusic:   [20, 40],
-    potamaruMusicInterval:[15, 30],
+    potamaruFirstMusic:   [12, 24],
+    potamaruMusicInterval:[9, 18],
     potamaruRushTime:     2,
   },
 };
@@ -458,7 +458,7 @@ function updateTime(dt) {
   gameState.time += dt;
 
   // 時刻表示更新
-  const hours = Math.floor(gameState.time / 50); // 50秒 = 1時間
+  const hours = Math.floor(gameState.time / 30); // 30秒 = 1時間
   const displayHour = hours === 0 ? 12 : hours;
   const ampm = hours < 6 ? 'AM' : 'AM';
   dom.timeDisplay.textContent = `${displayHour}:00 AM`;
