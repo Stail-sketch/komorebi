@@ -22,9 +22,9 @@ main {
   margin: 0 30px 20px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
   font-family: "游明朝", "Yu Mincho", "HG明朝E", serif, sans-serif;
-  font-size: 15px;
+  font-size: 17px;
   line-height: 2;
-  color: #3a3020;
+  color: #000;
 }
 
 .restored-article p {
