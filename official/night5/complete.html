@@ -6,39 +6,119 @@
   <title></title>
   <style>
     body { margin:0; padding:0; background:#000; color:#fff; font-family:'Courier New',monospace; display:flex; align-items:center; justify-content:center; min-height:100vh; overflow:hidden; }
-    .complete-container { text-align:center; }
-    .complete-title { font-size:1.6rem; letter-spacing:0.15em; opacity:0; transition:opacity 2s; }
-    .complete-msg { font-size:1rem; margin-top:30px; opacity:0; transition:opacity 2s; color:#aaa; }
-    .complete-counter { font-size:1.2rem; margin-top:50px; opacity:0; transition:opacity 1.5s; color:#666; }
-    @keyframes noise { 0%{filter:none;} 10%{filter:brightness(1.5) contrast(2) hue-rotate(90deg);} 20%{filter:invert(0.8);} 30%{filter:brightness(0.5) hue-rotate(180deg);} 40%{filter:none;} 100%{filter:none;} }
-    .glitch-active { animation:noise 0.4s linear; }
+    .complete-container { text-align:center; position:relative; z-index:2; }
+    .complete-title { font-size:1.6rem; letter-spacing:0.15em; min-height:1.6rem; }
+    .complete-title .char { opacity:0; display:inline-block; }
+    .complete-title .char.visible { opacity:1; }
+    .complete-title.glow { text-shadow:0 0 15px rgba(255,255,255,0.6),0 0 30px rgba(255,255,255,0.3); transition:text-shadow 1s; }
+    .complete-msg { font-size:1rem; margin-top:30px; opacity:0; transition:opacity 3s; color:#aaa; }
+    .complete-counter { font-size:1.2rem; margin-top:50px; opacity:0; color:#666; }
+    @keyframes pulse { 0%,100%{opacity:0.6;} 50%{opacity:1;} }
+    .complete-counter.pulse { animation:pulse 2s infinite; }
+    #snow-canvas { position:fixed; top:0;left:0; width:100%;height:100%; z-index:100; pointer-events:none; opacity:0; }
   </style>
 </head>
 <body>
+  <canvas id="snow-canvas"></canvas>
   <div class="complete-container">
-    <div class="complete-title">NIGHT 5 COMPLETE</div>
-    <div class="complete-msg">おめでとうございます。</div>
-    <div class="complete-counter">5 / 6</div>
+    <div class="complete-title" id="title"></div>
+    <div class="complete-msg" id="msg">おめでとうございます。</div>
+    <div class="complete-counter" id="counter">5 / 6</div>
   </div>
   <script>
   function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
+
+  // アナログTV砂嵐
+  var snowCanvas = document.getElementById('snow-canvas');
+  var snowCtx = snowCanvas.getContext('2d');
+  var snowActive = false;
+
+  function resizeSnowCanvas(){
+    snowCanvas.width = window.innerWidth;
+    snowCanvas.height = window.innerHeight;
+  }
+  resizeSnowCanvas();
+  window.addEventListener('resize', resizeSnowCanvas);
+
+  function drawSnow(){
+    if(!snowActive) return;
+    var w=snowCanvas.width, h=snowCanvas.height;
+    var imageData=snowCtx.createImageData(w,h);
+    var data=imageData.data;
+    for(var i=0;i<data.length;i+=4){
+      var v=Math.random()*255;
+      data[i]=v; data[i+1]=v; data[i+2]=v; data[i+3]=255;
+    }
+    snowCtx.putImageData(imageData,0,0);
+    requestAnimationFrame(drawSnow);
+  }
+
+  function startSnow(opacity){
+    snowCanvas.style.opacity=opacity||'0.8';
+    snowActive=true;
+    drawSnow();
+  }
+
+  function stopSnow(){
+    snowActive=false;
+    snowCanvas.style.opacity='0';
+  }
+
+  // タイプライター
+  async function typeWriter(element,text,charDelay){
+    element.innerHTML='';
+    for(var i=0;i<text.length;i++){
+      var span=document.createElement('span');
+      span.className='char';
+      span.textContent=text[i]===' '?'\u00A0':text[i];
+      element.appendChild(span);
+    }
+    var chars=element.querySelectorAll('.char');
+    for(var i=0;i<chars.length;i++){
+      chars[i].classList.add('visible');
+      await sleep(charDelay||100);
+    }
+  }
+
+  // メインシーケンス
   async function completeSequence(){
-    var title=document.querySelector('.complete-title');
-    var msg=document.querySelector('.complete-msg');
-    var counter=document.querySelector('.complete-counter');
+    var titleEl=document.getElementById('title');
+    var msgEl=document.getElementById('msg');
+    var counterEl=document.getElementById('counter');
+
     await sleep(1500);
-    title.style.opacity='1';
-    await sleep(3000);
-    msg.style.opacity='1';
+
+    // タイプライター表示
+    await typeWriter(titleEl,'NIGHT 5 COMPLETE',100);
+
+    // 白い発光
+    await sleep(500);
+    titleEl.classList.add('glow');
+
+    // おめでとうございます ゆっくりフェードイン
+    await sleep(2000);
+    msgEl.style.opacity='1';
+
+    // 10秒の静寂
     await sleep(10000);
-    document.body.classList.add('glitch-active');
-    await sleep(400);
-    document.body.classList.remove('glitch-active');
+
+    // アナログTV砂嵐 1.5秒
+    startSnow(0.85);
+    await sleep(1500);
+    stopSnow();
+
+    // 1秒の静寂
     await sleep(1000);
-    counter.style.opacity='1';
+
+    // 5/6 パルス明滅
+    counterEl.style.opacity='1';
+    counterEl.classList.add('pulse');
+
+    // 3秒後にファンサイトTOPへ
     await sleep(3000);
     window.location.href='../../index.html';
   }
+
   window.addEventListener('load',function(){
     localStorage.setItem('night5_cleared','true');
     setTimeout(completeSequence,500);
