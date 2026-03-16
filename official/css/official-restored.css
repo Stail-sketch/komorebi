@@ -1,6 +1,6 @@
 /* official-restored.css
    Night2クリア後「復元されたアーカイブデータ」専用スタイル
-   既存 official.css の上にオーバーライドする（差分3点のみ）
+   既存 official.css の上にオーバーライドする
 */
 
 /* 1. 背景色がわずかに暖色寄り（褪色した古いデータの印象） */
@@ -8,15 +8,46 @@ body {
   background: linear-gradient(180deg, #f0ece4 0%, #ede8df 40%, #e8e2d6 100%);
 }
 
-/* 2. 本文フォントを明朝系に（見出し・ナビは変更しない） */
-.restored-article,
-.restored-article p,
-.restored-article td,
-.restored-article li {
-  font-family: "游明朝", "Yu Mincho", "HG明朝E", serif, sans-serif;
-}
-
-/* 3. メインコンテンツにわずかなセピアフィルター（ヘッダー・ナビには適用しない） */
+/* 2. メインコンテンツにわずかなセピアフィルター（ヘッダー・ナビには適用しない） */
 main {
   filter: sepia(0.05);
+}
+
+/* ===== 復元記事エリア ===== */
+.restored-article {
+  background: rgba(255, 255, 250, 0.95);
+  border: 3px solid #DEB887;
+  border-radius: 16px;
+  padding: 30px 35px;
+  margin: 0 30px 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+  font-family: "游明朝", "Yu Mincho", "HG明朝E", serif, sans-serif;
+  font-size: 15px;
+  line-height: 2;
+  color: #3a3020;
+}
+
+.restored-article p {
+  margin: 0 0 1.2em;
+  font-family: inherit;
+}
+
+.restored-article p:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== extra ページ：キャラ画像を中央配置 ===== */
+.char-page .char-main.char-main-center {
+  display: block;
+  text-align: center;
+  padding: 30px 30px 10px;
+}
+
+.char-main-center .char-image-area {
+  flex: none;
+  margin: 0 auto 20px;
+}
+
+.char-main-center .char-image-area img {
+  max-width: 280px;
 }
