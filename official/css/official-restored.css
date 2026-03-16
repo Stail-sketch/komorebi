@@ -50,4 +50,5 @@ main {
 
 .char-main-center .char-image-area img {
   max-width: 280px;
+  animation: none;
 }
