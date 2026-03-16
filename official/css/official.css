@@ -243,6 +243,9 @@ body {
 .official-nav a:nth-child(4) { background: #87CEEB; }
 .official-nav a:nth-child(5) { background: #DDA0DD; }
 .official-nav a:nth-child(6) { background: #98D8C8; }
+.official-nav a:nth-child(7) { background: #F0A0A0; }
+.official-nav a:nth-child(8) { background: #A0C4E8; }
+.official-nav a:nth-child(9) { background: #C8B8D8; }
 
 /* ===== コンテンツエリア：看板風 ===== */
 .official-main {
