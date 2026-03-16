@@ -42,7 +42,7 @@
 
         <div class="section-heading">━━━━━ こもれびゆうえんち関連 ━━━━━</div>
 
-        <p>■ <a href="#" onclick="return false;">きらら放送 公式サイト</a><br>
+        <p id="link-official">■ <a href="#" onclick="return false;">きらら放送 公式サイト</a><br>
         　http://www.kirara-tv.co.jp/<br>
         　放送局の公式サイト…だったんですが繋がらなくなってます(T_T)<br>
         　<span class="placeholder-img placeholder-banner">LINK切れ</span></p>
@@ -97,5 +97,15 @@
       </div>
     </div>
   </div>
+
+  <script>
+    if (localStorage.getItem('night1_cleared')) {
+      var el = document.getElementById('link-official');
+      el.innerHTML =
+        '■ <a href="official/index.html">木漏れ日遊園地 公式サイト</a><br>' +
+        '　http://www.komorebi-yuenchi.ne.jp/<br>' +
+        '　公式サイトのアーカイブが見つかりました！！まさか残ってたなんて…(T_T)';
+    }
+  </script>
 </body>
 </html>

@@ -859,6 +859,12 @@ function gameClear() {
   // Night5: メインエンディング演出
   if (NIGHT_NUMBER === 5) {
     setTimeout(() => night5Ending(), 3000);
+  } else {
+    // Night1〜4: 数秒後にファンサイトTOPへ自動遷移
+    setTimeout(() => {
+      allowNavigation();
+      window.location.href = '../index.html';
+    }, 4000);
   }
 }
 
@@ -1085,15 +1091,10 @@ function setupEventListeners() {
   // リトライ
   dom.retryBtn.addEventListener('click', retryGame);
 
-  // 続ける → 次のNightへ
+  // 続ける → ファンサイトTOPへ
   dom.continueBtn.addEventListener('click', () => {
-    const nextNight = NIGHT_NUMBER + 1;
-    if (nextNight <= 6) {
-      allowNavigation();
-      window.location.href = `night${nextNight}.html`;
-    } else {
-      alert('おめでとうございます！全Nightクリア！');
-    }
+    allowNavigation();
+    window.location.href = '../index.html';
   });
 }
 
