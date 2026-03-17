@@ -15,17 +15,23 @@ var levels = { kitsune: 0, kaa: 0, ukkichi: 0, potamaru: 0, shisaku: 0 };
 // レベル更新
 function updateLevel(char, delta) {
   levels[char] = Math.max(0, Math.min(20, levels[char] + delta));
-  document.getElementById('level-' + char).textContent = levels[char];
+  var levelEl = document.getElementById('level-' + char);
+  levelEl.textContent = levels[char];
 
   var charEl = document.querySelector('.cn-char[data-char="' + char + '"]');
   charEl.setAttribute('data-active', levels[char] > 0 ? 'true' : 'false');
   charEl.setAttribute('data-maxed', levels[char] === 20 ? 'true' : 'false');
+  charEl.setAttribute('data-high', levels[char] >= 15 ? 'true' : 'false');
 
   // レベル20でjumpscare画像に切り替え
   var img = charEl.querySelector('.cn-char-icon img');
   if (img) {
     img.src = levels[char] === 20 ? img.dataset.scare : img.dataset.normal;
   }
+
+  // 数字がポンッと跳ねる
+  levelEl.style.transform = 'scale(1.3)';
+  setTimeout(function() { levelEl.style.transform = 'scale(1)'; }, 150);
 }
 
 // ◄►ボタン
@@ -42,10 +48,12 @@ document.querySelectorAll('.cn-preset').forEach(function(btn) {
     var preset = PRESETS[btn.dataset.preset];
     CHARS.forEach(function(char) {
       levels[char] = preset[char];
-      document.getElementById('level-' + char).textContent = levels[char];
+      var levelEl = document.getElementById('level-' + char);
+      levelEl.textContent = levels[char];
       var charEl = document.querySelector('.cn-char[data-char="' + char + '"]');
       charEl.setAttribute('data-active', levels[char] > 0 ? 'true' : 'false');
       charEl.setAttribute('data-maxed', levels[char] === 20 ? 'true' : 'false');
+      charEl.setAttribute('data-high', levels[char] >= 15 ? 'true' : 'false');
       // 画像切り替え
       var img = charEl.querySelector('.cn-char-icon img');
       if (img) {
@@ -121,3 +129,28 @@ document.getElementById('cn-share').addEventListener('click', function() {
 document.getElementById('cn-back').addEventListener('click', function() {
   window.location.href = 'https://note.com/';
 });
+
+// 背景の浮遊装飾
+function createFloatingDecor() {
+  var items = ['☆', '☁', '🌸', '🎵', '✿'];
+  setInterval(function() {
+    var el = document.createElement('div');
+    el.className = 'floating-decor';
+    el.textContent = items[Math.floor(Math.random() * items.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.animationDuration = (15 + Math.random() * 15) + 's';
+    el.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+    document.body.appendChild(el);
+    setTimeout(function() { el.remove(); }, 30000);
+  }, 3000);
+}
+createFloatingDecor();
+
+// 「ALL 20」クリック時に一瞬画面反転
+var yoteidooriBtn = document.querySelector('.cn-preset[data-preset="yoteidoori"]');
+if (yoteidooriBtn) {
+  yoteidooriBtn.addEventListener('click', function() {
+    document.body.style.filter = 'invert(1)';
+    setTimeout(function() { document.body.style.filter = 'none'; }, 80);
+  });
+}

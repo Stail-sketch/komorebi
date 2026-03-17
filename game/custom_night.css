@@ -1,140 +1,214 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&display=swap');
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  background: #0c0c10;
-  color: #c8c4bc;
-  font-family: 'Courier New', monospace;
+  background: #FFF8E7;
+  color: #5D4037;
+  font-family: 'Zen Maru Gothic', sans-serif;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '☆ ☁ ☆ ☁ ☆ ☁ ☆ ☁ ☆ ☁ ☆ ☁ ☆ ☁ ☆ ☁ ☆';
+  position: fixed;
+  top: 12px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #FFE082;
+  letter-spacing: 0.5em;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '☆ ☁ ☆ ☁ ☆ ☁ ☆ ☁ ☆ ☁ ☆ ☁ ☆ ☁ ☆ ☁ ☆';
+  position: fixed;
+  bottom: 12px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #FFE082;
+  letter-spacing: 0.5em;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .cn-container {
+  position: relative;
+  z-index: 1;
   width: 100%;
-  max-width: 900px;
-  padding: 40px 24px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 50px 24px 60px;
   text-align: center;
 }
 
-/* タイトル */
-.cn-title {
-  font-size: 1.8rem;
-  letter-spacing: 0.2em;
-  color: #e8e4dc;
-  margin-bottom: 40px;
+.cn-site-title {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #4CAF50;
+  margin-bottom: 8px;
+  letter-spacing: 0.1em;
 }
 
-/* キャラグリッド */
+.cn-subtitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #FF9800;
+  margin-bottom: 36px;
+  letter-spacing: 0.05em;
+}
+
 .cn-characters {
   display: flex;
   justify-content: center;
-  gap: 16px;
-  margin-bottom: 36px;
+  gap: 14px;
+  margin-bottom: 32px;
   flex-wrap: wrap;
 }
 
 .cn-char {
-  width: 140px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid #222;
-  padding: 16px 8px 12px;
-  transition: border-color 0.3s;
+  width: 150px;
+  background: #fff;
+  border: 3px solid #C8E6C9;
+  border-radius: 16px;
+  padding: 16px 8px 14px;
+  transition: all 0.3s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .cn-char:hover {
-  border-color: #444;
+  border-color: #4CAF50;
+  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.15);
+  transform: translateY(-2px);
 }
 
 .cn-char-icon {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   margin: 0 auto 10px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #F1F8E9;
+  border: 2px solid #C8E6C9;
 }
 
 .cn-char-icon img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  filter: grayscale(0.3);
-  transition: filter 0.3s;
+  object-fit: cover;
 }
 
 .cn-char-name {
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: 0.75rem;
-  color: #999;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #5D4037;
   margin-bottom: 10px;
-  letter-spacing: 0.05em;
 }
 
-/* AIレベルスライダー */
 .cn-slider {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .cn-btn-minus,
 .cn-btn-plus {
-  background: none;
-  border: 1px solid #333;
-  color: #888;
-  width: 28px;
-  height: 28px;
-  font-size: 0.8rem;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #C8E6C9;
+  border-radius: 50%;
+  background: #fff;
+  color: #4CAF50;
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cn-btn-minus:hover,
 .cn-btn-plus:hover {
-  border-color: #666;
-  color: #ccc;
+  background: #4CAF50;
+  color: #fff;
+  border-color: #4CAF50;
 }
 
 .cn-level {
-  font-size: 1.2rem;
-  color: #e8e4dc;
-  min-width: 32px;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #5D4037;
+  min-width: 36px;
   text-align: center;
+  transition: transform 0.15s;
 }
 
-/* レベルが0の時は暗く */
+.cn-char[data-active="false"] {
+  border-color: #E0E0E0;
+  opacity: 0.5;
+}
+
+.cn-char[data-active="false"] .cn-char-icon {
+  border-color: #E0E0E0;
+  background: #F5F5F5;
+}
+
 .cn-char[data-active="false"] .cn-char-icon img {
-  filter: grayscale(1) brightness(0.4);
+  filter: grayscale(1) brightness(0.8);
 }
 
-.cn-char[data-active="false"] .cn-char-name {
-  color: #555;
+.cn-char[data-high="true"] {
+  border-color: #FF9800;
 }
 
-.cn-char[data-active="false"] .cn-level {
-  color: #555;
-}
-
-/* レベルが20の時は赤く */
-.cn-char[data-maxed="true"] .cn-level {
-  color: #c44;
+.cn-char[data-high="true"] .cn-level {
+  color: #FF9800;
 }
 
 .cn-char[data-maxed="true"] {
-  border-color: #522;
+  border-color: #F44336;
+  box-shadow: 0 0 12px rgba(244, 67, 54, 0.2);
 }
 
-/* プリセット */
+.cn-char[data-maxed="true"] .cn-level {
+  color: #F44336;
+}
+
+.cn-char[data-maxed="true"] .cn-char-icon {
+  border-color: #F44336;
+}
+
+.cn-char[data-char="shisaku"] {
+  background: #FAFAFA;
+  border-color: #BDBDBD;
+}
+
+.cn-char[data-char="shisaku"] .cn-char-icon {
+  background: #EEEEEE;
+  border-color: #BDBDBD;
+}
+
+.cn-char[data-char="shisaku"] .cn-char-name {
+  color: #757575;
+}
+
 .cn-presets {
   margin-bottom: 24px;
 }
 
 .cn-presets-label {
-  font-size: 0.75rem;
-  color: #555;
-  margin-bottom: 10px;
-  letter-spacing: 0.1em;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #FFD54F;
+  margin-bottom: 12px;
 }
 
 .cn-preset-buttons {
@@ -145,115 +219,133 @@ body {
 }
 
 .cn-preset {
-  background: none;
-  border: 1px solid #2a2a2e;
-  color: #888;
-  padding: 6px 14px;
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: 0.75rem;
+  background: #fff;
+  border: 2px solid #C8E6C9;
+  border-radius: 20px;
+  color: #5D4037;
+  padding: 6px 18px;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .cn-preset:hover {
-  border-color: #555;
-  color: #ccc;
+  background: #E8F5E9;
+  border-color: #4CAF50;
 }
 
-/* クリア済みプリセットに★マーク */
+.cn-preset.cleared {
+  background: #FFF8E1;
+  border-color: #FFD54F;
+}
+
 .cn-preset.cleared::after {
   content: ' ★';
-  color: #c90;
+  color: #FF9800;
 }
 
-/* 「予定通り」は特別な見た目 */
 .cn-preset[data-preset="yoteidoori"] {
-  border-color: #533;
-  color: #a66;
+  background: #FFF;
+  border-color: #E0E0E0;
+  color: #9E9E9E;
+  font-style: italic;
 }
 
 .cn-preset[data-preset="yoteidoori"]:hover {
-  border-color: #855;
-  color: #c88;
+  border-color: #F44336;
+  color: #F44336;
 }
 
-/* 星 */
 .cn-stars {
-  margin-bottom: 24px;
-  font-size: 1.2rem;
-  letter-spacing: 0.3em;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+  letter-spacing: 0.2em;
 }
 
-.cn-stars .star-empty {
-  color: #333;
-}
-
-.cn-stars .star-filled {
-  color: #c90;
-}
-
-/* 全クリア後は金色 */
+.cn-stars .star-empty { color: #E0E0E0; }
+.cn-stars .star-filled { color: #FF9800; }
 .cn-stars .star-gold {
-  color: #ffd700;
-  text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+  color: #FFD700;
+  text-shadow: 0 0 6px rgba(255, 215, 0, 0.5);
 }
 
-/* STARTボタン */
 .cn-start {
-  display: block;
-  margin: 0 auto 32px;
-  background: none;
-  border: 2px solid #c90;
-  color: #c90;
-  padding: 12px 60px;
-  font-family: 'Courier New', monospace;
-  font-size: 1.1rem;
-  letter-spacing: 0.15em;
+  display: inline-block;
+  margin: 0 auto 28px;
+  background: #4CAF50;
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  padding: 14px 50px;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
   cursor: pointer;
   transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
 }
 
 .cn-start:hover {
-  background: rgba(204, 153, 0, 0.1);
-  box-shadow: 0 0 15px rgba(204, 153, 0, 0.2);
+  background: #43A047;
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+  transform: translateY(-2px);
 }
 
-/* 下部ボタン */
 .cn-bottom {
   display: flex;
   justify-content: center;
-  gap: 24px;
-  margin-bottom: 40px;
+  gap: 16px;
+  margin-bottom: 30px;
 }
 
 .cn-share,
 .cn-back {
-  background: none;
-  border: 1px solid #2a2a2e;
-  color: #666;
+  background: #fff;
+  border: 2px solid #E0E0E0;
+  border-radius: 20px;
+  color: #8D6E63;
   padding: 8px 20px;
-  font-family: 'Courier New', monospace;
+  font-family: 'Zen Maru Gothic', sans-serif;
   font-size: 0.8rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .cn-share:hover,
 .cn-back:hover {
-  border-color: #555;
-  color: #999;
+  border-color: #4CAF50;
+  color: #4CAF50;
 }
 
-/* PROCESS STILL RUNNING（全クリア後のみ） */
 .cn-process {
   font-family: 'Courier New', monospace;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: #4a4;
   letter-spacing: 0.1em;
+  margin-top: 20px;
   animation: process-blink 3s infinite;
 }
 
 @keyframes process-blink {
   0%, 90%, 100% { opacity: 1; }
-  95% { opacity: 0.5; }
+  95% { opacity: 0.4; }
+}
+
+.floating-decor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.15;
+  animation: float-up 20s infinite linear;
+}
+
+@keyframes float-up {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.15; }
+  90% { opacity: 0.15; }
+  100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
 }
