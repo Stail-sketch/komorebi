@@ -11,6 +11,14 @@ body {
   font-family: 'Courier New', monospace;
   overflow: hidden;
   user-select: none;
+  -webkit-user-select: none;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: auto;
+  -webkit-touch-callout: none;
 }
 
 /* ===== イントロ画面 ===== */

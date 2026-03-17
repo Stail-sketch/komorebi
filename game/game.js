@@ -1230,6 +1230,10 @@ function setupEventListeners() {
 
 // --- 起動 ---
 document.addEventListener('DOMContentLoaded', () => {
+  // 画像ドラッグ・右クリック無効化
+  document.addEventListener('dragstart', e => e.preventDefault());
+  document.addEventListener('contextmenu', e => e.preventDefault());
+
   cacheDom();
   initSounds();
   setupEventListeners();
