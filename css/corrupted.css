@@ -1,0 +1,67 @@
+/* Night5クリア後 全体汚染エフェクト */
+
+/* 彩度低下 */
+body.corrupted { filter: saturate(0.4); }
+body.corrupted .official-main { filter: saturate(0.5); }
+
+/* スキャンライン強化（全ページに出現） */
+body.corrupted::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px
+  );
+}
+
+/* 不規則ちらつき */
+body.corrupted {
+  animation: corrupted-flicker 5s infinite;
+}
+@keyframes corrupted-flicker {
+  0%, 92%, 100% { opacity: 1; }
+  93% { opacity: 0.96; }
+  94% { opacity: 1; }
+  95% { opacity: 0.94; }
+  96% { opacity: 1; }
+  97% { opacity: 0.97; }
+}
+
+/* にじみ強化 */
+body.corrupted main p,
+body.corrupted main li,
+body.corrupted main td {
+  text-shadow: 0.5px 0 0 rgba(0,50,100,0.12),
+               -0.5px 0 0 rgba(100,0,0,0.12);
+}
+
+/* フォント化け */
+body.corrupted .post-body,
+body.corrupted .news-item {
+  font-family: monospace, sans-serif;
+}
+
+/* ランダムグリッチ用 */
+.glitch-flash {
+  animation: glitch-random 0.3s linear;
+}
+@keyframes glitch-random {
+  0% { filter: none; }
+  20% { filter: hue-rotate(90deg) saturate(2); }
+  40% { filter: invert(0.5); }
+  60% { filter: hue-rotate(180deg) contrast(1.5); }
+  80% { filter: none; }
+  100% { filter: none; }
+}
+
+/* 黒い消失矩形 */
+.corruption-block {
+  position: fixed;
+  background: #000;
+  z-index: 9990;
+  pointer-events: none;
+}

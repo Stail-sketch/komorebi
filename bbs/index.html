@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>掲示板 - こもれびゆうえんちのお部屋</title>
   <link rel="stylesheet" href="../css/fansite.css">
+  <style>.night5-content { display: none !important; }</style>
+<link rel="stylesheet" href="/css/corrupted.css">
+<script src="/js/corrupted.js" defer></script>
 </head>
 <body>
   <div class="main-container">
@@ -57,7 +60,8 @@
           2. <a href="thread2.html">打ち切り理由知ってる人いる？</a> (18)<br>
           3. <a href="thread3.html">あの番組見てた人集合！</a> (12)<br>
           4. <a href="thread4.html">このサイト見つけたんだけど…</a> (8)<br>
-          5. <a href="thread5.html">【雑談】なんでも話そうスレ</a> (31)
+          5. <a href="thread5.html">【雑談】なんでも話そうスレ</a> (31)<br>
+          <span class="night5-content">6. <a href="thread6.html">████████████████</a> (20)</span>
         </p>
 
         <p style="font-size:10px; color:#999;">※掲示板は2003年頃のものです。新規書き込みはできません。</p>
@@ -66,5 +70,12 @@
       </div>
     </div>
   </div>
+<script>
+if (localStorage.getItem('night5_cleared')) {
+  document.querySelectorAll('.night5-content').forEach(function(el) {
+    el.style.display = '';
+  });
+}
+</script>
 </body>
 </html>
