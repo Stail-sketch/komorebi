@@ -851,12 +851,18 @@ function spawnShisaku() {
   // Random camera (1-8)
   shisakuCamera = Math.floor(Math.random() * 8) + 1;
 
-  // Brief noise on all cameras
-  var camView = document.getElementById('camera-view');
-  if (camView) {
-    camView.style.filter = 'invert(1) hue-rotate(90deg)';
-    setTimeout(function() { camView.style.filter = ''; }, 500);
-  }
+  // 全画面ノイズ（警備室＋カメラ両方に適用）
+  var noiseTargets = [
+    document.getElementById('camera-view'),
+    document.getElementById('office-view'),
+    document.querySelector('.game-container')
+  ];
+  noiseTargets.forEach(function(el) {
+    if (el) {
+      el.style.filter = 'invert(1) hue-rotate(90deg)';
+      setTimeout(function() { el.style.filter = ''; }, 500);
+    }
+  });
 
   // Show shisaku if player is viewing the correct camera
   updateShisakuDisplay();
@@ -893,12 +899,18 @@ function clickShisaku() {
   shisakuCamera = -1;
   var overlay = document.getElementById('shisaku-overlay');
   if (overlay) overlay.style.display = 'none';
-  // Brief noise effect on clear
-  var camView = document.getElementById('camera-view');
-  if (camView) {
-    camView.style.filter = 'invert(0.5)';
-    setTimeout(function() { camView.style.filter = ''; }, 200);
-  }
+  // Brief noise effect on clear（全画面）
+  var clearTargets = [
+    document.getElementById('camera-view'),
+    document.getElementById('office-view'),
+    document.querySelector('.game-container')
+  ];
+  clearTargets.forEach(function(el) {
+    if (el) {
+      el.style.filter = 'invert(0.5)';
+      setTimeout(function() { el.style.filter = ''; }, 200);
+    }
+  });
 }
 
 // ===== Step 5: ジャンプスケアとクリア演出 =====
