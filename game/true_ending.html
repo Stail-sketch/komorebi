@@ -20,6 +20,11 @@
     .white-bg { background:#fff !important; }
     @keyframes pulse { 0%,100%{opacity:0.6;} 50%{opacity:1;} }
     .pulse { animation:pulse 2s infinite; }
+    .all-clear { font-size:2.2rem; letter-spacing:0.25em; font-weight:bold; background:linear-gradient(90deg,#ffd700,#fff,#ffd700); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; text-shadow:none; filter:drop-shadow(0 0 15px rgba(255,215,0,0.6)) drop-shadow(0 0 30px rgba(255,215,0,0.3)); }
+    .all-clear .char { opacity:0; display:inline-block; }
+    .all-clear .char.visible { opacity:1; transform:scale(1.1); transition:opacity 0.1s, transform 0.3s; }
+    @keyframes glow-pulse { 0%,100%{filter:drop-shadow(0 0 15px rgba(255,215,0,0.6));} 50%{filter:drop-shadow(0 0 30px rgba(255,215,0,0.9)) drop-shadow(0 0 50px rgba(255,215,0,0.4));} }
+    .all-clear.glow { animation:glow-pulse 2s infinite; }
   </style>
 </head>
 <body>
@@ -146,16 +151,33 @@ async function trueEnding() {
   // ===== ⑥ 余韻（10秒）=====
   // チャイム＋歓声を同時再生
   var chime = new Audio('sound/clear_chime.mp3');
-  chime.volume = 0.02;
+  chime.volume = 0.04;
   chime.play().catch(function(){});
 
   var yay = new Audio('sound/clear_yay.mp3');
-  yay.volume = 0.6;
+  yay.volume = 0.02;
   yay.play().catch(function(){});
 
-  // 「ALL NIGHTS CLEARED」表示（白背景に黒文字）
+  // 「ALL NIGHTS CLEARED」タイプライター表示（ゴールド・派手）
   await sleep(1000);
-  showText('ALL NIGHTS CLEARED', '', {fontSize:'1.4rem', color:'#333', letterSpacing:'0.15em'});
+  var clearEl = document.createElement('div');
+  clearEl.className = 'fade-text all-clear visible';
+  clearEl.style.position = 'absolute';
+  stage.appendChild(clearEl);
+  var clearText = 'ALL NIGHTS CLEARED';
+  for (var ci = 0; ci < clearText.length; ci++) {
+    var cs = document.createElement('span');
+    cs.className = 'char';
+    cs.textContent = clearText[ci] === ' ' ? '\u00A0' : clearText[ci];
+    clearEl.appendChild(cs);
+  }
+  var clearChars = clearEl.querySelectorAll('.char');
+  for (var ci = 0; ci < clearChars.length; ci++) {
+    clearChars[ci].classList.add('visible');
+    await sleep(80);
+  }
+  await sleep(500);
+  clearEl.classList.add('glow');
 
   // 歓声が流れる
   await sleep(7000);
