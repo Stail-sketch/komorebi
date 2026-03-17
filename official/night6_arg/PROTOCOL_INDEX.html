@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROTOCOL // INDEX</title>
+  <style>
+    body { margin:0; padding:0; background:#0a0a0a; color:#0f0; font-family:'Courier New',monospace; font-size:0.85rem; line-height:1.6; }
+    body::after { content:''; position:fixed; top:0;left:0; width:100%;height:100%; pointer-events:none; z-index:9998; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,0,0.03) 2px,rgba(0,255,0,0.03) 4px); }
+    .terminal { max-width:800px; margin:0 auto; padding:30px 40px; }
+    .terminal-header { color:#0a0; font-size:0.75rem; border-bottom:1px solid #0a0; padding-bottom:10px; margin-bottom:20px; }
+    h1 { color:#0f0; font-size:1.1rem; margin:0 0 20px; }
+    p { margin:0 0 12px; }
+    a { color:#0cf; }
+    a:hover { color:#0ff; }
+    .redacted { background:#0f0; color:#0f0; padding:0 2px; }
+    .warning { color:#f44; }
+    .dim { color:#050; }
+    .back-link { margin-top:30px; display:block; color:#0a0; font-size:0.8rem; }
+    ul { list-style:none; padding:0; }
+    ul li { margin:0 0 8px; }
+    ul li::before { content:'> '; color:#0a0; }
+  </style>
+</head>
+<body>
+<div class="terminal">
+  <div class="terminal-header">YUME_STUDIO_INTERNAL // ACCESS_LEVEL: RESTRICTED // SESSION: ████████</div>
+  <h1>> PROTOCOL // INDEX</h1>
+  <p>Available protocol documents:</p>
+  <ul>
+    <li><a href="PROTOCOL_UNIT_MALFUNCTION.html">UNIT_MALFUNCTION — Standard Response</a></li>
+    <li><a href="PROTOCOL_EMERGENCY_PROCEDURES.html">EMERGENCY_PROCEDURES — General</a></li>
+    <li><a href="PROTOCOL_UNKNOWN_ENTITY.html">UNKNOWN_ENTITY — <span class="warning">[INCOMPLETE]</span></a></li>
+    <li><a href="PROTOCOL_NIGHT6_ACCESS.html">NIGHT6_ACCESS — Terminal</a></li>
+    <li><a href="PROTOCOL_FINAL_WARNING.html">FINAL_WARNING — <span class="warning">[ORIGIN UNKNOWN]</span></a></li>
+  </ul>
+  <a class="back-link" href="SYSTEM_LOG_INDEX.html">> SYSTEM_LOGS</a>
+  <a class="back-link" href="TECH_SPEC_INDEX.html">> TECH_SPEC</a>
+</div>
+<script>
+localStorage.setItem('arg_s0', 'true');
+if (!localStorage.getItem('night5_cleared')) { location.href = '../index.html'; }
+</script>
+</body>
+</html>

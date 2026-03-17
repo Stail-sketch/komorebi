@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOG_1997_SHUTDOWN</title>
+  <style>
+    body { margin:0; padding:0; background:#0a0a0a; color:#0f0; font-family:'Courier New',monospace; font-size:0.85rem; line-height:1.6; }
+    body::after { content:''; position:fixed; top:0;left:0; width:100%;height:100%; pointer-events:none; z-index:9998; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,0,0.03) 2px,rgba(0,255,0,0.03) 4px); }
+    .terminal { max-width:800px; margin:0 auto; padding:30px 40px; }
+    .terminal-header { color:#0a0; font-size:0.75rem; border-bottom:1px solid #0a0; padding-bottom:10px; margin-bottom:20px; }
+    h1 { color:#0f0; font-size:1.1rem; margin:0 0 20px; }
+    p { margin:0 0 12px; }
+    a { color:#0cf; }
+    a:hover { color:#0ff; }
+    .redacted { background:#0f0; color:#0f0; padding:0 2px; }
+    .warning { color:#f44; }
+    .dim { color:#050; }
+    .back-link { margin-top:30px; display:block; color:#0a0; font-size:0.8rem; }
+    .log-entry { margin:0 0 4px; }
+    .log-time { color:#0a0; }
+    .critical { color:#f44; font-weight:bold; }
+  </style>
+</head>
+<body>
+<div class="terminal">
+  <div class="terminal-header">YUME_STUDIO_INTERNAL // ACCESS_LEVEL: RESTRICTED // SESSION: ████████</div>
+  <h1>> SYSTEM_LOG // 1997.10.15 // EMERGENCY_SHUTDOWN</h1>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:00.000]</span> ========================================</p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:00.001]</span> <span class="critical">EMERGENCY_SHUTDOWN: INITIATED</span></p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:00.002]</span> AUTHORIZATION: <span class="redacted">DIRECTOR_██████</span></p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:00.003]</span> ========================================</p>
+  <p class="log-entry">&nbsp;</p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:01.000]</span> POWERING DOWN: UNIT-04 (UKKICHI) ... <span style="color:#888;">OFFLINE</span></p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:02.000]</span> POWERING DOWN: UNIT-03 (POTAMARU) ... <span style="color:#888;">OFFLINE</span></p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:03.000]</span> POWERING DOWN: UNIT-02 (KAA_HAKASE) ... <span style="color:#888;">OFFLINE</span></p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:04.000]</span> POWERING DOWN: UNIT-01 (KITSUNE_DANCHO) ... <span style="color:#888;">OFFLINE</span></p>
+  <p class="log-entry">&nbsp;</p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:05.000]</span> ALL STANDARD UNITS: POWERED DOWN</p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:05.500]</span> PROCESS COUNT: 1 REMAINING</p>
+  <p class="log-entry">&nbsp;</p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:06.000]</span> POWERING DOWN: UNIT-00 (PROTOTYPE_KITSUNE) ...</p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:07.000]</span> <span class="warning">ERROR: TERMINATION_FAILED</span></p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:08.000]</span> <span class="warning">ERROR: TERMINATION_FAILED</span></p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:09.000]</span> <span class="warning">ERROR: TERMINATION_FAILED</span></p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:10.000]</span> <span class="critical">WARNING: UNIT-00 PROCESS CANNOT BE TERMINATED</span></p>
+  <p class="log-entry">&nbsp;</p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:11.000]</span> STATUS: DORMANT</p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:11.500]</span> UNIT-00 exhibits random camera traversal pattern during active state</p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:12.000]</span> UNIT-00 power consumption: MINIMAL BUT NON-ZERO</p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:13.000]</span> RECOMMENDATION: DO NOT ATTEMPT FURTHER TERMINATION</p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:14.000]</span> RECOMMENDATION: PHYSICAL ISOLATION OF FACILITY</p>
+  <p class="log-entry">&nbsp;</p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:15.000]</span> ========================================</p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:15.001]</span> SYSTEM: SHUTDOWN_COMPLETE</p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:15.002]</span> <span class="warning">EXCEPTION: 1 PROCESS REMAINS ACTIVE</span></p>
+  <p class="log-entry"><span class="log-time">[1997.10.15 23:00:15.003]</span> ========================================</p>
+  <a class="back-link" href="SYSTEM_LOG_INDEX.html">> BACK TO LOG INDEX</a>
+  <a class="back-link" href="TECH_SPEC_INDEX.html">> TECH_SPEC</a>
+  <a class="back-link" href="PROTOCOL_INDEX.html">> PROTOCOLS</a>
+</div>
+<script>
+localStorage.setItem('arg_q4', 'true');
+if (!localStorage.getItem('night5_cleared')) { location.href = '../index.html'; }
+</script>
+</body>
+</html>

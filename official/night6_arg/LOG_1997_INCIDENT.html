@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOG_1997_INCIDENT</title>
+  <style>
+    body { margin:0; padding:0; background:#0a0a0a; color:#0f0; font-family:'Courier New',monospace; font-size:0.85rem; line-height:1.6; }
+    body::after { content:''; position:fixed; top:0;left:0; width:100%;height:100%; pointer-events:none; z-index:9998; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,0,0.03) 2px,rgba(0,255,0,0.03) 4px); }
+    .terminal { max-width:800px; margin:0 auto; padding:30px 40px; }
+    .terminal-header { color:#0a0; font-size:0.75rem; border-bottom:1px solid #0a0; padding-bottom:10px; margin-bottom:20px; }
+    h1 { color:#0f0; font-size:1.1rem; margin:0 0 20px; }
+    p { margin:0 0 12px; }
+    a { color:#0cf; }
+    a:hover { color:#0ff; }
+    .redacted { background:#0f0; color:#0f0; padding:0 2px; }
+    .warning { color:#f44; }
+    .dim { color:#050; }
+    .back-link { margin-top:30px; display:block; color:#0a0; font-size:0.8rem; }
+    .log-entry { margin:0 0 4px; }
+    .log-time { color:#0a0; }
+    .critical { color:#f44; font-weight:bold; }
+  </style>
+</head>
+<body>
+<div class="terminal">
+  <div class="terminal-header">YUME_STUDIO_INTERNAL // ACCESS_LEVEL: RESTRICTED // SESSION: ████████</div>
+  <h1>> SYSTEM_LOG // 1997.██.██ // <span class="critical">CRITICAL_INCIDENT</span></h1>
+  <p class="warning">██████████████████████████████████████████████████</p>
+  <p class="warning">  CLASSIFICATION: CRITICAL — UNAUTHORIZED ACCESS</p>
+  <p class="warning">██████████████████████████████████████████████████</p>
+  <p>&nbsp;</p>
+  <p class="log-entry"><span class="log-time">[1997.██.██ 08:30:55.███]</span> SYSTEM_STATUS: NOMINAL</p>
+  <p class="log-entry"><span class="log-time">[1997.██.██ 08:30:58.███]</span> UNIT-01 THROUGH UNIT-04: STANDARD_OPERATION</p>
+  <p class="log-entry"><span class="log-time">[1997.██.██ 08:31:00.███]</span> PATTERN_BROADCAST: ACTIVE</p>
+  <p class="log-entry">&nbsp;</p>
+  <p class="log-entry"><span class="log-time">[1997.██.██ 08:31:02.███]</span> <span class="critical">WARNING: UNAUTHORIZED_DATA_INJECTION</span></p>
+  <p class="log-entry"><span class="log-time">[1997.██.██ 08:31:02.███]</span> <span class="critical">ALL_CAMERA_FEED: NOISE_DETECTED</span></p>
+  <p class="log-entry"><span class="log-time">[1997.██.██ 08:31:03.███]</span> <span class="critical">UNIT-00 SIGNATURE DETECTED ON CAM-██</span></p>
+  <p class="log-entry"><span class="log-time">[1997.██.██ 08:31:04.███]</span> CONTAINMENT_PROTOCOL: INITIATED</p>
+  <p class="log-entry"><span class="log-time">[1997.██.██ 08:31:05.███]</span> PHYSICAL_BARRIER: DEPLOYED — <span class="warning">NO EFFECT</span></p>
+  <p class="log-entry"><span class="log-time">[1997.██.██ 08:31:07.███]</span> STANDARD_PROCEDURES: <span class="warning">INEFFECTIVE</span></p>
+  <p class="log-entry"><span class="log-time">[1997.██.██ 08:31:09.███]</span> UNIT-00 SIGNATURE: INTENSIFYING</p>
+  <p class="log-entry"><span class="log-time">[1997.██.██ 08:31:11.███]</span> DATA_INTEGRITY: <span class="warning">COMPROMISED</span></p>
+  <p class="log-entry"><span class="log-time">[1997.██.██ 08:31:13.███]</span> <span class="critical">RESPONSE_TIMEOUT: 10000ms EXCEEDED</span></p>
+  <p class="log-entry"><span class="log-time">[1997.██.██ 08:31:13.███]</span> <span class="critical">CONTAINMENT_FAILURE</span></p>
+  <p class="log-entry"><span class="log-time">[1997.██.██ 08:31:14.███]</span> <span class="critical">BROADCAST_CONTAMINATION: ██ SECONDS</span></p>
+  <p class="log-entry">&nbsp;</p>
+  <p class="log-entry"><span class="log-time">[1997.██.██ 08:31:14.███]</span> PATTERN_DATA: CORRUPTED</p>
+  <p class="log-entry"><span class="log-time">[1997.██.██ 08:31:15.███]</span> UNIT-00 DATA MERGED WITH BROADCAST STREAM</p>
+  <p class="log-entry"><span class="log-time">[1997.██.██ 08:31:16.███]</span> AFFECTED SUBJECTS: <span class="redacted">CLASSIFIED</span></p>
+  <p class="log-entry">&nbsp;</p>
+  <p class="dim">// NOTE: 10 seconds between UNIT-00 detection [08:31:03] and containment failure [08:31:13]</p>
+  <p class="dim">// NOTE: Response window = 10000ms</p>
+  <p class="dim">// NOTE: Physical barriers proved ineffective against UNIT-00</p>
+  <a class="back-link" href="SYSTEM_LOG_INDEX.html">> BACK TO LOG INDEX</a>
+  <a class="back-link" href="TECH_SPEC_INDEX.html">> TECH_SPEC</a>
+  <a class="back-link" href="PROTOCOL_INDEX.html">> PROTOCOLS</a>
+</div>
+<script>
+localStorage.setItem('arg_q3', 'true');
+if (!localStorage.getItem('night5_cleared')) { location.href = '../index.html'; }
+</script>
+</body>
+</html>

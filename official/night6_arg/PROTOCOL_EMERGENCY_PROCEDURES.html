@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROTOCOL_EMERGENCY_PROCEDURES</title>
+  <style>
+    body { margin:0; padding:0; background:#0a0a0a; color:#0f0; font-family:'Courier New',monospace; font-size:0.85rem; line-height:1.6; }
+    body::after { content:''; position:fixed; top:0;left:0; width:100%;height:100%; pointer-events:none; z-index:9998; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,0,0.03) 2px,rgba(0,255,0,0.03) 4px); }
+    .terminal { max-width:800px; margin:0 auto; padding:30px 40px; }
+    .terminal-header { color:#0a0; font-size:0.75rem; border-bottom:1px solid #0a0; padding-bottom:10px; margin-bottom:20px; }
+    h1 { color:#0f0; font-size:1.1rem; margin:0 0 20px; }
+    h2 { color:#0a0; font-size:0.95rem; margin:20px 0 10px; }
+    p { margin:0 0 12px; }
+    a { color:#0cf; }
+    a:hover { color:#0ff; }
+    .redacted { background:#0f0; color:#0f0; padding:0 2px; }
+    .warning { color:#f44; }
+    .dim { color:#050; }
+    .back-link { margin-top:30px; display:block; color:#0a0; font-size:0.8rem; }
+  </style>
+</head>
+<body>
+<div class="terminal">
+  <div class="terminal-header">YUME_STUDIO_INTERNAL // ACCESS_LEVEL: RESTRICTED // SESSION: ████████</div>
+  <h1>> PROTOCOL // EMERGENCY_PROCEDURES — GENERAL</h1>
+
+  <h2>> POWER MANAGEMENT</h2>
+  <p>Total available power per session: 100 units</p>
+  <p>Camera check: 0 units (manual operation)</p>
+  <p>Shutter deployment: Variable drain rate per second</p>
+  <p>Clock winding: 0 units (mechanical operation)</p>
+  <p>&nbsp;</p>
+  <p class="warning">WARNING: Power depletion = total system failure. Operator will be exposed to all active UNITs without countermeasures.</p>
+
+  <h2>> CAMERA ROTATION SCHEDULE</h2>
+  <p>Recommended check interval: 3-5 seconds between camera cycles</p>
+  <p>Priority order during multi-unit events:</p>
+  <p>1. Door cameras (immediate threat assessment)</p>
+  <p>2. Adjacent room cameras (approach detection)</p>
+  <p>3. Distant room cameras (early warning)</p>
+
+  <h2>> MULTI-UNIT EVENT</h2>
+  <p>When multiple UNITs approach simultaneously:</p>
+  <p>- Prioritize the closest UNIT</p>
+  <p>- Deploy shutter only when necessary (conserve power)</p>
+  <p>- Maintain camera awareness of secondary threats</p>
+  <p>- UNIT-01 clock takes priority if winding is critical</p>
+
+  <h2>> SESSION DURATION</h2>
+  <p>Standard session: 6 hours (simulated)</p>
+  <p>UNIT aggression increases proportionally with elapsed time.</p>
+  <p>Peak danger period: Final 20% of session duration.</p>
+  <p class="dim">// Survival past session end triggers automatic system reset</p>
+
+  <a class="back-link" href="PROTOCOL_INDEX.html">> BACK TO PROTOCOL INDEX</a>
+  <a class="back-link" href="SYSTEM_LOG_INDEX.html">> SYSTEM_LOGS</a>
+  <a class="back-link" href="TECH_SPEC_INDEX.html">> TECH_SPEC</a>
+</div>
+<script>
+localStorage.setItem('arg_s2', 'true');
+if (!localStorage.getItem('night5_cleared')) { location.href = '../index.html'; }
+</script>
+</body>
+</html>
