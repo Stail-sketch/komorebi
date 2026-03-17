@@ -101,7 +101,7 @@ document.getElementById('cn-start').addEventListener('click', function() {
   localStorage.setItem('custom_current_preset', matchedPreset || 'custom');
   localStorage.setItem('custom_night', 'true');
 
-  window.location.href = 'night6.html';
+  window.location.href = 'custom_night_game.html';
 });
 
 // Xシェアボタン

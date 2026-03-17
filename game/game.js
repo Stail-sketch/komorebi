@@ -201,8 +201,42 @@ const NIGHT_PARAMS = {
   },
 };
 
+// カスタムナイト用：AIレベルからパラメータを生成
+function buildCustomNightParams() {
+  var cl = JSON.parse(localStorage.getItem('custom_levels') || '{}');
+  var lv = {
+    kitsune: cl.kitsune || 0, kaa: cl.kaa || 0,
+    ukkichi: cl.ukkichi || 0, potamaru: cl.potamaru || 0,
+    shisaku: cl.shisaku || 0
+  };
+  // レベル→移動間隔（秒）: lv0=不動, lv1=15s, lv20=2s
+  function toInterval(l) { return l === 0 ? [9999,9999] : (function(){ var v=15-(l-1)*(13/19); return [Math.max(2,v-1),Math.max(2,v+1)]; })(); }
+  // レベル→ドア待機（秒）: lv0=不動, lv1=8s, lv20=1s
+  function toDoorWait(l) { return l === 0 ? [9999,9999] : (function(){ var v=8-(l-1)*(7/19); return [Math.max(1,v-1),Math.max(1,v+1)]; })(); }
+  return {
+    powerBaseDrain: 0.08,
+    clockDrain: lv.kitsune === 0 ? 0 : 0.5 + (lv.kitsune / 20) * 4.5,
+    clockWindPerClick: 1,
+    kaaFirstMove: lv.kaa === 0 ? [9999,9999] : toInterval(lv.kaa),
+    kaaMoveInterval: toInterval(lv.kaa),
+    kaaDoorWait: toDoorWait(lv.kaa),
+    ukkichiFirstMove: lv.ukkichi === 0 ? [9999,9999] : toInterval(lv.ukkichi),
+    ukkichiMoveInterval: toInterval(lv.ukkichi),
+    ukkichiDoorWait: toDoorWait(lv.ukkichi),
+    potamaruFirstMusic: lv.potamaru === 0 ? [9999,9999] : (function(){ var v=30-(lv.potamaru-1)*(25/19); return [Math.max(5,v-2),Math.max(5,v+2)]; })(),
+    potamaruMusicInterval: lv.potamaru === 0 ? [9999,9999] : (function(){ var v=30-(lv.potamaru-1)*(25/19); return [Math.max(5,v-2),Math.max(5,v+2)]; })(),
+    potamaruRushTime: lv.potamaru === 0 ? 9999 : Math.max(0.5, 3 - (lv.potamaru-1)*(2.5/19)),
+    _customShisakuChance: lv.shisaku === 0 ? 0 : 0.02 + (lv.shisaku-1)*(0.23/19),
+    _customShisakuTimer: lv.shisaku === 0 ? 9999 : Math.max(5, 15 - (lv.shisaku-1)*(10/19)),
+  };
+}
+
 // 現在のNightのパラメータを取得
 function getNightParams() {
+  if (typeof IS_CUSTOM_NIGHT !== 'undefined' && IS_CUSTOM_NIGHT) {
+    if (!window._customParams) window._customParams = buildCustomNightParams();
+    return window._customParams;
+  }
   return NIGHT_PARAMS[gameState.night] || NIGHT_PARAMS[1];
 }
 
@@ -835,13 +869,20 @@ function updateDoorSilhouettes() {
 function checkShisakuSpawn() {
   if (NIGHT_NUMBER !== 6 || shisakuActive || !gameState.running) return;
 
-  // Time-based probability
-  var elapsed = (Date.now() - gameStartTime) / 1000;
-  var hour = Math.floor(elapsed / 30); // 0-5 (12AM-5AM)
-  var probs = [0.05, 0.07, 0.10, 0.13, 0.17, 0.20];
-  var prob = probs[Math.min(hour, 5)];
+  var prob;
+  if (typeof IS_CUSTOM_NIGHT !== 'undefined' && IS_CUSTOM_NIGHT) {
+    // カスタムナイト：レベル依存の固定確率
+    var params = getNightParams();
+    prob = params._customShisakuChance || 0;
+  } else {
+    // 通常Night6：時間経過で上昇
+    var elapsed = (Date.now() - gameStartTime) / 1000;
+    var hour = Math.floor(elapsed / 30);
+    var probs = [0.05, 0.07, 0.10, 0.13, 0.17, 0.20];
+    prob = probs[Math.min(hour, 5)];
+  }
 
-  if (Math.random() < prob) {
+  if (prob > 0 && Math.random() < prob) {
     spawnShisaku();
   }
 }
