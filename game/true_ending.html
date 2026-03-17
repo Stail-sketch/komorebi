@@ -88,14 +88,14 @@ async function trueEnding() {
   clearStage();
   await sleep(3000);
 
-  // ⑤D 確認（重ねて表示）
+  // ⑤D 確認（重ねて表示・大きめ）
   await sleep(3000);
-  showText('被験者管理記録 更新', 'system-text', {marginBottom:'60px'});
+  showText('被験者管理記録 更新', 'system-text', {fontSize:'1.1rem', marginBottom:'70px'});
   await sleep(2000);
-  showText('S-012 | 悠具志 業', 'system-text', {marginBottom:'20px'});
-  await sleep(2000);
-  showText('状態：——意識回復', 'green-text', {fontSize:'1.1rem', marginTop:'20px'});
+  showText('S-012 | 悠具志 業', 'system-text', {fontSize:'1.2rem', marginBottom:'20px'});
   await sleep(4000);
+  showText('状態：──　意識回復', 'green-text', {fontSize:'1.5rem', marginTop:'30px'});
+  await sleep(6000);
   clearStage();
 
   // ⑤E ホワイトアウト
