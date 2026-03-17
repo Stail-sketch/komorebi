@@ -10,6 +10,8 @@
     .night3-content { display: none !important; }
     .night4-content { display: none !important; }
     .night5-content { display: none !important; }
+    @keyframes oshirase-glow { 0%,100%{background-color:transparent;box-shadow:none;} 50%{background-color:rgba(255,255,200,0.08);box-shadow:0 0 12px rgba(255,255,200,0.1);} }
+    .oshirase-highlight { animation:oshirase-glow 1.5s ease-in-out 3; border-left:2px solid rgba(255,255,200,0.3); padding-left:12px; }
   </style>
 <link rel="stylesheet" href="/css/corrupted.css">
 <script src="/js/corrupted.js" defer></script>
@@ -53,10 +55,10 @@
     <h2 class="section-title">おしらせ</h2>
 
     <div class="news-list">
-      <div class="news-item night5-content"><span class="news-date">1997.10.██</span><a href="night5/sealed_list.html">封印ファイルが解放されました。</a></div>
-      <div class="news-item night4-content"><span class="news-date">────.──.──</span><a href="restored_n4.html">アーカイブが復元されました。</a></div>
-      <div class="news-item night3-content"><span class="news-date">────.──.──</span><a href="restored_n3.html">アーカイブが復元されました。</a></div>
-      <div class="news-item night2-content"><span class="news-date">────.──.──</span><a href="restored.html">アーカイブが復元されました。</a></div>
+      <div class="news-item night5-content" data-night="night5"><span class="news-date">1997.10.██</span><a href="night5/sealed_list.html">封印ファイルが解放されました。</a></div>
+      <div class="news-item night4-content" data-night="night4"><span class="news-date">────.──.──</span><a href="restored_n4.html">アーカイブが復元されました。</a></div>
+      <div class="news-item night3-content" data-night="night3"><span class="news-date">────.──.──</span><a href="restored_n3.html">アーカイブが復元されました。</a></div>
+      <div class="news-item night2-content" data-night="night2"><span class="news-date">────.──.──</span><a href="restored.html">アーカイブが復元されました。</a></div>
       <div class="news-item"><span class="news-date">1997.09.20</span>来週の放送予定について</div>
       <div class="news-item"><span class="news-date">1997.09.13</span>秋の特別企画のお知らせ</div>
       <div class="news-item"><span class="news-date">1997.08.30</span>夏休みスペシャル放送ありがとうございました</div>
@@ -100,6 +102,23 @@
     }
     if (localStorage.getItem('night5_cleared') === 'true') {
       document.querySelectorAll('.night5-content').forEach(function(el) { el.style.setProperty('display', '', 'important'); el.classList.remove('night5-content'); });
+    }
+
+    // おしらせハイライト演出（just_clearedパラメータ）
+    var params = new URLSearchParams(window.location.search);
+    var justCleared = params.get('just_cleared');
+    if (justCleared) {
+      history.replaceState(null, '', window.location.pathname);
+      var target = document.querySelector('[data-night="' + justCleared + '"]');
+      if (target) {
+        setTimeout(function() {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 500);
+        target.classList.add('oshirase-highlight');
+        setTimeout(function() {
+          target.classList.remove('oshirase-highlight');
+        }, 5000);
+      }
     }
   </script>
 </body>
