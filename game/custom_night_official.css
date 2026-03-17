@@ -282,3 +282,102 @@
   0%, 90%, 100% { opacity: 1; }
   95% { opacity: 0.4; }
 }
+
+/* ===================================
+   全体サイズアップ
+   =================================== */
+
+.official-main {
+  max-width: 1100px !important;
+  padding: 40px 32px !important;
+}
+
+.cn-page-title,
+.section-title {
+  font-size: 2rem !important;
+  margin-bottom: 32px !important;
+}
+
+.cn-characters {
+  gap: 16px;
+  margin-bottom: 40px;
+  flex-wrap: nowrap;
+}
+
+.cn-char {
+  width: 190px;
+  min-width: 150px;
+  flex-shrink: 1;
+  padding: 20px 12px 16px;
+  border-radius: 16px;
+  border-width: 3px;
+}
+
+.cn-char-icon {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 12px;
+  border-width: 3px;
+}
+
+.cn-char-name {
+  font-size: 1.15rem;
+  margin-bottom: 12px;
+}
+
+.cn-slider { gap: 10px; }
+
+.cn-btn-minus,
+.cn-btn-plus {
+  width: 42px;
+  height: 42px;
+  font-size: 1.3rem;
+  border-width: 3px;
+}
+
+.cn-level {
+  font-size: 2.2rem;
+  min-width: 48px;
+}
+
+.cn-presets { margin-bottom: 28px; }
+
+.cn-presets-label {
+  font-size: 1.3rem;
+  margin-bottom: 14px;
+}
+
+.cn-preset-buttons { gap: 10px; }
+
+.cn-preset {
+  font-size: 1.05rem;
+  padding: 10px 24px;
+  border-radius: 24px;
+}
+
+.cn-stars {
+  font-size: 1.8rem;
+  letter-spacing: 0.3em;
+  margin-bottom: 24px;
+}
+
+.cn-start {
+  font-size: 1.6rem;
+  padding: 18px 80px;
+  border-radius: 36px;
+  margin-bottom: 32px;
+}
+
+.cn-bottom { gap: 20px; margin-bottom: 24px; }
+
+.cn-share,
+.cn-back {
+  font-size: 1rem;
+  padding: 10px 28px;
+  border-radius: 24px;
+}
+
+.cn-process {
+  font-size: 0.85rem;
+  padding: 20px 0;
+}
