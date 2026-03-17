@@ -20,6 +20,12 @@ function updateLevel(char, delta) {
   var charEl = document.querySelector('.cn-char[data-char="' + char + '"]');
   charEl.setAttribute('data-active', levels[char] > 0 ? 'true' : 'false');
   charEl.setAttribute('data-maxed', levels[char] === 20 ? 'true' : 'false');
+
+  // レベル20でjumpscare画像に切り替え
+  var img = charEl.querySelector('.cn-char-icon img');
+  if (img) {
+    img.src = levels[char] === 20 ? img.dataset.scare : img.dataset.normal;
+  }
 }
 
 // ◄►ボタン
