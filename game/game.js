@@ -963,11 +963,41 @@ function gameClear() {
 
   // Night6: クリア画面なし → 即座に真エンディングへ
   if (NIGHT_NUMBER === 6) {
-    // 画面を黒のまま、音なし、1秒後に遷移
-    setTimeout(() => {
-      allowNavigation();
-      window.location.href = 'true_ending.html';
-    }, 1000);
+    var customPreset = localStorage.getItem('custom_current_preset');
+    var isCustom = localStorage.getItem('custom_night') === 'true';
+
+    if (isCustom && customPreset === 'yoteidoori') {
+      // 予定通りプリセット → 恐怖エンド
+      localStorage.setItem('custom_yoteidoori_cleared', 'true');
+      localStorage.removeItem('custom_night');
+      setTimeout(function() {
+        allowNavigation();
+        window.location.href = 'yoteidoori_ending.html';
+      }, 1000);
+    } else if (isCustom) {
+      // 通常カスタムナイト → 6AM + ★ + 続けるボタン
+      if (customPreset && customPreset !== 'custom') {
+        localStorage.setItem('custom_' + customPreset + '_cleared', 'true');
+      }
+      localStorage.removeItem('custom_night');
+      playSound(sounds.clearChime);
+      dom.clearScreen.classList.remove('hidden');
+      setTimeout(function() { playSound(sounds.clearYay); }, 500);
+      var continueBtn = document.getElementById('continue-btn');
+      if (continueBtn) {
+        continueBtn.style.display = 'block';
+        continueBtn.addEventListener('click', function() {
+          allowNavigation();
+          window.location.href = 'custom_night.html';
+        });
+      }
+    } else {
+      // 通常Night6 → 真エンディング（ハッピーエンド）
+      setTimeout(function() {
+        allowNavigation();
+        window.location.href = 'true_ending.html';
+      }, 1000);
+    }
     return;
   }
 
