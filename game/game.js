@@ -978,23 +978,19 @@ function gameClear() {
     playSound(sounds.clearYay);
   }, 500);
 
-  // Night5: メインエンディング演出
-  if (NIGHT_NUMBER === 5) {
-    setTimeout(() => night5Ending(), 3000);
-  } else {
-    // Night1〜4: 既存の「続ける」ボタンにイベント設定
-    var continueBtn = document.getElementById('continue-btn');
-    if (continueBtn) {
-      continueBtn.style.display = 'block';
-      continueBtn.addEventListener('click', function() {
-        allowNavigation();
-        if (NIGHT_NUMBER === 1) {
-          window.location.href = '/index.html';
-        } else {
-          window.location.href = '/official/index.html?just_cleared=night' + NIGHT_NUMBER;
-        }
-      });
-    }
+  // Night1〜5: 既存の「続ける」ボタンにイベント設定
+  var continueBtn = document.getElementById('continue-btn');
+  if (continueBtn) {
+    continueBtn.style.display = 'block';
+    continueBtn.addEventListener('click', function() {
+      allowNavigation();
+      if (NIGHT_NUMBER === 1) {
+        window.location.href = '/index.html';
+      } else {
+        // Night2〜5: 公式サイトTOPへ（おしらせハイライト付き）
+        window.location.href = '/official/index.html?just_cleared=night' + NIGHT_NUMBER;
+      }
+    });
   }
 }
 
