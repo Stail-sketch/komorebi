@@ -72,36 +72,38 @@ async function yoteidooriEnding() {
   await sleep(2000);
   clearStage();
 
-  // ALL CLEAR タイプライター
-  var titleEl = document.createElement('div');
-  titleEl.className = 'fade-text typewriter visible';
-  titleEl.style.position = 'absolute';
-  stage.appendChild(titleEl);
-  await typeWriter(titleEl, 'ALL CLEAR', 100);
-  await sleep(1000);
-  titleEl.style.textShadow = '0 0 15px rgba(255,255,255,0.6),0 0 30px rgba(255,255,255,0.3)';
-  await sleep(2000);
-
-  // THANK YOU FOR PLAYING
-  showText('THANK YOU FOR PLAYING', '', {marginTop:'80px', color:'#aaa', fontSize:'1rem', letterSpacing:'0.1em'});
-  await sleep(5000);
-
   // ホワイトアウト
-  stage.querySelectorAll('.fade-text').forEach(function(el){ el.style.opacity='0'; });
-  await sleep(2000);
-  clearStage();
   document.body.style.transition = 'background 3s';
   document.body.style.background = '#fff';
   await sleep(3000);
 
-  // 歓声
+  // チャイム＋歓声を同時再生
   var chime = new Audio('sound/clear_chime.mp3');
   chime.volume = 0.04;
   chime.play().catch(function(){});
   var yay = new Audio('sound/clear_yay.mp3');
   yay.volume = 0.02;
   yay.play().catch(function(){});
-  await sleep(7000);
+
+  // ALL CLEAR タイプライター（チャイム＋歓声の中で）
+  await sleep(1000);
+  var titleEl = document.createElement('div');
+  titleEl.className = 'fade-text typewriter visible';
+  titleEl.style.position = 'absolute';
+  stage.appendChild(titleEl);
+  await typeWriter(titleEl, 'ALL CLEAR', 100);
+  await sleep(500);
+  titleEl.style.textShadow = '0 0 15px rgba(0,0,0,0.3)';
+  await sleep(1500);
+
+  // THANK YOU FOR PLAYING
+  showText('THANK YOU FOR PLAYING', '', {marginTop:'80px', color:'#666', fontSize:'1rem', letterSpacing:'0.1em'});
+  await sleep(5000);
+
+  // テキスト消す
+  stage.querySelectorAll('.fade-text').forEach(function(el){ el.style.opacity='0'; });
+  await sleep(2000);
+  clearStage();
 
   // ⑦ 歓声が歪んで消える
   var distortStart = Date.now();
@@ -116,8 +118,8 @@ async function yoteidooriEnding() {
   distortAudio();
   await sleep(4000);
 
-  // 白い画面＋沈黙
-  await sleep(2000);
+  // 白い画面＋沈黙（少し長めに溜める）
+  await sleep(4000);
 
   // ⑧前半 ジャンプスケア
   document.body.style.transition = 'none';
