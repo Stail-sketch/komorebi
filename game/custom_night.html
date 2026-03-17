@@ -3,94 +3,128 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CUSTOM NIGHT</title>
-<link rel="stylesheet" href="custom_night.css">
+<title>こもれびゆうえんち カスタムナイト</title>
+<link rel="stylesheet" href="../official/css/official.css">
+<link rel="stylesheet" href="custom_night_official.css">
 </head>
 <body>
-<div class="cn-container">
+  <!-- 雲 -->
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
 
-  <h1 class="cn-site-title">こもれびゆうえんち</h1>
-  <p class="cn-subtitle">きょうの あそびを えらんでね！</p>
+  <header class="official-header">
+    <div class="header-row">
+      <div class="header-chars-left"><img src="../images/characters/kitsune_normal.png" alt="キツネ団長"><img src="../images/characters/kaa_normal.png" alt="かあ博士"></div>
+      <div class="header-title-area">
+        <div class="logo"><img src="../images/rogo.png" alt="こもれびゆうえんち" class="logo-img"></div>
+      </div>
+      <div class="header-chars-right"><img src="../images/characters/potamaru_normal.png" alt="ぽたまる"><img src="../images/characters/ukkichi_normal.png" alt="うっきち"></div>
+    </div>
+  </header>
 
-  <div class="cn-characters">
-    <div class="cn-char" data-char="kitsune">
-      <div class="cn-char-icon"><img src="image/charas/kitsune_normal.png" alt="キツネ団長" data-normal="image/charas/kitsune_normal.png" data-scare="image/charas/kitsune_jumpscare.png"></div>
-      <p class="cn-char-name">キツネ団長</p>
-      <div class="cn-slider">
-        <button class="cn-btn-minus">&lsaquo;</button>
-        <span class="cn-level" id="level-kitsune">0</span>
-        <button class="cn-btn-plus">&rsaquo;</button>
+  <nav class="official-nav">
+    <a href="../official/index.html">トップ</a>
+    <a href="../official/about.html">番組紹介</a>
+    <a href="../official/characters/index.html">キャラクター</a>
+    <a href="../official/staff.html">スタッフ</a>
+    <a href="../official/episodes.html">放送リスト</a>
+    <a href="../official/contact.html">お問い合わせ</a>
+  </nav>
+
+  <main class="official-main">
+    <div class="cn-official-header">
+      <h2 class="section-title">⭐ きょうの あそびを えらんでね！ ⭐</h2>
+    </div>
+
+    <div class="cn-characters">
+      <div class="cn-char" data-char="kitsune">
+        <div class="cn-char-icon"><img src="image/charas/kitsune_normal.png" alt="キツネ団長" data-normal="image/charas/kitsune_normal.png" data-scare="image/charas/kitsune_jumpscare.png"></div>
+        <p class="cn-char-name">キツネ団長</p>
+        <div class="cn-slider">
+          <button class="cn-btn-minus">◄</button>
+          <span class="cn-level" id="level-kitsune">0</span>
+          <button class="cn-btn-plus">►</button>
+        </div>
+      </div>
+
+      <div class="cn-char" data-char="kaa">
+        <div class="cn-char-icon"><img src="image/charas/kaa_normal.png" alt="かあ博士" data-normal="image/charas/kaa_normal.png" data-scare="image/charas/kaa_jumpscare.png"></div>
+        <p class="cn-char-name">かあ博士</p>
+        <div class="cn-slider">
+          <button class="cn-btn-minus">◄</button>
+          <span class="cn-level" id="level-kaa">0</span>
+          <button class="cn-btn-plus">►</button>
+        </div>
+      </div>
+
+      <div class="cn-char" data-char="ukkichi">
+        <div class="cn-char-icon"><img src="image/charas/ukkichi_normal.png" alt="うっきち" data-normal="image/charas/ukkichi_normal.png" data-scare="image/charas/ukkichi_jumpscare.png"></div>
+        <p class="cn-char-name">うっきち</p>
+        <div class="cn-slider">
+          <button class="cn-btn-minus">◄</button>
+          <span class="cn-level" id="level-ukkichi">0</span>
+          <button class="cn-btn-plus">►</button>
+        </div>
+      </div>
+
+      <div class="cn-char" data-char="potamaru">
+        <div class="cn-char-icon"><img src="image/charas/potamaru_normal.png" alt="ぽたまる" data-normal="image/charas/potamaru_normal.png" data-scare="image/charas/potamaru_jumpscare.png"></div>
+        <p class="cn-char-name">ぽたまる</p>
+        <div class="cn-slider">
+          <button class="cn-btn-minus">◄</button>
+          <span class="cn-level" id="level-potamaru">0</span>
+          <button class="cn-btn-plus">►</button>
+        </div>
+      </div>
+
+      <div class="cn-char" data-char="shisaku">
+        <div class="cn-char-icon cn-char-icon-shisaku"><img src="image/charas/shisaku_normal.png" alt="試作きつね" data-normal="image/charas/shisaku_normal.png" data-scare="image/charas/shisaku_jumpscare.png"></div>
+        <p class="cn-char-name cn-name-shisaku">試作きつね</p>
+        <div class="cn-slider">
+          <button class="cn-btn-minus">◄</button>
+          <span class="cn-level" id="level-shisaku">0</span>
+          <button class="cn-btn-plus">►</button>
+        </div>
       </div>
     </div>
 
-    <div class="cn-char" data-char="kaa">
-      <div class="cn-char-icon"><img src="image/charas/kaa_normal.png" alt="かあ博士" data-normal="image/charas/kaa_normal.png" data-scare="image/charas/kaa_jumpscare.png"></div>
-      <p class="cn-char-name">かあ博士</p>
-      <div class="cn-slider">
-        <button class="cn-btn-minus">&lsaquo;</button>
-        <span class="cn-level" id="level-kaa">0</span>
-        <button class="cn-btn-plus">&rsaquo;</button>
+    <div class="cn-presets">
+      <p class="cn-presets-label">🌟 おすすめの あそびかた 🌟</p>
+      <div class="cn-preset-buttons">
+        <button class="cn-preset" data-preset="housou">放送開始</button>
+        <button class="cn-preset" data-preset="phase2">フェーズ2</button>
+        <button class="cn-preset" data-preset="zenin">全員集合</button>
+        <button class="cn-preset" data-preset="projectk">プロジェクトK</button>
+        <button class="cn-preset" data-preset="1997">1997年10月</button>
+        <button class="cn-preset" data-preset="soutei">きつねの暴走</button>
+        <button class="cn-preset" data-preset="yoteidoori">ALL 20</button>
       </div>
     </div>
 
-    <div class="cn-char" data-char="ukkichi">
-      <div class="cn-char-icon"><img src="image/charas/ukkichi_normal.png" alt="うっきち" data-normal="image/charas/ukkichi_normal.png" data-scare="image/charas/ukkichi_jumpscare.png"></div>
-      <p class="cn-char-name">うっきち</p>
-      <div class="cn-slider">
-        <button class="cn-btn-minus">&lsaquo;</button>
-        <span class="cn-level" id="level-ukkichi">0</span>
-        <button class="cn-btn-plus">&rsaquo;</button>
-      </div>
+    <div class="cn-stars" id="cn-stars"></div>
+
+    <div class="cn-start-wrapper">
+      <button class="cn-start" id="cn-start">🎪 あそびにいく！ 🎪</button>
     </div>
 
-    <div class="cn-char" data-char="potamaru">
-      <div class="cn-char-icon"><img src="image/charas/potamaru_normal.png" alt="ぽたまる" data-normal="image/charas/potamaru_normal.png" data-scare="image/charas/potamaru_jumpscare.png"></div>
-      <p class="cn-char-name">ぽたまる</p>
-      <div class="cn-slider">
-        <button class="cn-btn-minus">&lsaquo;</button>
-        <span class="cn-level" id="level-potamaru">0</span>
-        <button class="cn-btn-plus">&rsaquo;</button>
-      </div>
+    <div class="cn-bottom">
+      <button class="cn-share" id="cn-share">Share on X</button>
+      <button class="cn-back" id="cn-back">最初に戻る</button>
     </div>
-
-    <div class="cn-char" data-char="shisaku">
-      <div class="cn-char-icon"><img src="image/charas/shisaku_normal.png" alt="試作きつね" data-normal="image/charas/shisaku_normal.png" data-scare="image/charas/shisaku_jumpscare.png"></div>
-      <p class="cn-char-name">試作きつね</p>
-      <div class="cn-slider">
-        <button class="cn-btn-minus">&lsaquo;</button>
-        <span class="cn-level" id="level-shisaku">0</span>
-        <button class="cn-btn-plus">&rsaquo;</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="cn-presets">
-    <p class="cn-presets-label">🌟 おすすめの あそびかた 🌟</p>
-    <div class="cn-preset-buttons">
-      <button class="cn-preset" data-preset="housou">放送開始</button>
-      <button class="cn-preset" data-preset="phase2">フェーズ2</button>
-      <button class="cn-preset" data-preset="zenin">全員集合</button>
-      <button class="cn-preset" data-preset="projectk">プロジェクトK</button>
-      <button class="cn-preset" data-preset="1997">1997年10月</button>
-      <button class="cn-preset" data-preset="soutei">きつねの暴走</button>
-      <button class="cn-preset" data-preset="yoteidoori">ALL 20</button>
-    </div>
-  </div>
-
-  <div class="cn-stars" id="cn-stars"></div>
-
-  <button class="cn-start" id="cn-start">あそびにいく！</button>
-
-  <div class="cn-bottom">
-    <button class="cn-share" id="cn-share">Share on X</button>
-    <button class="cn-back" id="cn-back">最初に戻る</button>
-  </div>
+  </main>
 
   <div class="cn-process" id="cn-process" style="display: none;">
     PROCESS STILL RUNNING
   </div>
 
-</div>
+  <footer class="official-footer">
+    <div class="footer-message">またあそびにきてね！</div>
+    <p>「こもれびゆうえんち」</p>
+    <p>制作：株式会社ゆめスタジオプロダクション</p>
+    <p>放送：きらら放送</p>
+    <p>&copy; YUME STUDIO PRODUCTION / KIRARA BROADCASTING</p>
+  </footer>
 
 <script src="custom_night.js"></script>
 </body>

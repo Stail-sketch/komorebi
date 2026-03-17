@@ -1,0 +1,275 @@
+/* カスタムナイト固有のスタイル（公式サイトCSSの上に追加） */
+
+.cn-official-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.cn-page-title {
+  font-size: 1.3rem;
+  color: #FF9800;
+  font-weight: bold;
+}
+
+.cn-characters {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.cn-char {
+  width: 140px;
+  background: #fff;
+  border: 3px solid #C8E6C9;
+  border-radius: 12px;
+  padding: 14px 8px 12px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.cn-char:hover {
+  border-color: #4CAF50;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
+}
+
+.cn-char-icon {
+  width: 85px;
+  height: 85px;
+  margin: 0 auto 8px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #F1F8E9;
+  border: 2px solid #C8E6C9;
+}
+
+.cn-char-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cn-char-name {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #5D4037;
+  margin-bottom: 8px;
+}
+
+.cn-slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.cn-btn-minus,
+.cn-btn-plus {
+  width: 28px;
+  height: 28px;
+  border: 2px solid #C8E6C9;
+  border-radius: 50%;
+  background: #fff;
+  color: #4CAF50;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cn-btn-minus:hover,
+.cn-btn-plus:hover {
+  background: #4CAF50;
+  color: #fff;
+  border-color: #4CAF50;
+}
+
+.cn-level {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #5D4037;
+  min-width: 32px;
+  text-align: center;
+  transition: transform 0.15s;
+}
+
+.cn-char[data-active="false"] {
+  border-color: #E0E0E0;
+  opacity: 0.5;
+}
+
+.cn-char[data-active="false"] .cn-char-icon img {
+  filter: grayscale(1) brightness(0.8);
+}
+
+.cn-char[data-high="true"] {
+  border-color: #FF9800;
+}
+
+.cn-char[data-high="true"] .cn-level {
+  color: #FF9800;
+}
+
+.cn-char[data-maxed="true"] {
+  border-color: #F44336;
+  box-shadow: 0 0 10px rgba(244, 67, 54, 0.2);
+}
+
+.cn-char[data-maxed="true"] .cn-level {
+  color: #F44336;
+}
+
+.cn-char[data-maxed="true"] .cn-char-icon {
+  border-color: #F44336;
+}
+
+.cn-char[data-char="shisaku"] {
+  border-color: #BDBDBD;
+}
+
+.cn-char-icon-shisaku {
+  background: #EEEEEE !important;
+  border-color: #BDBDBD !important;
+}
+
+.cn-name-shisaku {
+  color: #757575 !important;
+}
+
+.cn-presets {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.cn-presets-label {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #FFB300;
+  margin-bottom: 10px;
+}
+
+.cn-preset-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.cn-preset {
+  background: #fff;
+  border: 2px solid #C8E6C9;
+  border-radius: 20px;
+  color: #5D4037;
+  padding: 5px 16px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cn-preset:hover {
+  background: #E8F5E9;
+  border-color: #4CAF50;
+}
+
+.cn-preset.cleared::after {
+  content: ' ★';
+  color: #FF9800;
+}
+
+.cn-preset[data-preset="yoteidoori"] {
+  border-color: #E0E0E0;
+  color: #9E9E9E;
+  font-style: italic;
+}
+
+.cn-preset[data-preset="yoteidoori"]:hover {
+  border-color: #F44336;
+  color: #F44336;
+}
+
+.cn-stars {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+  letter-spacing: 0.2em;
+}
+
+.cn-stars .star-empty { color: #E0E0E0; }
+.cn-stars .star-filled { color: #FF9800; }
+.cn-stars .star-gold {
+  color: #FFD700;
+  text-shadow: 0 0 6px rgba(255, 215, 0, 0.5);
+}
+
+.cn-start-wrapper {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.cn-start {
+  display: inline-block;
+  background: #4CAF50;
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  padding: 12px 48px;
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.cn-start:hover {
+  background: #43A047;
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+  transform: translateY(-2px);
+}
+
+.cn-bottom {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.cn-share,
+.cn-back {
+  background: #fff;
+  border: 2px solid #E0E0E0;
+  border-radius: 20px;
+  color: #8D6E63;
+  padding: 6px 18px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cn-share:hover,
+.cn-back:hover {
+  border-color: #4CAF50;
+  color: #4CAF50;
+}
+
+.cn-process {
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  color: #4a4;
+  letter-spacing: 0.1em;
+  padding: 16px 0;
+  animation: process-blink 3s infinite;
+}
+
+@keyframes process-blink {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0.4; }
+}
