@@ -185,12 +185,33 @@ const NIGHT_PARAMS = {
     potamaruMusicInterval:[9, 18],
     potamaruRushTime:     2,
   },
+  6: {
+    powerBaseDrain:     0.12,
+    clockDrain:         2.0,
+    clockWindPerClick:  1,
+    kaaFirstMove:       [3, 12],
+    kaaMoveInterval:    [1, 3],
+    kaaDoorWait:        [2, 3],
+    ukkichiFirstMove:     [6, 15],
+    ukkichiMoveInterval:  [2, 4],
+    ukkichiDoorWait:      [2, 4],
+    potamaruFirstMusic:   [9, 18],
+    potamaruMusicInterval:[6, 15],
+    potamaruRushTime:     1.5,
+  },
 };
 
 // 現在のNightのパラメータを取得
 function getNightParams() {
   return NIGHT_PARAMS[gameState.night] || NIGHT_PARAMS[1];
 }
+
+// --- 試作きつね (Night6 only) ---
+let shisakuActive = false;
+let shisakuCamera = -1;
+let shisakuTimer = null;
+let shisakuCheckEnabled = false;
+let gameStartTime = 0;
 
 // --- ゲーム状態 ---
 let gameState = {};
@@ -326,6 +347,7 @@ function switchCamera(camNum) {
   triggerCameraNoise();
 
   updateCameraView();
+  updateShisakuDisplay();
 }
 
 function triggerCameraNoise() {
@@ -433,6 +455,9 @@ function toggleShutter(side) {
       potamaru.position = 'cam3';
       potamaru.nextMusicTime = gameState.time + randomRange(np.potamaruMusicInterval[0], np.potamaruMusicInterval[1]);
     }
+
+    // 試作きつね: シャッター閉時にスポーン判定
+    checkShisakuSpawn();
   }
 
   updateClosedBgClip();
@@ -805,6 +830,77 @@ function updateDoorSilhouettes() {
   }
 }
 
+// ===== 試作きつね (Night6) =====
+
+function checkShisakuSpawn() {
+  if (NIGHT_NUMBER !== 6 || shisakuActive || !gameState.running) return;
+
+  // Time-based probability
+  var elapsed = (Date.now() - gameStartTime) / 1000;
+  var hour = Math.floor(elapsed / 30); // 0-5 (12AM-5AM)
+  var probs = [0.05, 0.07, 0.10, 0.13, 0.17, 0.20];
+  var prob = probs[Math.min(hour, 5)];
+
+  if (Math.random() < prob) {
+    spawnShisaku();
+  }
+}
+
+function spawnShisaku() {
+  shisakuActive = true;
+  // Random camera (1-8)
+  shisakuCamera = Math.floor(Math.random() * 8) + 1;
+
+  // Brief noise on all cameras
+  var camView = document.getElementById('camera-view');
+  if (camView) {
+    camView.style.filter = 'invert(1) hue-rotate(90deg)';
+    setTimeout(function() { camView.style.filter = ''; }, 500);
+  }
+
+  // Show shisaku if player is viewing the correct camera
+  updateShisakuDisplay();
+
+  // 10 second timer - if not clicked, game over
+  shisakuTimer = setTimeout(function() {
+    if (shisakuActive) {
+      triggerGameOver('kitsune');
+    }
+  }, 10000);
+}
+
+function updateShisakuDisplay() {
+  var overlay = document.getElementById('shisaku-overlay');
+  if (!overlay) return;
+
+  if (shisakuActive && gameState.camera.active && gameState.camera.current === shisakuCamera) {
+    overlay.style.display = 'block';
+    // Random position
+    var img = document.getElementById('shisaku-img');
+    if (img) {
+      img.style.left = (20 + Math.random() * 40) + '%';
+      img.style.bottom = '5%';
+    }
+  } else {
+    overlay.style.display = 'none';
+  }
+}
+
+function clickShisaku() {
+  if (!shisakuActive) return;
+  shisakuActive = false;
+  clearTimeout(shisakuTimer);
+  shisakuCamera = -1;
+  var overlay = document.getElementById('shisaku-overlay');
+  if (overlay) overlay.style.display = 'none';
+  // Brief noise effect on clear
+  var camView = document.getElementById('camera-view');
+  if (camView) {
+    camView.style.filter = 'invert(0.5)';
+    setTimeout(function() { camView.style.filter = ''; }, 200);
+  }
+}
+
 // ===== Step 5: ジャンプスケアとクリア演出 =====
 
 function triggerGameOver(character) {
@@ -859,6 +955,15 @@ function gameClear() {
   setTimeout(() => {
     playSound(sounds.clearYay);
   }, 500);
+
+  // Night6: トゥルーエンディング
+  if (NIGHT_NUMBER === 6) {
+    setTimeout(() => {
+      allowNavigation();
+      window.location.href = 'true_ending.html';
+    }, 3000);
+    return;
+  }
 
   // Night5: メインエンディング演出
   if (NIGHT_NUMBER === 5) {
@@ -1062,6 +1167,7 @@ function startGame() {
       dom.introScreen.classList.add('hidden');
       dom.hud.classList.remove('hidden');
       gameState.running = true;
+      gameStartTime = Date.now();
       requestAnimationFrame(gameLoop);
     }, 1000);
   }
@@ -1096,10 +1202,18 @@ function setupEventListeners() {
   dom.retryBtn.addEventListener('click', retryGame);
 
   // 続ける → ファンサイトTOPへ
-  dom.continueBtn.addEventListener('click', () => {
-    allowNavigation();
-    window.location.href = '/index.html';
-  });
+  if (dom.continueBtn) {
+    dom.continueBtn.addEventListener('click', () => {
+      allowNavigation();
+      window.location.href = '/index.html';
+    });
+  }
+
+  // 試作きつね クリックハンドラ
+  var shisakuImg = document.getElementById('shisaku-img');
+  if (shisakuImg) {
+    shisakuImg.addEventListener('click', clickShisaku);
+  }
 }
 
 // --- 起動 ---

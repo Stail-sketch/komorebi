@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALL CLEAR</title>
+  <style>
+    body { margin:0; padding:0; background:#000; color:#fff; font-family:'Courier New',monospace; display:flex; align-items:center; justify-content:center; min-height:100vh; }
+    .container { text-align:center; max-width:600px; padding:40px; }
+    .night-list { margin:30px 0; }
+    .night-item { display:inline-block; margin:8px 12px; font-size:1rem; color:#888; }
+    .night-item .star { color:#ffd700; margin-right:4px; }
+    h1 { font-size:1.8rem; letter-spacing:0.2em; margin-bottom:10px; }
+    h2 { font-size:1rem; color:#888; letter-spacing:0.15em; margin-bottom:40px; }
+    .buttons { margin-top:40px; }
+    .btn { display:block; margin:12px auto; padding:12px 30px; font-family:monospace; font-size:0.95rem; cursor:pointer; border:1px solid #444; background:#111; color:#ccc; text-decoration:none; width:250px; text-align:center; }
+    .btn:hover { background:#222; color:#fff; border-color:#888; }
+    .custom-night-btn { border-color:#ffd700; color:#ffd700; }
+    .custom-night-btn:hover { background:#1a1a00; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="night-list">
+    <div class="night-item"><span class="star">★</span>NIGHT 1</div>
+    <div class="night-item"><span class="star">★</span>NIGHT 2</div>
+    <div class="night-item"><span class="star">★</span>NIGHT 3</div>
+    <div class="night-item"><span class="star">★</span>NIGHT 4</div>
+    <div class="night-item"><span class="star">★</span>NIGHT 5</div>
+    <div class="night-item"><span class="star">★</span>NIGHT 6</div>
+  </div>
+
+  <h1>ALL CLEAR</h1>
+  <h2>THANK YOU FOR PLAYING</h2>
+
+  <div class="buttons">
+    <a class="btn custom-night-btn" href="custom_night.html">CUSTOM NIGHT</a>
+    <a class="btn" id="share-btn" href="#">Share on X</a>
+    <a class="btn" href="https://note.com/" target="_blank">最初に戻る</a>
+  </div>
+</div>
+<script>
+// Xシェアボタン
+document.getElementById('share-btn').addEventListener('click', function(e) {
+  e.preventDefault();
+  var text = encodeURIComponent('木漏れ日遊園地、全クリアしました。 #木漏れ日遊園地');
+  var url = encodeURIComponent(window.location.origin);
+  window.open('https://x.com/intent/tweet?text=' + text + '&url=' + url, '_blank');
+});
+
+// Set all cleared flags
+for (var i = 1; i <= 6; i++) {
+  localStorage.setItem('night' + i + '_cleared', 'true');
+}
+</script>
+</body>
+</html>
