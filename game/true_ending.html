@@ -138,24 +138,45 @@ async function trueEnding() {
   showText('状態：──　意識回復', 'green-text', {marginTop:'40px', fontSize:'1.1rem'});
   await sleep(5000);
 
-  // ホワイトアウト
+  // ⑤E ホワイトアウト完了 → 白い画面
   clearStage();
-  await sleep(3000);
-
-  // 歓声（視覚のみ）
-  showText('\u2726', '', {fontSize:'2rem', color:'#ffd700', marginBottom:'30px'});
-  await sleep(1000);
-  showText('ALL NIGHTS CLEARED', '', {color:'#aaa', fontSize:'1rem', marginTop:'40px'});
-  await sleep(4000);
-
-  // ⑦ 歪み → 白画面へ
-  stage.querySelectorAll('.fade-text').forEach(function(el){ el.style.opacity='0'; });
-  await sleep(2000);
-  clearStage();
-
-  // 白画面＋沈黙（2秒）
   document.body.style.transition = 'none';
   document.body.style.background = '#fff';
+
+  // ===== ⑥ 余韻（10秒）=====
+  // チャイム再生
+  var chime = new Audio('sound/clear_chime.mp3');
+  chime.volume = 0.6;
+  chime.play().catch(function(){});
+
+  await sleep(3000);
+
+  // 歓声再生
+  var yay = new Audio('sound/clear_yay.mp3');
+  yay.volume = 0.6;
+  yay.play().catch(function(){});
+
+  // 歓声が5〜6秒流れる（白い画面のまま、テキストなし）
+  await sleep(5000);
+
+  // ===== ⑦ 違和感（4秒）=====
+  // playbackRateを徐々に下げる（テープが伸びるように歪む）
+  var slowDown = setInterval(function() {
+    if (yay.playbackRate > 0.2) {
+      yay.playbackRate -= 0.02;
+      yay.volume = Math.max(yay.volume - 0.015, 0);
+    } else {
+      clearInterval(slowDown);
+      yay.pause();
+    }
+  }, 100);
+
+  await sleep(4000);
+  clearInterval(slowDown);
+  yay.pause();
+  chime.pause();
+
+  // 白画面＋完全な無音（2秒）
   await sleep(2000);
 
   // ===== ⑧前半：ジャンプスケア =====
