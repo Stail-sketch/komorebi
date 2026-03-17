@@ -42,6 +42,10 @@
         </div>
       </div>
       <div class="content">
+        <div id="custom-night-banner" style="display:none; text-align:center; margin:20px auto 30px; padding:20px;">
+          <a href="game/custom_night.html" style="display:inline-block; font-size:1.8rem; font-weight:bold; color:#ff6699; text-decoration:none; padding:16px 40px; border:3px solid #ff6699; background:rgba(255,102,153,0.05); letter-spacing:0.1em; font-family:'MS Pゴシック','MS PGothic',sans-serif; animation:cn-blink 1s infinite;">☆NEW☆ CUSTOM NIGHT</a>
+          <style>@keyframes cn-blink { 0%,100%{opacity:1;} 50%{opacity:0.7;} }</style>
+        </div>
         <p style="font-size:14px; font-weight:bold; color:#336633;">ようこそ「こもれびゆうえんちのお部屋」へ！！ヽ(´ー｀)ノ</p>
 
         <p>あなたは <span class="counter-display" id="counter">024681</span> 人目のお客様です(^^)<br>
@@ -98,6 +102,15 @@
     const baseCount = 24681;
     document.getElementById('counter').textContent = String(baseCount).padStart(6, '0');
     document.getElementById('counter-small').textContent = String(baseCount).padStart(6, '0');
+
+    // Night6クリア後：カスタムナイト導線表示＋カウンター復元
+    if (localStorage.getItem('night6_cleared') === 'true') {
+      var banner = document.getElementById('custom-night-banner');
+      if (banner) banner.style.display = 'block';
+      // カウンターを元に戻す（+1）
+      document.getElementById('counter').textContent = '024682';
+      document.getElementById('counter-small').textContent = '024682';
+    }
   </script>
 </body>
 </html>
