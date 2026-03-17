@@ -148,27 +148,67 @@ async function trueEnding() {
   showText('ALL NIGHTS CLEARED', '', {color:'#aaa', fontSize:'1rem', marginTop:'40px'});
   await sleep(4000);
 
-  // 歪み
+  // ⑦ 歪み → 白画面へ
   stage.querySelectorAll('.fade-text').forEach(function(el){ el.style.opacity='0'; });
   await sleep(2000);
   clearStage();
 
-  // 黒+ノイズ（1秒）
-  document.body.style.transition = 'background 0.3s';
+  // 白画面＋沈黙（2秒）
+  document.body.style.transition = 'none';
+  document.body.style.background = '#fff';
+  await sleep(2000);
+
+  // ===== ⑧前半：ジャンプスケア =====
   document.body.style.background = '#000';
+
+  // 獣人画像を全画面表示
+  var jumpscare = document.createElement('img');
+  jumpscare.src = '../official/assets/images/unknown_entity.png';
+  jumpscare.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;object-fit:cover;z-index:10000;';
+  document.body.appendChild(jumpscare);
+
+  // 全ジャンプスケア音声を同時再生
+  var scareFiles = [
+    'sound/kitsune_jumpscare.mp3',
+    'sound/kaa_jumpscare.wav',
+    'sound/potamaru_jumpscare.mp3',
+    'sound/ukkichi_jumpscare.ogg',
+    'sound/shisaku_jumpscare.wav'
+  ];
+  scareFiles.forEach(function(f) {
+    var a = new Audio(f);
+    a.volume = 0.7;
+    a.play().catch(function(){});
+  });
+
+  // 1秒後にジャンプスケア画像を消す
+  await sleep(1000);
+  jumpscare.remove();
+
+  // ===== ⑧後半：アナログTV砂嵐（1.5秒）=====
+  startSnow(0.85);
   await sleep(500);
-  startSnow(0.5);
+
+  // 砂嵐の裏で「おめでとう。予定通りです。」を配置（まだ見えない）
+  clearStage();
+  var finalMsg = document.createElement('div');
+  finalMsg.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;align-items:center;justify-content:center;z-index:9999;';
+  finalMsg.innerHTML = '<p style="font-family:\'Courier New\',monospace;font-size:1.1rem;color:#888;letter-spacing:0.1em;">おめでとう。予定通りです。</p>';
+  document.body.appendChild(finalMsg);
+
   await sleep(1000);
   stopSnow();
-  await sleep(1000);
 
-  // 最後のメッセージ
-  clearStage();
-  await sleep(3000);
-  showText('おめでとう。予定通りです。', 'gray-text');
+  // ===== ⑨：砂嵐が晴れた瞬間、テキストが既にある =====
+  // 5秒間表示
   await sleep(5000);
 
-  // Night選択画面（全クリア画面）に遷移
+  // フェードアウト
+  finalMsg.style.transition = 'opacity 2s';
+  finalMsg.style.opacity = '0';
+  await sleep(2500);
+
+  // Night選択画面に遷移
   window.location.href = 'all_clear.html';
 }
 
