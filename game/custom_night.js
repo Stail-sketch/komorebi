@@ -130,21 +130,6 @@ document.getElementById('cn-back').addEventListener('click', function() {
   window.location.href = 'https://note.com/';
 });
 
-// 背景の浮遊装飾
-function createFloatingDecor() {
-  var items = ['☆', '☁', '🌸', '🎵', '✿'];
-  setInterval(function() {
-    var el = document.createElement('div');
-    el.className = 'floating-decor';
-    el.textContent = items[Math.floor(Math.random() * items.length)];
-    el.style.left = Math.random() * 100 + 'vw';
-    el.style.animationDuration = (15 + Math.random() * 15) + 's';
-    el.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
-    document.body.appendChild(el);
-    setTimeout(function() { el.remove(); }, 30000);
-  }, 3000);
-}
-createFloatingDecor();
 
 // 「ALL 20」クリック時に一瞬画面反転
 var yoteidooriBtn = document.querySelector('.cn-preset[data-preset="yoteidoori"]');
