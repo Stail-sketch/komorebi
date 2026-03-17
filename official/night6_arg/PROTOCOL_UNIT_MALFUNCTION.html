@@ -22,33 +22,35 @@
 </head>
 <body>
 <div class="terminal">
-  <div class="terminal-header">YUME_STUDIO_INTERNAL // ACCESS_LEVEL: RESTRICTED // SESSION: ████████</div>
-  <h1>> PROTOCOL // UNIT_MALFUNCTION — STANDARD RESPONSE</h1>
+  <div class="terminal-header">ゆめスタジオ内部システム // アクセスレベル：制限付き // セッション：████████</div>
+  <h1>> 対処手順 // ユニット異常時</h1>
 
-  <h2>> STEP 1: IDENTIFICATION</h2>
-  <p>Monitor camera feeds at regular intervals. Identify which UNIT has deviated from assigned position. Note current location and movement trajectory.</p>
+  <p>ユニット異常時の対処手順</p>
 
-  <h2>> STEP 2: ASSESSMENT</h2>
-  <p>Determine approach vector and proximity to control room. If UNIT is within 2 rooms of operator position, escalate to STEP 3 immediately.</p>
+  <h2>> 1. カメラによる位置確認</h2>
+  <p>異常が検知されたユニットの現在位置をカメラで確認する。</p>
+  <p>カメラ1〜8を順番に確認し、ユニットの所在を特定すること。</p>
 
-  <h2>> STEP 3: CONTAINMENT</h2>
-  <p>Deploy physical barrier (shutter) on the affected access point. Maintain barrier until UNIT retreats to a safe distance (minimum 3 rooms from operator).</p>
+  <h2>> 2. 物理遮断（シャッター）の使用</h2>
+  <p>ユニットがドア付近に到達した場合、該当するシャッターを閉鎖する。</p>
+  <p>シャッター閉鎖中は電力を消費するため、不要な場合は速やかに開放すること。</p>
 
-  <h2>> STEP 4: MONITORING</h2>
-  <p>Resume camera rotation. Confirm UNIT has returned to default patrol route. Log incident with timestamp.</p>
+  <h2>> 3. 電力管理</h2>
+  <p>全システムの稼働には電力が必要である。</p>
+  <p>電力残量が0%になった場合、全システムが停止し、封じ込めが不可能となる。</p>
+  <p>カメラの使用、シャッターの維持はいずれも電力を消費する。</p>
 
-  <h2>> NOTES</h2>
-  <p>- Physical barriers have limited power supply. Do not maintain indefinitely.</p>
-  <p>- Camera checks do not consume power but require manual cycling.</p>
-  <p>- Multiple simultaneous malfunctions may require priority triage.</p>
-  <p>- UNIT-01 requires additional clock winding protocol (see SPEC_UNIT_01).</p>
+  <h2>> 4. 時計機構の管理</h2>
+  <p>ユニット01（キツネ団長）のぜんまい機構は定期的に巻き直す必要がある。</p>
+  <p>カメラ2でぜんまいをクリックすることで巻き直しが可能。</p>
+  <p>ぜんまいが完全に切れた場合、ユニット01が制御不能となる。</p>
+
   <p>&nbsp;</p>
-  <p class="dim">// This protocol covers UNIT-01 through UNIT-04 ONLY.</p>
-  <p class="dim">// For unrecognized signatures, see PROTOCOL_UNKNOWN_ENTITY.</p>
+  <p>備考：</p>
+  <p>上記は標準的なユニット（01〜04）に対する手順である。</p>
+  <p class="dim">// ユニット00（試作体）には適用できない。</p>
 
-  <a class="back-link" href="PROTOCOL_INDEX.html">> BACK TO PROTOCOL INDEX</a>
-  <a class="back-link" href="SYSTEM_LOG_INDEX.html">> SYSTEM_LOGS</a>
-  <a class="back-link" href="TECH_SPEC_INDEX.html">> TECH_SPEC</a>
+  <a class="back-link" href="PROTOCOL_INDEX.html">> ← 対処手順一覧にもどる</a>
 </div>
 <script>
 localStorage.setItem('arg_s1', 'true');
