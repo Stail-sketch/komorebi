@@ -961,21 +961,22 @@ function gameClear() {
   // localStorage にクリアフラグ保存
   localStorage.setItem(`night${NIGHT_NUMBER}_cleared`, 'true');
 
-  // クリア画面表示
+  // Night6: クリア画面なし → 即座に真エンディングへ
+  if (NIGHT_NUMBER === 6) {
+    // 画面を黒のまま、音なし、1秒後に遷移
+    setTimeout(() => {
+      allowNavigation();
+      window.location.href = 'true_ending.html';
+    }, 1000);
+    return;
+  }
+
+  // クリア画面表示（Night1〜5）
   playSound(sounds.clearChime);
   dom.clearScreen.classList.remove('hidden');
   setTimeout(() => {
     playSound(sounds.clearYay);
   }, 500);
-
-  // Night6: トゥルーエンディング
-  if (NIGHT_NUMBER === 6) {
-    setTimeout(() => {
-      allowNavigation();
-      window.location.href = 'true_ending.html';
-    }, 3000);
-    return;
-  }
 
   // Night5: メインエンディング演出
   if (NIGHT_NUMBER === 5) {
