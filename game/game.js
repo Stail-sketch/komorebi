@@ -982,11 +982,17 @@ function gameClear() {
   if (NIGHT_NUMBER === 5) {
     setTimeout(() => night5Ending(), 3000);
   } else {
-    // Night1〜4: 数秒後にファンサイトTOPへ自動遷移
+    // Night1〜4: 「続ける」ボタンで遷移
     setTimeout(() => {
-      allowNavigation();
-      window.location.href = '/index.html';
-    }, 4000);
+      var continueBtn = document.createElement('button');
+      continueBtn.textContent = '続ける';
+      continueBtn.style.cssText = 'display:block;margin:20px auto 0;padding:10px 40px;font-size:1rem;font-family:monospace;background:#222;color:#fff;border:1px solid #555;cursor:pointer;';
+      continueBtn.addEventListener('click', function() {
+        allowNavigation();
+        window.location.href = '/index.html';
+      });
+      dom.clearScreen.appendChild(continueBtn);
+    }, 2000);
   }
 }
 
