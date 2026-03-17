@@ -144,24 +144,21 @@ async function trueEnding() {
   document.body.style.background = '#fff';
 
   // ===== ⑥ 余韻（10秒）=====
-  // チャイム再生
+  // チャイム＋歓声を同時再生
   var chime = new Audio('sound/clear_chime.mp3');
-  chime.volume = 0.6;
+  chime.volume = 0.02;
   chime.play().catch(function(){});
+
+  var yay = new Audio('sound/clear_yay.mp3');
+  yay.volume = 0.6;
+  yay.play().catch(function(){});
 
   // 「ALL NIGHTS CLEARED」表示（白背景に黒文字）
   await sleep(1000);
   showText('ALL NIGHTS CLEARED', '', {fontSize:'1.4rem', color:'#333', letterSpacing:'0.15em'});
 
-  await sleep(2000);
-
-  // 歓声再生
-  var yay = new Audio('sound/clear_yay.mp3');
-  yay.volume = 0.6;
-  yay.play().catch(function(){});
-
-  // 歓声が5〜6秒流れる
-  await sleep(5000);
+  // 歓声が流れる
+  await sleep(7000);
 
   // ===== ⑦ 違和感（4秒）=====
   // playbackRateを徐々に下げる（テープが伸びるように歪む）
