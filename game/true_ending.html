@@ -10,25 +10,12 @@
     #stage { width:100vw; height:100vh; display:flex; align-items:center; justify-content:center; position:relative; }
     .fade-text { opacity:0; transition:opacity 2s; text-align:center; position:absolute; }
     .fade-text.visible { opacity:1; }
-    .typewriter { font-size:1.6rem; letter-spacing:0.15em; }
-    .typewriter .char { opacity:0; display:inline-block; }
-    .typewriter .char.visible { opacity:1; }
     .small-text { font-size:0.95rem; color:#aaa; font-family:'Yu Mincho','游明朝',serif; }
     .green-text { color:#4a4; text-shadow:0 0 10px rgba(0,255,0,0.5); }
-    .gray-text { color:#888; font-size:0.9rem; }
-    #snow-canvas { position:fixed; top:0;left:0; width:100%;height:100%; z-index:100; pointer-events:none; opacity:0; }
-    .white-bg { background:#fff !important; }
-    @keyframes pulse { 0%,100%{opacity:0.6;} 50%{opacity:1;} }
-    .pulse { animation:pulse 2s infinite; }
-    .all-clear { font-size:2.2rem; letter-spacing:0.25em; font-weight:bold; color:#000; filter:drop-shadow(0 0 8px rgba(0,0,0,0.3)); }
-    .all-clear .char { opacity:0; display:inline-block; }
-    .all-clear .char.visible { opacity:1; transform:scale(1.1); transition:opacity 0.1s, transform 0.3s; }
-    @keyframes glow-pulse { 0%,100%{filter:drop-shadow(0 0 8px rgba(184,134,11,0.8));} 50%{filter:drop-shadow(0 0 20px rgba(255,215,0,0.9)) drop-shadow(0 0 40px rgba(184,134,11,0.5));} }
-    .all-clear.glow { animation:glow-pulse 2s infinite; }
+    .system-text { font-size:0.85rem; color:#888; font-family:'Courier New',monospace; }
   </style>
 </head>
 <body>
-<canvas id="snow-canvas"></canvas>
 <div id="stage"></div>
 <script>
 function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
@@ -47,212 +34,111 @@ function showText(text, cls, extra) {
   return el;
 }
 
-async function typeWriter(text, cls) {
-  var el = document.createElement('div');
-  el.className = 'fade-text typewriter visible ' + (cls||'');
-  stage.appendChild(el);
-  for(var i=0;i<text.length;i++){
-    var span = document.createElement('span');
-    span.className = 'char';
-    span.textContent = text[i]===' '?'\u00A0':text[i];
-    el.appendChild(span);
-  }
-  var chars = el.querySelectorAll('.char');
-  for(var i=0;i<chars.length;i++){
-    chars[i].classList.add('visible');
-    await sleep(100);
-  }
-  return el;
-}
-
-// 砂嵐
-var snowCanvas = document.getElementById('snow-canvas');
-var snowCtx = snowCanvas.getContext('2d');
-var snowActive = false;
-function resizeCanvas(){ snowCanvas.width=window.innerWidth; snowCanvas.height=window.innerHeight; }
-resizeCanvas(); window.addEventListener('resize',resizeCanvas);
-function drawSnow(){ if(!snowActive)return; var w=snowCanvas.width,h=snowCanvas.height,d=snowCtx.createImageData(w,h),p=d.data; for(var i=0;i<p.length;i+=4){var v=Math.random()*255;p[i]=v;p[i+1]=v;p[i+2]=v;p[i+3]=255;} snowCtx.putImageData(d,0,0); requestAnimationFrame(drawSnow); }
-function startSnow(o){ snowCanvas.style.opacity=o||'0.8'; snowActive=true; drawSnow(); }
-function stopSnow(){ snowActive=false; snowCanvas.style.opacity='0'; }
-
 async function trueEnding() {
   localStorage.setItem('night6_cleared', 'true');
 
-  // 6 AM
-  await sleep(2000);
+  // ① 6 AM
+  await sleep(1000);
   var am = showText('6 AM', '', {fontSize:'2rem', letterSpacing:'0.2em'});
   await sleep(3000);
   am.style.opacity = '0';
   await sleep(2000);
   clearStage();
 
-  // NIGHT 6 COMPLETE + おめでとうございます
-  await typeWriter('NIGHT 6 COMPLETE');
-  await sleep(2000);
-  showText('おめでとうございます。', '', {marginTop:'80px', color:'#aaa'});
+  // ⑤A 闇の中
+  showText('...', 'small-text');
   await sleep(3000);
-
-  // テキスト消滅
-  stage.querySelectorAll('.fade-text').forEach(function(el){ el.style.opacity='0'; });
-  await sleep(2000);
   clearStage();
-
-  // 「...」
-  var dots = showText('...', '', {color:'#666'});
-  await sleep(3000);
-  dots.style.opacity = '0';
-  await sleep(2000);
-  clearStage();
-
-  // 完全な黒と沈黙
-  await sleep(5000);
-
-  // 闇の中の声
   showText('...くらい', 'small-text');
-  await sleep(4000);
+  await sleep(3000);
   clearStage();
   showText('ずっと、くらい', 'small-text');
   await sleep(4000);
   clearStage();
-  await sleep(2000);
 
-  // 光の兆し
+  // ⑤B 光の兆し
+  showText('...なにか、聞こえる', 'small-text');
   var light = document.createElement('div');
+  light.style.cssText = 'width:4px;height:4px;background:#fff;border-radius:50%;position:absolute;box-shadow:0 0 20px #fff,0 0 40px #fff;transition:all 3s;';
+  stage.appendChild(light);
+  await sleep(5000);
+  clearStage();
+  showText('だれかの声が、する', 'small-text');
+  light = document.createElement('div');
   light.style.cssText = 'width:4px;height:4px;background:#fff;border-radius:50%;position:absolute;box-shadow:0 0 20px #fff,0 0 40px #fff;transition:all 3s;';
   stage.appendChild(light);
   await sleep(1000);
   light.style.width = '200px';
   light.style.height = '200px';
   light.style.boxShadow = '0 0 100px #fff, 0 0 200px #fff';
-  await sleep(3000);
+  await sleep(4000);
+  clearStage();
 
-  // ホワイトアウト→目覚め
-  document.body.style.transition = 'background 2s';
+  // ⑤C 目覚め
+  showText('...まぶしい', 'small-text', {color:'#999'});
+  document.body.style.transition = 'background 3s';
   document.body.style.background = '#fff';
-  await sleep(2000);
-  clearStage();
-
-  showText('まぶしい', 'small-text', {color:'#999'});
-  await sleep(3000);
-  clearStage();
-  await sleep(2000);
-
-  // 意識回復
-  showText('S-012　悠具志 業', '', {color:'#888', fontSize:'0.9rem', marginBottom:'20px'});
-  await sleep(2000);
-  showText('状態：──　意識回復', 'green-text', {marginTop:'40px', fontSize:'1.1rem'});
   await sleep(5000);
-
-  // ⑤E ホワイトアウト完了 → 白い画面
   clearStage();
-  document.body.style.transition = 'none';
-  document.body.style.background = '#fff';
+  showText('ここは——', 'small-text', {color:'#999'});
+  await sleep(3000);
+  clearStage();
+  await sleep(6000);
 
-  // ===== ⑥ 余韻（10秒）=====
-  // チャイム＋歓声を同時再生
+  // ⑤D 確認
+  await sleep(3000);
+  showText('被験者管理記録 更新', 'system-text');
+  await sleep(3000);
+  clearStage();
+  showText('S-012 | 悠具志 業', 'system-text');
+  await sleep(3000);
+  clearStage();
+  showText('状態：——意識回復', 'green-text', {fontSize:'1.1rem'});
+  await sleep(3000);
+  clearStage();
+
+  // ⑤E ホワイトアウト
+  await sleep(2000);
+
+  // ⑥ 余韻
   var chime = new Audio('sound/clear_chime.mp3');
   chime.volume = 0.04;
   chime.play().catch(function(){});
+  await sleep(3000);
 
   var yay = new Audio('sound/clear_yay.mp3');
   yay.volume = 0.02;
   yay.play().catch(function(){});
-
-  // 「ALL NIGHTS CLEARED」タイプライター表示（ゴールド・派手）
-  await sleep(1000);
-  var clearEl = document.createElement('div');
-  clearEl.className = 'fade-text all-clear visible';
-  clearEl.style.position = 'absolute';
-  stage.appendChild(clearEl);
-  var clearText = 'ALL NIGHTS CLEARED';
-  for (var ci = 0; ci < clearText.length; ci++) {
-    var cs = document.createElement('span');
-    cs.className = 'char';
-    cs.textContent = clearText[ci] === ' ' ? '\u00A0' : clearText[ci];
-    clearEl.appendChild(cs);
-  }
-  var clearChars = clearEl.querySelectorAll('.char');
-  for (var ci = 0; ci < clearChars.length; ci++) {
-    clearChars[ci].classList.add('visible');
-    await sleep(80);
-  }
-  await sleep(500);
-  clearEl.classList.add('glow');
-
-  // 歓声が流れる
   await sleep(7000);
 
-  // ===== ⑦ 違和感（4秒）=====
-  // playbackRateを徐々に下げる（テープが伸びるように歪む）
-  var slowDown = setInterval(function() {
-    if (yay.playbackRate > 0.2) {
-      yay.playbackRate -= 0.02;
-      yay.volume = Math.max(yay.volume - 0.015, 0);
+  // 歓声を普通にフェードアウト（歪まない）
+  var fadeInterval = setInterval(function() {
+    if (yay.volume > 0.002) {
+      yay.volume -= 0.001;
     } else {
-      clearInterval(slowDown);
+      clearInterval(fadeInterval);
       yay.pause();
     }
   }, 100);
+  await sleep(3000);
 
-  await sleep(4000);
-  clearInterval(slowDown);
-  yay.pause();
-  chime.pause();
-
-  // 白画面＋完全な無音（2秒）
+  // NIGHT 6 COMPLETE + おめでとう！
+  document.body.style.transition = 'background 2s';
+  document.body.style.background = '#000';
   await sleep(2000);
 
-  // ===== ⑧前半：ジャンプスケア =====
-  document.body.style.background = '#000';
+  var clearMsg = document.createElement('div');
+  clearMsg.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;';
+  clearMsg.innerHTML = '<p style="font-family:\'Courier New\',monospace;font-size:1.4rem;color:#e8e4dc;letter-spacing:0.15em;margin-bottom:20px;opacity:0;transition:opacity 2s;" id="n6title">NIGHT 6 COMPLETE</p><p style="font-family:\'Courier New\',monospace;font-size:1rem;color:#aaa;letter-spacing:0.1em;opacity:0;transition:opacity 2s;" id="n6msg">おめでとう！</p>';
+  document.body.appendChild(clearMsg);
 
-  // 獣人画像を全画面表示
-  var jumpscare = document.createElement('img');
-  jumpscare.src = '../official/assets/images/unknown_entity.png';
-  jumpscare.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;object-fit:cover;z-index:10000;';
-  document.body.appendChild(jumpscare);
-
-  // 全ジャンプスケア音声を同時再生
-  var scareFiles = [
-    'sound/kitsune_jumpscare.mp3',
-    'sound/kaa_jumpscare.wav',
-    'sound/potamaru_jumpscare.mp3',
-    'sound/ukkichi_jumpscare.ogg',
-    'sound/shisaku_jumpscare.wav'
-  ];
-  scareFiles.forEach(function(f) {
-    var a = new Audio(f);
-    a.volume = 0.015;
-    a.play().catch(function(){});
-  });
-
-  // 1秒後にジャンプスケア画像を消す
-  await sleep(1000);
-  jumpscare.remove();
-
-  // ===== ⑧後半：アナログTV砂嵐（1.5秒）=====
-  startSnow(0.85);
   await sleep(500);
-
-  // 砂嵐の裏で「おめでとう。予定通りです。」を配置（まだ見えない）
-  clearStage();
-  var finalMsg = document.createElement('div');
-  finalMsg.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;align-items:center;justify-content:center;z-index:9999;';
-  finalMsg.innerHTML = '<p style="font-family:\'Courier New\',monospace;font-size:1.1rem;color:#888;letter-spacing:0.1em;">おめでとう。予定通りです。</p>';
-  document.body.appendChild(finalMsg);
-
-  await sleep(1000);
-  stopSnow();
-
-  // ===== ⑨：砂嵐が晴れた瞬間、テキストが既にある =====
-  // 5秒間表示
+  document.getElementById('n6title').style.opacity = '1';
+  await sleep(2000);
+  document.getElementById('n6msg').style.opacity = '1';
   await sleep(5000);
 
-  // フェードアウト
-  finalMsg.style.transition = 'opacity 2s';
-  finalMsg.style.opacity = '0';
-  await sleep(2500);
-
-  // Night選択画面に遷移
+  // カスタムナイトへ遷移
   window.location.href = 'custom_night.html';
 }
 
