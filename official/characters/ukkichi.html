@@ -92,17 +92,19 @@ var ukkichiContainer = document.getElementById('ukkichi-secret');
 var normalImg = ukkichiContainer.querySelector('.normal');
 var kowaiImg = ukkichiContainer.querySelector('.hover-image');
 
-setTimeout(function() {
-  normalImg.style.opacity = '0';
-  kowaiImg.style.opacity = '1';
-  kowaiImg.style.cursor = 'pointer';
-}, 180000);
+if (!localStorage.getItem('night2_cleared')) {
+  setTimeout(function() {
+    normalImg.style.opacity = '0';
+    kowaiImg.style.opacity = '1';
+    kowaiImg.style.cursor = 'pointer';
+  }, 180000);
 
-ukkichiContainer.addEventListener('click', function() {
-  if (kowaiImg.style.opacity === '1') {
-    window.location.href = '../../game/night2.html';
-  }
-});
+  ukkichiContainer.addEventListener('click', function() {
+    if (kowaiImg.style.opacity === '1') {
+      window.location.href = '../../game/night2.html';
+    }
+  });
+}
 
 if (localStorage.getItem('night2_cleared')) {
   document.querySelectorAll('.night2-content').forEach(function(el) { el.style.display = ''; });

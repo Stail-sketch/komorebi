@@ -170,6 +170,14 @@
   <div class="anchor-popup" id="anchor-popup"></div>
 
   <script>
+    // Night1クリア済みならリンクを無効化
+    if (localStorage.getItem('night1_cleared')) {
+      document.querySelectorAll('.bbs-hidden-link').forEach(function(link) {
+        link.removeAttribute('href');
+        link.style.cursor = 'default';
+      });
+    }
+
     // >>数字 のホバーでポップアップ表示
     document.querySelectorAll('.anchor').forEach(function(anchor) {
       anchor.addEventListener('mouseenter', function(e) {
