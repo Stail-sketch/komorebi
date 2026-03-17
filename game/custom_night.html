@@ -1,66 +1,96 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CUSTOM NIGHT</title>
-  <style>
-    body { margin:0; padding:0; background:#000; color:#fff; font-family:'Courier New',monospace; display:flex; align-items:center; justify-content:center; min-height:100vh; }
-    .container { text-align:center; max-width:500px; padding:40px; }
-    h1 { font-size:1.4rem; letter-spacing:0.15em; margin-bottom:30px; }
-    .char-setting { margin:15px 0; display:flex; align-items:center; justify-content:space-between; }
-    .char-name { width:150px; text-align:left; font-size:0.9rem; }
-    .char-setting input[type=range] { width:150px; }
-    .char-value { width:40px; text-align:right; color:#ffd700; }
-    #start-btn { margin-top:30px; padding:12px 40px; font-family:monospace; font-size:1rem; background:#111; color:#ffd700; border:1px solid #ffd700; cursor:pointer; }
-    #start-btn:hover { background:#1a1a00; }
-    .back-link { display:block; margin-top:20px; color:#888; font-size:0.85rem; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CUSTOM NIGHT</title>
+<link rel="stylesheet" href="custom_night.css">
 </head>
 <body>
-<div class="container">
-  <h1>CUSTOM NIGHT</h1>
+<div class="cn-container">
 
-  <div class="char-setting">
-    <span class="char-name">キツネ団長</span>
-    <input type="range" min="0" max="20" value="10" id="kitsune-level" oninput="document.getElementById('kitsune-val').textContent=this.value">
-    <span class="char-value" id="kitsune-val">10</span>
-  </div>
-  <div class="char-setting">
-    <span class="char-name">かあ博士</span>
-    <input type="range" min="0" max="20" value="10" id="kaa-level" oninput="document.getElementById('kaa-val').textContent=this.value">
-    <span class="char-value" id="kaa-val">10</span>
-  </div>
-  <div class="char-setting">
-    <span class="char-name">ぽたまる</span>
-    <input type="range" min="0" max="20" value="10" id="potamaru-level" oninput="document.getElementById('potamaru-val').textContent=this.value">
-    <span class="char-value" id="potamaru-val">10</span>
-  </div>
-  <div class="char-setting">
-    <span class="char-name">うっきち</span>
-    <input type="range" min="0" max="20" value="10" id="ukkichi-level" oninput="document.getElementById('ukkichi-val').textContent=this.value">
-    <span class="char-value" id="ukkichi-val">10</span>
-  </div>
-  <div class="char-setting">
-    <span class="char-name">試作きつね</span>
-    <input type="range" min="0" max="20" value="10" id="shisaku-level" oninput="document.getElementById('shisaku-val').textContent=this.value">
-    <span class="char-value" id="shisaku-val">10</span>
+  <h1 class="cn-title">CUSTOM NIGHT</h1>
+
+  <div class="cn-characters">
+    <div class="cn-char" data-char="kitsune">
+      <div class="cn-char-icon">キツネ団長</div>
+      <p class="cn-char-name">キツネ団長</p>
+      <div class="cn-slider">
+        <button class="cn-btn-minus">&lsaquo;</button>
+        <span class="cn-level" id="level-kitsune">0</span>
+        <button class="cn-btn-plus">&rsaquo;</button>
+      </div>
+    </div>
+
+    <div class="cn-char" data-char="kaa">
+      <div class="cn-char-icon">かあ博士</div>
+      <p class="cn-char-name">かあ博士</p>
+      <div class="cn-slider">
+        <button class="cn-btn-minus">&lsaquo;</button>
+        <span class="cn-level" id="level-kaa">0</span>
+        <button class="cn-btn-plus">&rsaquo;</button>
+      </div>
+    </div>
+
+    <div class="cn-char" data-char="ukkichi">
+      <div class="cn-char-icon">うっきち</div>
+      <p class="cn-char-name">うっきち</p>
+      <div class="cn-slider">
+        <button class="cn-btn-minus">&lsaquo;</button>
+        <span class="cn-level" id="level-ukkichi">0</span>
+        <button class="cn-btn-plus">&rsaquo;</button>
+      </div>
+    </div>
+
+    <div class="cn-char" data-char="potamaru">
+      <div class="cn-char-icon">ぽたまる</div>
+      <p class="cn-char-name">ぽたまる</p>
+      <div class="cn-slider">
+        <button class="cn-btn-minus">&lsaquo;</button>
+        <span class="cn-level" id="level-potamaru">0</span>
+        <button class="cn-btn-plus">&rsaquo;</button>
+      </div>
+    </div>
+
+    <div class="cn-char" data-char="shisaku">
+      <div class="cn-char-icon">試作きつね</div>
+      <p class="cn-char-name">試作きつね</p>
+      <div class="cn-slider">
+        <button class="cn-btn-minus">&lsaquo;</button>
+        <span class="cn-level" id="level-shisaku">0</span>
+        <button class="cn-btn-plus">&rsaquo;</button>
+      </div>
+    </div>
   </div>
 
-  <button id="start-btn">START</button>
-  <a class="back-link" href="all_clear.html">&larr; Back</a>
+  <div class="cn-presets">
+    <p class="cn-presets-label">プリセット</p>
+    <div class="cn-preset-buttons">
+      <button class="cn-preset" data-preset="housou">放送開始</button>
+      <button class="cn-preset" data-preset="phase2">フェーズ2</button>
+      <button class="cn-preset" data-preset="zenin">全員集合</button>
+      <button class="cn-preset" data-preset="projectk">プロジェクトK</button>
+      <button class="cn-preset" data-preset="1997">1997年10月</button>
+      <button class="cn-preset" data-preset="soutei">想定外の出力</button>
+      <button class="cn-preset" data-preset="yoteidoori">予定通り</button>
+    </div>
+  </div>
+
+  <div class="cn-stars" id="cn-stars"></div>
+
+  <button class="cn-start" id="cn-start">START</button>
+
+  <div class="cn-bottom">
+    <button class="cn-share" id="cn-share">Share on X</button>
+    <button class="cn-back" id="cn-back">最初に戻る</button>
+  </div>
+
+  <div class="cn-process" id="cn-process" style="display: none;">
+    PROCESS STILL RUNNING
+  </div>
+
 </div>
-<script>
-document.getElementById('start-btn').addEventListener('click', function() {
-  // Store custom levels
-  localStorage.setItem('custom_kitsune', document.getElementById('kitsune-level').value);
-  localStorage.setItem('custom_kaa', document.getElementById('kaa-level').value);
-  localStorage.setItem('custom_potamaru', document.getElementById('potamaru-level').value);
-  localStorage.setItem('custom_ukkichi', document.getElementById('ukkichi-level').value);
-  localStorage.setItem('custom_shisaku', document.getElementById('shisaku-level').value);
-  localStorage.setItem('custom_night', 'true');
-  window.location.href = 'night6.html';
-});
-</script>
+
+<script src="custom_night.js"></script>
 </body>
 </html>
