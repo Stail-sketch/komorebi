@@ -49,16 +49,15 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(2.5);
-  transform-origin: top center;
+  object-position: center top;
 }
 
 /* キャラ別の顔位置調整 */
-.cn-char[data-char="kitsune"] .cn-char-icon img { transform-origin: 48% 12%; }
-.cn-char[data-char="kaa"] .cn-char-icon img { transform-origin: 45% 18%; }
-.cn-char[data-char="ukkichi"] .cn-char-icon img { transform-origin: 45% 15%; }
-.cn-char[data-char="potamaru"] .cn-char-icon img { transform-origin: 48% 15%; }
-.cn-char[data-char="shisaku"] .cn-char-icon img { transform-origin: 48% 14%; }
+.cn-char[data-char="kitsune"] .cn-char-icon img { object-position: center 20%; }
+.cn-char[data-char="kaa"] .cn-char-icon img { object-position: center 15%; }
+.cn-char[data-char="ukkichi"] .cn-char-icon img { object-position: center 20%; }
+.cn-char[data-char="potamaru"] .cn-char-icon img { object-position: center 20%; }
+.cn-char[data-char="shisaku"] .cn-char-icon img { object-position: center 25%; }
 
 .cn-char-name {
   font-size: 0.85rem;
