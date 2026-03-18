@@ -26,7 +26,7 @@
     <div class="header-row">
       <div class="header-chars-left"><img src="../images/characters/kitsune_normal.png" alt="キツネ団長"><img src="../images/characters/kaa_normal.png" alt="かあ博士"></div>
       <div class="header-title-area">
-        <div class="logo" id="official-logo"><img src="../images/rogo.png" alt="こもれびゆうえんち" class="logo-img"></div>
+        <div class="logo"><img src="../images/rogo.png" alt="こもれびゆうえんち" class="logo-img"></div>
       </div>
       <div class="header-chars-right"><img src="../images/characters/potamaru_normal.png" alt="ぽたまる"><img src="../images/characters/ukkichi_normal.png" alt="うっきち"></div>
     </div>
@@ -76,22 +76,7 @@
   </footer>
 
   <script>
-    let logoClickCount = 0;
-    const logo = document.getElementById('official-logo');
-
-    function enableLogoSecret() {
-      logo.addEventListener('click', function() {
-        logoClickCount++;
-        if (logoClickCount >= 5) {
-          window.location.href = '../game/night3.html';
-        }
-      });
-    }
-
     if (localStorage.getItem('night2_cleared') === 'true') {
-      if (!localStorage.getItem('night3_cleared')) {
-        enableLogoSecret();
-      }
       document.querySelectorAll('.night2-content').forEach(function(el) { el.style.setProperty('display', '', 'important'); el.classList.remove('night2-content'); });
     }
     if (localStorage.getItem('night3_cleared') === 'true') {

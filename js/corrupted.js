@@ -1,3 +1,19 @@
+// ロゴ5回タップでNight3へ遷移（全officialページ共通）
+(function() {
+  if (localStorage.getItem('night2_cleared') !== 'true') return;
+  if (localStorage.getItem('night3_cleared') === 'true') return;
+  var logo = document.querySelector('.logo');
+  if (!logo) return;
+  var count = 0;
+  logo.style.cursor = 'pointer';
+  logo.addEventListener('click', function() {
+    count++;
+    if (count >= 5) {
+      window.location.href = '/game/night3.html';
+    }
+  });
+})();
+
 (function() {
   if (localStorage.getItem('night5_cleared') !== 'true') return;
 
