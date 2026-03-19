@@ -116,7 +116,7 @@ function stopAllSounds() {
 
 // --- 定数 ---
 const GAME_DURATION = 180;           // 秒（リアル3分）
-const POWER_CAMERA_DRAIN = 0.05;     // %/秒（全Night共通）
+const POWER_CAMERA_DRAIN = 0.12;     // %/秒（全Night共通）
 const POWER_SHUTTER_DRAIN = 0.25;    // %/秒・片方（全Night共通）
 const CLOCK_WARNING_THRESHOLD = 30;  // チクタク警告開始（全Night共通）
 
@@ -158,46 +158,46 @@ const NIGHT_PARAMS = {
     potamaruRushTime:     4,
   },
   4: {
-    powerBaseDrain:     0.06,
-    clockDrain:         0.7,
+    powerBaseDrain:     0.08,
+    clockDrain:         0.9,
+    clockWindPerClick:  1,
+    kaaFirstMove:       [18, 30],
+    kaaMoveInterval:    [4, 7],
+    kaaDoorWait:        [4, 7],
+    ukkichiFirstMove:     [21, 36],
+    ukkichiMoveInterval:  [5, 8],
+    ukkichiDoorWait:      [4, 7],
+    potamaruFirstMusic:   [21, 36],
+    potamaruMusicInterval:[15, 30],
+    potamaruRushTime:     3,
+  },
+  5: {
+    powerBaseDrain:     0.07,
+    clockDrain:         0.8,
     clockWindPerClick:  1,
     kaaFirstMove:       [21, 36],
     kaaMoveInterval:    [5, 9],
-    kaaDoorWait:        [6, 9],
+    kaaDoorWait:        [5, 9],
     ukkichiFirstMove:     [27, 42],
     ukkichiMoveInterval:  [6, 10],
-    ukkichiDoorWait:      [6, 9],
+    ukkichiDoorWait:      [5, 9],
     potamaruFirstMusic:   [27, 42],
     potamaruMusicInterval:[18, 36],
-    potamaruRushTime:     3.5,
-  },
-  5: {
-    powerBaseDrain:     0.05,
-    clockDrain:         0.5,
-    clockWindPerClick:  1,
-    kaaFirstMove:       [30, 48],
-    kaaMoveInterval:    [7, 12],
-    kaaDoorWait:        [7, 12],
-    ukkichiFirstMove:     [36, 54],
-    ukkichiMoveInterval:  [8, 14],
-    ukkichiDoorWait:      [7, 12],
-    potamaruFirstMusic:   [36, 54],
-    potamaruMusicInterval:[24, 48],
-    potamaruRushTime:     5,
+    potamaruRushTime:     4,
   },
   6: {
-    powerBaseDrain:     0.05,
-    clockDrain:         0.5,
+    powerBaseDrain:     0.08,
+    clockDrain:         0.9,
     clockWindPerClick:  1,
-    kaaFirstMove:       [27, 42],
-    kaaMoveInterval:    [6, 11],
-    kaaDoorWait:        [7, 11],
-    ukkichiFirstMove:     [33, 48],
-    ukkichiMoveInterval:  [7, 12],
-    ukkichiDoorWait:      [7, 11],
-    potamaruFirstMusic:   [33, 48],
-    potamaruMusicInterval:[21, 42],
-    potamaruRushTime:     4.5,
+    kaaFirstMove:       [18, 33],
+    kaaMoveInterval:    [4, 8],
+    kaaDoorWait:        [5, 8],
+    ukkichiFirstMove:     [24, 39],
+    ukkichiMoveInterval:  [5, 9],
+    ukkichiDoorWait:      [5, 8],
+    potamaruFirstMusic:   [24, 39],
+    potamaruMusicInterval:[15, 33],
+    potamaruRushTime:     3.5,
   },
 };
 
@@ -359,6 +359,9 @@ function openCamera() {
   dom.cameraView.classList.remove('hidden');
   triggerCameraNoise();
   updateCameraView();
+
+  // 試作きつね: カメラ起動時にスポーン判定
+  checkShisakuSpawn('camera');
 }
 
 function closeCamera() {
@@ -382,6 +385,9 @@ function switchCamera(camNum) {
 
   updateCameraView();
   updateShisakuDisplay();
+
+  // 試作きつね: カメラ切替時にスポーン判定
+  checkShisakuSpawn('camera');
 }
 
 function triggerCameraNoise() {
@@ -490,8 +496,8 @@ function toggleShutter(side) {
       potamaru.nextMusicTime = gameState.time + randomRange(np.potamaruMusicInterval[0], np.potamaruMusicInterval[1]);
     }
 
-    // 試作きつね: シャッター閉時にスポーン判定
-    checkShisakuSpawn();
+    // 試作きつね: シャッター閉時にもスポーン判定
+    checkShisakuSpawn('shutter');
   }
 
   updateClosedBgClip();
@@ -634,6 +640,9 @@ function windClock() {
   if (gameState.gameOver || gameState.cleared) return;
 
   gameState.clockGauge = Math.min(100, gameState.clockGauge + getNightParams().clockWindPerClick);
+
+  // 試作きつね: 時計巻きクリックでもスポーン判定
+  checkShisakuSpawn('clock');
 }
 
 // ===== Step 4: かあ博士（ランダム移動） =====
@@ -866,7 +875,7 @@ function updateDoorSilhouettes() {
 
 // ===== 試作きつね (Night6) =====
 
-function checkShisakuSpawn() {
+function checkShisakuSpawn(source) {
   if (NIGHT_NUMBER !== 6 || shisakuActive || !gameState.running) return;
 
   var prob;
@@ -875,10 +884,10 @@ function checkShisakuSpawn() {
     var params = getNightParams();
     prob = params._customShisakuChance || 0;
   } else {
-    // 通常Night6：時間経過で上昇
+    // 通常Night6：時間経過で上昇（全クリックで判定）
     var elapsed = (Date.now() - gameStartTime) / 1000;
     var hour = Math.floor(elapsed / 30);
-    var probs = [0.05, 0.07, 0.10, 0.13, 0.17, 0.20];
+    var probs = [0.03, 0.05, 0.07, 0.10, 0.13, 0.17];
     prob = probs[Math.min(hour, 5)];
   }
 
