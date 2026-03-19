@@ -269,6 +269,12 @@ function initGameState() {
       right: false,
     },
 
+    // シャッターを開けた直後の無敵時間（タイムスタンプ）
+    shutterGrace: {
+      left: 0,
+      right: 0,
+    },
+
     clockGauge: 100,
 
     characters: {
@@ -464,6 +470,11 @@ function toggleShutter(side) {
   const isLeft = side === 'left';
   gameState.shutters[side] = !gameState.shutters[side];
   const closed = gameState.shutters[side];
+
+  // シャッターを開けた瞬間に0.7秒の猶予を設定
+  if (!closed) {
+    gameState.shutterGrace[side] = gameState.time + 0.7;
+  }
 
   const btn = isLeft ? dom.leftShutterBtn : dom.rightShutterBtn;
   btn.classList.toggle('closed', closed);
@@ -662,6 +673,7 @@ function updateKaa(dt) {
       const shutterClosed = kaa.doorSide === 'left'
         ? gameState.shutters.left
         : gameState.shutters.right;
+      const inGrace = gameState.time < gameState.shutterGrace[kaa.doorSide];
 
       if (shutterClosed) {
         // 撃退 → CAM4に戻る
@@ -671,8 +683,8 @@ function updateKaa(dt) {
         kaa.nextMoveTime = gameState.time + randomRange(getNightParams().kaaMoveInterval[0], getNightParams().kaaMoveInterval[1]);
         updateDoorSilhouettes();
         if (gameState.camera.active) updateCameraCharacter();
-      } else {
-        // 侵入 → ゲームオーバー
+      } else if (!inGrace) {
+        // 侵入 → ゲームオーバー（猶予中はスキップ）
         triggerGameOver('kaa');
       }
     }
@@ -733,6 +745,7 @@ function updateUkkichi(dt) {
       const shutterClosed = ukkichi.doorSide === 'left'
         ? gameState.shutters.left
         : gameState.shutters.right;
+      const inGrace = gameState.time < gameState.shutterGrace[ukkichi.doorSide];
 
       if (shutterClosed) {
         // 撃退 → CAM5に戻る
@@ -742,8 +755,8 @@ function updateUkkichi(dt) {
         ukkichi.nextMoveTime = gameState.time + randomRange(np.ukkichiMoveInterval[0], np.ukkichiMoveInterval[1]);
         updateDoorSilhouettes();
         if (gameState.camera.active) updateCameraCharacter();
-      } else {
-        // 侵入 → ゲームオーバー
+      } else if (!inGrace) {
+        // 侵入 → ゲームオーバー（猶予中はスキップ）
         triggerGameOver('ukkichi');
       }
     }
@@ -801,6 +814,7 @@ function updatePotamaru(dt) {
       const shutterClosed = potamaru.rushSide === 'left'
         ? gameState.shutters.left
         : gameState.shutters.right;
+      const inGrace = gameState.time < gameState.shutterGrace[potamaru.rushSide];
 
       if (shutterClosed) {
         // 撃退 → CAM3に戻る
@@ -811,8 +825,8 @@ function updatePotamaru(dt) {
         potamaru.nextMusicTime = gameState.time + randomRange(np.potamaruMusicInterval[0], np.potamaruMusicInterval[1]);
         updateDoorSilhouettes();
         if (gameState.camera.active) updateCameraCharacter();
-      } else {
-        // 侵入 → ゲームオーバー
+      } else if (!inGrace) {
+        // 侵入 → ゲームオーバー（猶予中はスキップ）
         triggerGameOver('potamaru');
       }
     }
