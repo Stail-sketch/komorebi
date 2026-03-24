@@ -247,6 +247,62 @@ let shisakuTimer = null;
 let shisakuCheckEnabled = false;
 let gameStartTime = 0;
 
+// --- カメラ故障 (Night4+) ---
+let cameraJamActive = false;
+let cameraJamCam = -1;
+let cameraJamEndTime = 0;
+let cameraJamNextTime = 0;
+
+// Night別カメラ故障パラメータ
+const CAMERA_JAM_PARAMS = {
+  4: { interval: [40, 55], duration: [6, 10] },
+  5: { interval: [30, 45], duration: [8, 12] },
+  6: { interval: [35, 50], duration: [7, 10] },
+  custom: { interval: [55, 80], duration: [5, 8] },
+};
+
+function getCameraJamParams() {
+  if (typeof IS_CUSTOM_NIGHT !== 'undefined' && IS_CUSTOM_NIGHT) {
+    return CAMERA_JAM_PARAMS.custom;
+  }
+  return CAMERA_JAM_PARAMS[NIGHT_NUMBER] || null;
+}
+
+function initCameraJam() {
+  var params = getCameraJamParams();
+  if (!params) return;
+  cameraJamNextTime = randomRange(params.interval[0], params.interval[1]);
+}
+
+function updateCameraJam(dt) {
+  var params = getCameraJamParams();
+  if (!params) return;
+
+  if (cameraJamActive) {
+    // 故障中 → 終了チェック
+    if (gameState.time >= cameraJamEndTime) {
+      cameraJamActive = false;
+      cameraJamCam = -1;
+      // 現在表示中のカメラを更新（故障表示を消す）
+      if (gameState.camera.active) updateCameraView();
+      // 次回の故障タイミングを設定
+      cameraJamNextTime = gameState.time + randomRange(params.interval[0], params.interval[1]);
+    }
+    return;
+  }
+
+  // 故障発生チェック
+  if (gameState.time >= cameraJamNextTime) {
+    // ランダムなカメラを故障させる（CAM1〜8）
+    cameraJamCam = Math.floor(Math.random() * 8) + 1;
+    cameraJamActive = true;
+    cameraJamEndTime = gameState.time + randomRange(params.duration[0], params.duration[1]);
+
+    // 現在表示中のカメラが故障対象なら表示を更新
+    if (gameState.camera.active) updateCameraView();
+  }
+}
+
 // --- ゲーム状態 ---
 let gameState = {};
 
@@ -320,6 +376,36 @@ function $(id) {
 // --- DOM要素キャッシュ ---
 let dom = {};
 
+function createCameraJamOverlay() {
+  var feed = document.getElementById('camera-feed');
+  if (!feed || document.getElementById('camera-jam-overlay')) return;
+  var overlay = document.createElement('div');
+  overlay.id = 'camera-jam-overlay';
+  overlay.className = 'hidden';
+  overlay.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;z-index:50;background:#111;display:flex;align-items:center;justify-content:center;';
+  overlay.innerHTML = '<canvas id="camera-jam-canvas" style="width:100%;height:100%;"></canvas>';
+  feed.appendChild(overlay);
+
+  // 砂嵐描画
+  var canvas = document.getElementById('camera-jam-canvas');
+  var ctx = canvas.getContext('2d');
+  function resizeJamCanvas() { canvas.width = canvas.offsetWidth || 640; canvas.height = canvas.offsetHeight || 360; }
+  resizeJamCanvas();
+  function drawJamNoise() {
+    if (overlay.classList.contains('hidden')) { requestAnimationFrame(drawJamNoise); return; }
+    var w = canvas.width, h = canvas.height;
+    var img = ctx.createImageData(w, h);
+    var d = img.data;
+    for (var i = 0; i < d.length; i += 4) {
+      var v = Math.random() * 180;
+      d[i] = v; d[i+1] = v; d[i+2] = v; d[i+3] = 255;
+    }
+    ctx.putImageData(img, 0, 0);
+    requestAnimationFrame(drawJamNoise);
+  }
+  drawJamNoise();
+}
+
 function cacheDom() {
   dom = {
     introScreen: $('intro-screen'),
@@ -354,6 +440,7 @@ function cacheDom() {
     clearScreen: $('clear-screen'),
     continueBtn: $('continue-btn'),
     blackoutOverlay: $('blackout-overlay'),
+    cameraJamOverlay: $('camera-jam-overlay'),
   };
 }
 
@@ -412,6 +499,23 @@ function updateCameraView() {
 
   // カメラ名
   dom.cameraLabel.textContent = CAMERA_NAMES[cam] || `CAM${cam}`;
+
+  // カメラ故障チェック
+  if (cameraJamActive && cam === cameraJamCam) {
+    // 故障中: 砂嵐表示
+    dom.cameraBg.src = '';
+    dom.cameraBg.style.display = 'none';
+    dom.cameraChar.classList.add('hidden');
+    dom.clockGaugeContainer.classList.add('hidden');
+    dom.cameraLabel.textContent = (CAMERA_NAMES[cam] || `CAM${cam}`) + ' ─ 信号なし';
+    // 砂嵐オーバーレイ表示
+    if (dom.cameraJamOverlay) dom.cameraJamOverlay.classList.remove('hidden');
+    return;
+  }
+
+  // 故障でない場合: 砂嵐を非表示
+  if (dom.cameraJamOverlay) dom.cameraJamOverlay.classList.add('hidden');
+  dom.cameraBg.style.display = '';
 
   // 背景画像
   dom.cameraBg.src = `image/camera/cam${cam}.png`;
@@ -649,6 +753,8 @@ function updateClockGauge(dt) {
 function windClock() {
   if (!gameState.camera.active || gameState.camera.current !== 2) return;
   if (gameState.gameOver || gameState.cleared) return;
+  // カメラ故障中は時計巻き不可
+  if (cameraJamActive && cameraJamCam === 2) return;
 
   gameState.clockGauge = Math.min(100, gameState.clockGauge + getNightParams().clockWindPerClick);
 
@@ -1232,6 +1338,9 @@ function gameLoop(timestamp) {
   updatePotamaru(clampedDt);
   if (gameState.gameOver) return;
 
+  // カメラ故障イベント (Night4+)
+  updateCameraJam(clampedDt);
+
   // カメラ表示中ならキャラ表示更新
   if (gameState.camera.active) {
     updateCameraCharacter();
@@ -1258,6 +1367,9 @@ function startGame() {
     gameState.characters.potamaru.active = true;
     gameState.characters.potamaru.nextMusicTime = randomRange(np.potamaruFirstMusic[0], np.potamaruFirstMusic[1]);
   }
+
+  // Night4以降 + カスタムナイト: カメラ故障
+  initCameraJam();
 
   lastTimestamp = 0;
   stopAllSounds();
@@ -1364,6 +1476,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('dragstart', e => e.preventDefault());
   document.addEventListener('contextmenu', e => e.preventDefault());
 
+  createCameraJamOverlay();
   cacheDom();
   initSounds();
   setupEventListeners();
