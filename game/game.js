@@ -809,6 +809,31 @@ function updatePotamaru(dt) {
   if (!potamaru.active) return;
 
   if (potamaru.rushing) {
+    // 突進中 → 間違った方のシャッターペナルティ判定（毎フレーム重複防止）
+    if (!potamaru._penaltyApplied) {
+      const wrongSide = potamaru.rushSide === 'left' ? 'right' : 'left';
+      if (gameState.shutters[wrongSide]) {
+        // 間違った方が閉まっている → 時計ゲージペナルティ
+        var penaltyAmount = 5;
+        // カスタムナイトでは軽減
+        if (typeof IS_CUSTOM_NIGHT !== 'undefined' && IS_CUSTOM_NIGHT) {
+          penaltyAmount = 2;
+        }
+        gameState.clockGauge = Math.max(0, gameState.clockGauge - penaltyAmount);
+        potamaru._penaltyApplied = true;
+
+        // 視覚フィードバック: 時計ゲージを赤く光らせる
+        if (dom.clockGaugeBar) {
+          dom.clockGaugeBar.style.transition = 'none';
+          dom.clockGaugeBar.style.boxShadow = '0 0 15px #f00, inset 0 0 10px rgba(255,0,0,0.5)';
+          setTimeout(function() {
+            dom.clockGaugeBar.style.boxShadow = '';
+            dom.clockGaugeBar.style.transition = '';
+          }, 600);
+        }
+      }
+    }
+
     // 突進中 → 猶予時間チェック
     if (gameState.time >= potamaru.rushDeadline) {
       const shutterClosed = potamaru.rushSide === 'left'
@@ -821,6 +846,7 @@ function updatePotamaru(dt) {
         const np = getNightParams();
         potamaru.rushing = false;
         potamaru.rushSide = null;
+        potamaru._penaltyApplied = false;
         potamaru.position = 'cam3';
         potamaru.nextMusicTime = gameState.time + randomRange(np.potamaruMusicInterval[0], np.potamaruMusicInterval[1]);
         updateDoorSilhouettes();
@@ -839,17 +865,22 @@ function updatePotamaru(dt) {
   const np = getNightParams();
 
   // ランダムで音楽A（右）orB（左）
+  // カメラ非表示時は音量を大幅に下げる
+  var musicVolume = gameState.camera.active ? SOUND_VOLUMES.potamaruDanceA : 0.06;
   if (Math.random() < 0.5) {
     // 音楽A → 右扉へ
+    sounds.potamaruDanceA.volume = musicVolume;
     playSound(sounds.potamaruDanceA);
     potamaru.rushSide = 'right';
   } else {
     // 音楽B → 左扉へ
+    sounds.potamaruDanceB.volume = musicVolume;
     playSound(sounds.potamaruDanceB);
     potamaru.rushSide = 'left';
   }
 
   potamaru.rushing = true;
+  potamaru._penaltyApplied = false;
   potamaru.position = potamaru.rushSide === 'right' ? 'cam8' : 'cam7';
   potamaru.rushDeadline = gameState.time + np.potamaruRushTime;
   updateDoorSilhouettes();
