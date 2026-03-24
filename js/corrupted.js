@@ -9,7 +9,7 @@
   logo.addEventListener('click', function() {
     count++;
     if (count >= 5) {
-      window.location.href = '/game/night3.html';
+      window.location.href = '/game/gm_9d.html';
     }
   });
 })();

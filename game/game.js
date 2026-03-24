@@ -1173,7 +1173,7 @@ function gameClear() {
       localStorage.removeItem('custom_night');
       setTimeout(function() {
         allowNavigation();
-        window.location.href = 'yoteidoori_ending.html';
+        window.location.href = 'gm_e2.html';
       }, 1000);
     } else if (isCustom) {
       // 通常カスタムナイト → 6AM + ★ + 続けるボタン
@@ -1196,7 +1196,7 @@ function gameClear() {
       // 通常Night6 → 真エンディング（ハッピーエンド）
       setTimeout(function() {
         allowNavigation();
-        window.location.href = 'true_ending.html';
+        window.location.href = 'gm_e1.html';
       }, 1000);
     }
     return;
@@ -1284,7 +1284,7 @@ function night5Ending() {
       night6Btn.textContent = '...';
       night6Btn.addEventListener('click', () => {
         allowNavigation();
-        window.location.href = 'night6.html';
+        window.location.href = 'gm_8v.html';
       });
     }
   }

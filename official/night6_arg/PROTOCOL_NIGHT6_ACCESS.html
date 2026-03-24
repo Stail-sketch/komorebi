@@ -47,7 +47,7 @@ var statusEl = document.getElementById('access-status');
 if (localStorage.getItem('night6_cleared')) {
   statusEl.innerHTML = '<div class="unlocked"><p>> アクセスターミナル // 状態：完了済み</p><p>Night 6 はクリア済みです。</p></div>';
 } else if (count >= 20) {
-  statusEl.innerHTML = '<div class="unlocked"><p>> アクセスターミナル // 状態：解除済み</p><p>全システムファイルの確認が完了しました。</p><button id="proceed-btn" onclick="location.href=\'/game/night6.html\'">NIGHT 6 へ進む</button></div>';
+  statusEl.innerHTML = '<div class="unlocked"><p>> アクセスターミナル // 状態：解除済み</p><p>全システムファイルの確認が完了しました。</p><button id="proceed-btn" onclick="location.href=\'/game/gm_8v.html\'">NIGHT 6 へ進む</button></div>';
 } else {
   statusEl.innerHTML = '<div class="locked"><p>> アクセスターミナル // 状態：ロック中</p><p>閲覧済みページ数：' + count + ' / 20</p><p class="dim">全てのシステムファイルを閲覧してください。</p></div>';
 }
