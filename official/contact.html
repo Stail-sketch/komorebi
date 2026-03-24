@@ -92,10 +92,13 @@
   </footer>
 
   <script>
+    // ミスカウンター
+    var missCount = parseInt(localStorage.getItem('night5_form_misses') || '0', 10);
+
     function handleContactSubmit(event) {
       event.preventDefault();
 
-      var email = document.getElementById('email').value.trim();
+      var email = document.getElementById('email').value.trim().toLowerCase();
       var typeRadios = document.getElementsByName('type');
       var selectedType = '';
       for (var i = 0; i < typeRadios.length; i++) {
@@ -107,17 +110,32 @@
       if (
         email === 'k-project@yume-studio.co.jp' &&
         selectedType === 'recording' &&
-        content === '1986年の初期構想について' &&
+        content.indexOf('初期構想') !== -1 &&
         localStorage.getItem('night4_cleared') === 'true' &&
         !localStorage.getItem('night5_cleared')
       ) {
+        localStorage.removeItem('night5_form_misses');
         triggerNight5Entrance();
         return false;
       }
 
-      // 通常の送信（エラー表示）
+      // ミスカウント加算
+      missCount++;
+      localStorage.setItem('night5_form_misses', missCount.toString());
+
+      // 段階的ヒント
       var resultDiv = document.getElementById('form-result');
-      resultDiv.textContent = '申し訳ございません。現在お問い合わせは受け付けておりません。';
+      var msg = '申し訳ございません。現在お問い合わせは受け付けておりません。';
+
+      if (missCount >= 9) {
+        msg = 'プロジェクト関連資料と内部メモをもう一度お読みください。';
+      } else if (missCount >= 6) {
+        msg = '内部資料に記載の宛先・種別・件名をご確認ください。';
+      } else if (missCount >= 3) {
+        msg = '……送信先が異なるようです。';
+      }
+
+      resultDiv.textContent = msg;
       resultDiv.style.display = 'block';
       return false;
     }
