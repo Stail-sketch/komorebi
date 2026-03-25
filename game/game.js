@@ -293,9 +293,8 @@ function updateCameraJam(dt) {
 
   // 故障発生チェック
   if (gameState.time >= cameraJamNextTime) {
-    // ランダムなカメラを故障させる（CAM2:時計, CAM7/8:通路は除外）
-    var jamCandidates = [1, 3, 4, 5, 6];
-    cameraJamCam = jamCandidates[Math.floor(Math.random() * jamCandidates.length)];
+    // ランダムなカメラを故障させる（CAM1〜8）
+    cameraJamCam = Math.floor(Math.random() * 8) + 1;
     cameraJamActive = true;
     cameraJamEndTime = gameState.time + randomRange(params.duration[0], params.duration[1]);
 
@@ -383,7 +382,7 @@ function createCameraJamOverlay() {
   var overlay = document.createElement('div');
   overlay.id = 'camera-jam-overlay';
   overlay.className = 'hidden';
-  overlay.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;z-index:50;background:#111;display:flex;align-items:center;justify-content:center;';
+  overlay.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;z-index:5;background:#111;display:flex;align-items:center;justify-content:center;';
   overlay.innerHTML = '<canvas id="camera-jam-canvas" style="width:100%;height:100%;"></canvas>';
   feed.appendChild(overlay);
 

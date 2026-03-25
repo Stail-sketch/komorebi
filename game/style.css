@@ -493,7 +493,7 @@ img {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 6px;
-  z-index: 5;
+  z-index: 30;
 }
 
 .cam-btn {
