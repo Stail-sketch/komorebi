@@ -802,6 +802,14 @@ table.official-table tr:nth-child(even) td {
     cursor: default;
 }
 
+/* 黒幕の黒塗り（同一人物） - ホバーでわずかに透ける */
+.redacted.mastermind {
+    transition: opacity 0.3s;
+}
+.redacted.mastermind:hover {
+    opacity: 0.92;
+}
+
 /* 基本情報テーブル */
 .info-table {
     width: 100%;
