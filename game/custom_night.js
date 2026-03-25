@@ -127,7 +127,7 @@ document.getElementById('cn-share').addEventListener('click', function() {
 
 // 最初に戻る
 document.getElementById('cn-back').addEventListener('click', function() {
-  window.location.href = 'https://note.com/';
+  window.location.href = 'https://note.com/holy_lemur8177/n/n1f2a977babdc?app_launch=false';
 });
 
 
