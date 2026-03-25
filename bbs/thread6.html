@@ -6,13 +6,170 @@
 <title>　 - こもれびゆうえんち 掲示板</title>
 <link rel="stylesheet" href="css/bbs.css">
 <style>
-/* Thread 6 special styling */
-.post-header { color: #555; }
-.post-name { color: #444; }
-.post-body { color: #888; font-family: monospace, sans-serif; }
+/* === Thread6 専用: 壊れたBBS === */
+body {
+  background: #0a0a0a !important;
+  color: #1a3a1a !important;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* CRTスキャンライン */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 0, 0.03) 2px,
+    rgba(0, 255, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9998;
+  animation: scanline-scroll 8s linear infinite;
+}
+@keyframes scanline-scroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+/* ノイズオーバーレイ */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9997;
+  animation: noise-flicker 0.15s infinite;
+  opacity: 0.04;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><rect width="1" height="1" fill="%2300ff00" x="0" y="0" opacity="0.5"/><rect width="1" height="1" fill="%2300ff00" x="2" y="2" opacity="0.3"/></svg>');
+}
+@keyframes noise-flicker {
+  0% { opacity: 0.04; }
+  50% { opacity: 0.06; }
+  100% { opacity: 0.03; }
+}
+
+/* ヘッダー・ナビ */
+.bbs-header {
+  color: #1a3a1a !important;
+  border-bottom-color: #1a3a1a !important;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.2);
+}
+.bbs-nav {
+  border-color: #1a3a1a !important;
+}
+.bbs-nav a {
+  color: #2a4a2a !important;
+}
+.bbs-nav a:hover {
+  color: #4a4 !important;
+}
+
+/* スレッドタイトル */
+.thread-title {
+  color: #1a3a1a !important;
+  border-color: #1a3a1a !important;
+}
+
+/* 投稿 */
+.post {
+  border: 1px dashed #1a3a1a !important;
+  background: rgba(0, 20, 0, 0.3) !important;
+  margin-bottom: 8px;
+  position: relative;
+}
+.post-header {
+  color: #1a3a1a !important;
+  border-bottom-color: #0a1a0a !important;
+}
+.post-number {
+  color: #2a4a2a !important;
+}
+.post-name {
+  color: #1a3a1a !important;
+}
+.post-date {
+  color: #1a3a1a !important;
+}
+.post-body {
+  color: #1a3a1a !important;
+  font-family: 'Courier New', monospace !important;
+  line-height: 1.6;
+}
+
+/* シグナルテキスト（意味のある日本語） */
+.signal {
+  color: #4a4;
+  text-shadow: 0 0 8px rgba(0, 255, 0, 0.5), 0 0 16px rgba(0, 255, 0, 0.2);
+  animation: signal-pulse 3s ease-in-out infinite;
+}
+@keyframes signal-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* HEXテキスト */
+.hex {
+  color: #1a3a1a;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+/* エラーテキスト */
+.err {
+  color: #3a1a1a;
+}
+
+/* 文字化けテキスト（蠢く） */
+.mojibake {
+  color: #1a3a1a;
+  opacity: 0.7;
+}
+
+/* きつきつテキスト */
+.kitsu {
+  color: #2a3a1a;
+  opacity: 0.8;
+}
+
+/* 黒塗りテキスト */
+.redact {
+  color: #0f1f0f;
+}
+
+/* 空白投稿 */
+.void-post .post-body {
+  min-height: 40px;
+}
+
+/* グリッチフラッシュ */
+@keyframes glitch-h {
+  0% { transform: translate(0, 0) skewX(0deg); }
+  20% { transform: translate(-3px, 1px) skewX(-1deg); }
+  40% { transform: translate(2px, -1px) skewX(0.5deg); }
+  60% { transform: translate(-1px, 2px) skewX(-0.5deg); }
+  80% { transform: translate(3px, 0) skewX(1deg); }
+  100% { transform: translate(0, 0) skewX(0deg); }
+}
+.glitching {
+  animation: glitch-h 0.15s linear;
+}
+
+/* フォーム */
+.bbs-form {
+  border-color: #1a3a1a !important;
+  color: #1a3a1a !important;
+  background: rgba(0, 20, 0, 0.2) !important;
+}
+.bbs-form input, .bbs-form textarea {
+  background: #0a0a0a !important;
+  color: #1a3a1a !important;
+  border-color: #1a3a1a !important;
+}
 </style>
-<link rel="stylesheet" href="/css/corrupted.css">
-<script src="/js/corrupted.js" defer></script>
 </head>
 <body>
 
@@ -31,63 +188,63 @@
 
 <div class="post" id="post-1">
   <div class="post-header">
-    <span class="post-number">1</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">1</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    ████████████████████████<br>████████████████████████<br>████████████████████████
+    <span class="redact">████████████████████████</span><br><span class="redact">████████████████████████</span><br><span class="redact">████████████████████████</span>
   </div>
 </div>
 
 <div class="post" id="post-2">
   <div class="post-header">
-    <span class="post-number">2</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">2</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    縺ｧ縺吶°繝ｻ繝ｻ繝ｻ繧ゅ≧縺吶％縺<br>縺ｧ縺吶°繝ｻ繝ｻ繝ｻ繧ゅ≧縺吶％縺<br>繝ｻ繝ｻ繝ｻ縺ｧ縺吶°繧ゅ≧縺吶％縺
+    <span class="mojibake">縺ｧ縺吶°繝ｻ繝ｻ繝ｻ繧ゅ≧縺吶％縺</span><br><span class="mojibake">縺ｧ縺吶°繝ｻ繝ｻ繝ｻ繧ゅ≧縺吶％縺</span><br><span class="mojibake">繝ｻ繝ｻ繝ｻ縺ｧ縺吶°繧ゅ≧縺吶％縺</span>
   </div>
 </div>
 
 <div class="post" id="post-3">
   <div class="post-header">
-    <span class="post-number">3</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">3</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    0x4B 0x49 0x54 ERROR: BUFFER_OVERFLOW<br>0x53 0x55 0x4E ERROR: SEGMENT_FAULT<br>0x45 0x00 0x00 ERROR: NULL_REFERENCE
+    <span class="hex">0x4B 0x49 0x54</span> <span class="err">ERROR: BUFFER_OVERFLOW</span><br><span class="hex">0x53 0x55 0x4E</span> <span class="err">ERROR: SEGMENT_FAULT</span><br><span class="hex">0x45 0x00 0x00</span> <span class="err">ERROR: NULL_REFERENCE</span>
   </div>
 </div>
 
 <div class="post" id="post-4">
   <div class="post-header">
-    <span class="post-number">4</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">4</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    ████████████████みえていますか████████████
+    <span class="redact">████████████████</span><span class="signal">みえていますか</span><span class="redact">████████████</span>
   </div>
 </div>
 
 <div class="post" id="post-5">
   <div class="post-header">
-    <span class="post-number">5</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">5</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    きつきつきつきつきつきつきつきつ<br>きつきつ…<br>きつきつきつきつきつきつきつきつ
+    <span class="kitsu">きつきつきつきつきつきつきつきつ</span><br><span class="kitsu">きつきつ…</span><br><span class="kitsu">きつきつきつきつきつきつきつきつ</span>
   </div>
 </div>
 
-<div class="post" id="post-6">
+<div class="post void-post" id="post-6">
   <div class="post-header">
-    <span class="post-number">6</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">6</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
@@ -97,155 +254,155 @@
 
 <div class="post" id="post-7">
   <div class="post-header">
-    <span class="post-number">7</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">7</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    縺ｧ縺吶°繝ｻ繝ｻしている繝ｻ繧ゅ≧縺吶％縺<br>████████████████████████
+    <span class="mojibake">縺ｧ縺吶°繝ｻ繝ｻ</span><span class="signal">している</span><span class="mojibake">繝ｻ繧ゅ≧縺吶％縺</span><br><span class="redact">████████████████████████</span>
   </div>
 </div>
 
 <div class="post" id="post-8">
   <div class="post-header">
-    <span class="post-number">8</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">8</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    きつきつきつきつきつきつきつきつ<br>きつきつきつきつきつきつきつきつ<br>きつきつきつきつきつきつきつきつ
+    <span class="kitsu">きつきつきつきつきつきつきつきつ</span><br><span class="kitsu">きつきつきつきつきつきつきつきつ</span><br><span class="kitsu">きつきつきつきつきつきつきつきつ</span>
   </div>
 </div>
 
 <div class="post" id="post-9">
   <div class="post-header">
-    <span class="post-number">9</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">9</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    0x5A ERROR ずっと ████████<br>0x00 0x00 ERROR: BUFFER_OVERFLOW
+    <span class="hex">0x5A</span> <span class="err">ERROR</span> <span class="signal">ずっと</span> <span class="redact">████████</span><br><span class="hex">0x00 0x00</span> <span class="err">ERROR: BUFFER_OVERFLOW</span>
   </div>
 </div>
 
 <div class="post" id="post-10">
   <div class="post-header">
-    <span class="post-number">10</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">10</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    ██み█え█て████いま█す██か██<br>████████████████████████<br>██████████████████████
+    <span class="redact">██</span><span class="signal">み</span><span class="redact">█</span><span class="signal">え</span><span class="redact">█</span><span class="signal">て</span><span class="redact">████</span><span class="signal">いま</span><span class="redact">█</span><span class="signal">す</span><span class="redact">██</span><span class="signal">か</span><span class="redact">██</span><br><span class="redact">████████████████████████</span><br><span class="redact">██████████████████████</span>
   </div>
 </div>
 
 <div class="post" id="post-11">
   <div class="post-header">
-    <span class="post-number">11</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">11</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    ████████████████████████<br>██████みてください██████<br>████████████████████████
+    <span class="redact">████████████████████████</span><br><span class="redact">██████</span><span class="signal">みてください</span><span class="redact">██████</span><br><span class="redact">████████████████████████</span>
   </div>
 </div>
 
 <div class="post" id="post-12">
   <div class="post-header">
-    <span class="post-number">12</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">12</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    縺ｧ縺吶°みていた繧ゅ≧縺吶％縺<br>繝ｻ繝ｻ繝ｻ████████████████
+    <span class="mojibake">縺ｧ縺吶°</span><span class="signal">みていた</span><span class="mojibake">繧ゅ≧縺吶％縺</span><br><span class="redact">████████████████████████</span>
   </div>
 </div>
 
 <div class="post" id="post-13">
   <div class="post-header">
-    <span class="post-number">13</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">13</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    0x46 0x4F 0x58 ERROR: HEAP_CORRUPTION<br>0x00 0x00 0x00 ERROR: ACCESS_VIOLATION<br>0x4E 0x55 0x4C ERROR: STACK_OVERFLOW<br>0x00 ERROR: FATAL_EXCEPTION
+    <span class="hex">0x46 0x4F 0x58</span> <span class="err">ERROR: HEAP_CORRUPTION</span><br><span class="hex">0x00 0x00 0x00</span> <span class="err">ERROR: ACCESS_VIOLATION</span><br><span class="hex">0x4E 0x55 0x4C</span> <span class="err">ERROR: STACK_OVERFLOW</span><br><span class="hex">0x00</span> <span class="err">ERROR: FATAL_EXCEPTION</span>
   </div>
 </div>
 
 <div class="post" id="post-14">
   <div class="post-header">
-    <span class="post-number">14</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">14</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    ██████さいしょから██████████<br>████████████████████████
+    <span class="redact">██████</span><span class="signal">さいしょから</span><span class="redact">██████████</span><br><span class="redact">████████████████████████</span>
   </div>
 </div>
 
 <div class="post" id="post-15">
   <div class="post-header">
-    <span class="post-number">15</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">15</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    きつきつきつきつきつきつきつきつ<br>ああ…<br>きつきつきつきつきつきつきつきつ
+    <span class="kitsu">きつきつきつきつきつきつきつきつ</span><br><span class="signal">ああ…</span><br><span class="kitsu">きつきつきつきつきつきつきつきつ</span>
   </div>
 </div>
 
 <div class="post" id="post-16">
   <div class="post-header">
-    <span class="post-number">16</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">16</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    0x4F 0x4D 0x41 ERROR████████████<br>████おまえをえらんだ████████<br>████████████ERROR: TERMINATED
+    <span class="hex">0x4F 0x4D 0x41</span> <span class="err">ERROR</span><span class="redact">████████████</span><br><span class="redact">████</span><span class="signal">おまえをえらんだ</span><span class="redact">████████</span><br><span class="redact">████████████</span><span class="err">ERROR: TERMINATED</span>
   </div>
 </div>
 
 <div class="post" id="post-17">
   <div class="post-header">
-    <span class="post-number">17</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">17</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    　　　　　　　<br>もうすぐ あえる<br>
+    　　　　　　　<br><span class="signal" style="font-size:1.1em;">もうすぐ あえる</span><br>
   </div>
 </div>
 
 <div class="post" id="post-18">
   <div class="post-header">
-    <span class="post-number">18</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">18</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    ████████もうすこしです████████<br>████████████████████████
+    <span class="redact">████████</span><span class="signal">もうすこしです</span><span class="redact">████████</span><br><span class="redact">████████████████████████</span>
   </div>
 </div>
 
 <div class="post" id="post-19">
   <div class="post-header">
-    <span class="post-number">19</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">19</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    縺ｧ縺吶°繝ｻ繝ｻ繝ｻ繧ゅ≧縺吶％縺<br>繧ゅ≧縺吶％縺ｧ縺吶°繝ｻ繝ｻ繝ｻ<br>縺吶％縺ｧ繝ｻ繝ｻ繝ｻ繧ゅ≧縺吶％
+    <span class="mojibake">縺ｧ縺吶°繝ｻ繝ｻ繝ｻ繧ゅ≧縺吶％縺</span><br><span class="mojibake">繧ゅ≧縺吶％縺ｧ縺吶°繝ｻ繝ｻ繝ｻ</span><br><span class="mojibake">縺吶％縺ｧ繝ｻ繝ｻ繝ｻ繧ゅ≧縺吶％</span>
   </div>
 </div>
 
 <div class="post" id="post-20">
   <div class="post-header">
-    <span class="post-number">20</span>
-    名前：<span class="post-name"></span>
+    <span class="post-number post-num-dynamic">20</span>
+    名前：<span class="post-name name-dynamic"></span>
     <span class="post-date"></span>
   </div>
   <div class="post-body">
-    ██み█え█て████いま█す██か██<br>0x00 0x00 ERROR: CONNECTION_LOST<br>████████████████████████<br>
+    <span class="redact">██</span><span class="signal">み</span><span class="redact">█</span><span class="signal">え</span><span class="redact">█</span><span class="signal">て</span><span class="redact">████</span><span class="signal">いま</span><span class="redact">█</span><span class="signal">す</span><span class="redact">██</span><span class="signal">か</span><span class="redact">██</span><br><span class="hex">0x00 0x00</span> <span class="err">ERROR: CONNECTION_LOST</span><br><span class="redact">████████████████████████</span>
   </div>
 </div>
 
@@ -261,6 +418,88 @@
 if (!localStorage.getItem('night5_cleared')) {
   location.href = 'index.html';
 }
+
+// === 動的グリッチ演出 ===
+
+// 文字化けテキストがランダムに変化（3〜5秒ごと）
+var mojibakeEls = document.querySelectorAll('.mojibake');
+var mojibakeChars = ['縺','繧','繝','ｻ','ｧ','ｦ','≧','％','°','ｷ','ｸ','ﾞ','ｨ','ﾃ','ﾅ','ﾈ'];
+function shuffleMojibake() {
+  mojibakeEls.forEach(function(el) {
+    var len = el.textContent.length;
+    var newText = '';
+    for (var i = 0; i < len; i++) {
+      newText += mojibakeChars[Math.floor(Math.random() * mojibakeChars.length)];
+    }
+    el.textContent = newText;
+  });
+  setTimeout(shuffleMojibake, 3000 + Math.random() * 2000);
+}
+setTimeout(shuffleMojibake, 2000);
+
+// 投稿番号がランダムに変化（NaN, ERR, ???, 数値）
+var numEls = document.querySelectorAll('.post-num-dynamic');
+var numGlitches = ['NaN', 'ERR', '???', '---', '0', '█', '∞'];
+function glitchNumbers() {
+  numEls.forEach(function(el) {
+    if (Math.random() < 0.3) {
+      el.textContent = numGlitches[Math.floor(Math.random() * numGlitches.length)];
+    } else {
+      el.textContent = el.closest('.post').id.replace('post-', '');
+    }
+  });
+  setTimeout(glitchNumbers, 2000 + Math.random() * 3000);
+}
+setTimeout(glitchNumbers, 3000);
+
+// 名前欄に一瞬だけ「きつね」「K-00」が表示されて消える
+var nameEls = document.querySelectorAll('.name-dynamic');
+var nameFlashes = ['きつね', 'K-00', '試作体', '████', 'UNIT_00', ''];
+function flashNames() {
+  var target = nameEls[Math.floor(Math.random() * nameEls.length)];
+  var flash = nameFlashes[Math.floor(Math.random() * nameFlashes.length)];
+  target.textContent = flash;
+  target.style.color = '#4a4';
+  target.style.textShadow = '0 0 5px rgba(0,255,0,0.5)';
+  setTimeout(function() {
+    target.textContent = '';
+    target.style.color = '';
+    target.style.textShadow = '';
+  }, 400 + Math.random() * 600);
+  setTimeout(flashNames, 4000 + Math.random() * 6000);
+}
+setTimeout(flashNames, 2000);
+
+// 画面全体が一瞬ガッとズレるグリッチ（15〜30秒間隔）
+function screenGlitch() {
+  document.body.classList.add('glitching');
+  setTimeout(function() {
+    document.body.classList.remove('glitching');
+  }, 150);
+  setTimeout(screenGlitch, (15 + Math.random() * 15) * 1000);
+}
+setTimeout(screenGlitch, (10 + Math.random() * 10) * 1000);
+
+// HEXコードがカウントアップ
+var hexEls = document.querySelectorAll('.hex');
+function tickHex() {
+  hexEls.forEach(function(el) {
+    if (Math.random() < 0.4) {
+      var parts = el.textContent.split(' ');
+      var newParts = parts.map(function(p) {
+        if (p.startsWith('0x')) {
+          var val = parseInt(p, 16);
+          val = (val + Math.floor(Math.random() * 16)) & 0xFF;
+          return '0x' + val.toString(16).toUpperCase().padStart(2, '0');
+        }
+        return p;
+      });
+      el.textContent = newParts.join(' ');
+    }
+  });
+  setTimeout(tickHex, 2000 + Math.random() * 3000);
+}
+setTimeout(tickHex, 3000);
 </script>
 
 </body>

@@ -191,4 +191,21 @@
     item.innerHTML = '<span class="news-date" style="color:#a33;">????. ??.??</span>まだ ここに います';
     newsList.appendChild(item);
   }
+
+  // ⑧ 掲示板リンクに [!] 点滅を追加（Night5クリア後、ファンサイト上のみ）
+  var bbsLinks = document.querySelectorAll('.nav-menu a[href*="bbs"], .sidebar a[href*="bbs"]');
+  bbsLinks.forEach(function(link) {
+    if (link.textContent.trim() === '掲示板') {
+      var alert = document.createElement('span');
+      alert.textContent = ' [!]';
+      alert.style.cssText = 'color:#a33;font-weight:bold;animation:bbs-alert 1.2s infinite;';
+      link.appendChild(alert);
+      if (!document.getElementById('bbs-alert-style')) {
+        var style = document.createElement('style');
+        style.id = 'bbs-alert-style';
+        style.textContent = '@keyframes bbs-alert{0%,100%{opacity:1;}50%{opacity:0.2;}}';
+        document.head.appendChild(style);
+      }
+    }
+  });
 })();
