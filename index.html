@@ -103,6 +103,23 @@
     document.getElementById('counter').textContent = String(baseCount).padStart(6, '0');
     document.getElementById('counter-small').textContent = String(baseCount).padStart(6, '0');
 
+    // Night1クリア後：掲示板リンクにNEWマーク
+    if (localStorage.getItem('night1_cleared') === 'true' && !localStorage.getItem('night2_cleared')) {
+      var bbsLink = document.querySelector('a[href="bbs/index.html"]');
+      if (bbsLink) {
+        var newBadge = document.createElement('span');
+        newBadge.textContent = ' NEW!';
+        newBadge.style.cssText = 'color:#f66;font-size:10px;font-weight:bold;animation:new-blink 1s infinite;';
+        bbsLink.appendChild(newBadge);
+        if (!document.getElementById('new-blink-style')) {
+          var s = document.createElement('style');
+          s.id = 'new-blink-style';
+          s.textContent = '@keyframes new-blink{0%,100%{opacity:1;}50%{opacity:0.3;}}';
+          document.head.appendChild(s);
+        }
+      }
+    }
+
     // Night6クリア後：カスタムナイト導線表示＋カウンター復元
     if (localStorage.getItem('night6_cleared') === 'true') {
       var banner = document.getElementById('custom-night-banner');
