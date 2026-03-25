@@ -293,8 +293,9 @@ function updateCameraJam(dt) {
 
   // 故障発生チェック
   if (gameState.time >= cameraJamNextTime) {
-    // ランダムなカメラを故障させる（CAM1〜8）
-    cameraJamCam = Math.floor(Math.random() * 8) + 1;
+    // ランダムなカメラを故障させる（CAM2:時計, CAM7/8:通路は除外）
+    var jamCandidates = [1, 3, 4, 5, 6];
+    cameraJamCam = jamCandidates[Math.floor(Math.random() * jamCandidates.length)];
     cameraJamActive = true;
     cameraJamEndTime = gameState.time + randomRange(params.duration[0], params.duration[1]);
 
