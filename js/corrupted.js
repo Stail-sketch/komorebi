@@ -15,7 +15,7 @@
 })();
 
 (function() {
-  if (localStorage.getItem('normal_end_viewed') !== 'true') return;
+  if (localStorage.getItem('night5_cleared') !== 'true') return;
 
   var night6Done = localStorage.getItem('night6_cleared') === 'true';
 
