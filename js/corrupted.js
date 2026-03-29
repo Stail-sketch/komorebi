@@ -14,10 +14,43 @@
   });
 })();
 
+// ノーマルエンド視聴後に発動する汚染エフェクト・個別変化
 (function() {
-  if (localStorage.getItem('night5_cleared') !== 'true') return;
+  if (localStorage.getItem('normal_end_viewed') !== 'true') return;
 
   var night6Done = localStorage.getItem('night6_cleared') === 'true';
+
+  // ③ 更新履歴に追加
+  var historyList = document.querySelector('.history-list, .update-list');
+  if (historyList) {
+    var entry = document.createElement('div');
+    entry.className = historyList.children[0] ? historyList.children[0].className : '';
+    entry.innerHTML = '<span style="color:#888;">????/??/??</span> ■■■■■■■■';
+    entry.style.color = '#444';
+    historyList.insertBefore(entry, historyList.firstChild);
+  }
+
+  // ④ 5体目シルエット（Night6 ARG導線）
+  var charGrid = document.querySelector('.char-grid');
+  if (charGrid && !document.querySelector('.char-card-shisaku')) {
+    var card = document.createElement('div');
+    card.className = 'char-card char-card-shisaku';
+    card.innerHTML = '<div class="char-thumb-wrapper"><div style="width:120px;height:120px;background:#111;border-radius:50%;margin:0 auto;"></div></div><h3>？？？</h3><p style="color:#666;">データが破損しています</p><a href="/official/night6_arg/SYSTEM_LOG_INDEX.html" style="color:#a33;">→ アクセスする</a>';
+    charGrid.appendChild(card);
+  }
+
+  // ⑤ 放送リスト異常回
+  var episodeTable = document.querySelector('.episode-table tbody, .info-table tbody');
+  if (episodeTable && window.location.pathname.includes('episodes')) {
+    var row = document.createElement('tr');
+    row.style.color = '#a33';
+    row.innerHTML = '<td>???</td><td>████.██.██</td><td style="color:#a33;">████████████████</td>';
+    episodeTable.appendChild(row);
+  }
+
+  // ⑥ スタッフopacity低下
+  var redacteds = document.querySelectorAll('.redacted');
+  redacteds.forEach(function(el) { el.style.opacity = '0.7'; });
 
   // Night6クリア後は汚染CSSを適用しない
   if (!night6Done) {
@@ -26,41 +59,7 @@
 
   // Night6クリア後は汚染エフェクトをスキップ
   if (night6Done) {
-    // 個別変化のうち残すもののみ実行（③④⑤⑥は残る、②⑦は消す）
-
-    // ③ 更新履歴に追加（残る）
-    var historyList = document.querySelector('.history-list, .update-list');
-    if (historyList) {
-      var entry = document.createElement('div');
-      entry.className = historyList.children[0] ? historyList.children[0].className : '';
-      entry.innerHTML = '<span style="color:#888;">????/??/??</span> ■■■■■■■■';
-      entry.style.color = '#444';
-      historyList.insertBefore(entry, historyList.firstChild);
-    }
-
-    // ④ 5体目シルエット（残る）
-    var charGrid = document.querySelector('.char-grid');
-    if (charGrid && !document.querySelector('.char-card-shisaku')) {
-      var card = document.createElement('div');
-      card.className = 'char-card char-card-shisaku';
-      card.innerHTML = '<div class="char-thumb-wrapper"><div style="width:120px;height:120px;background:#111;border-radius:50%;margin:0 auto;"></div></div><h3>？？？</h3><p style="color:#666;">データが破損しています</p><a href="/official/night6_arg/SYSTEM_LOG_INDEX.html" style="color:#a33;">→ アクセスする</a>';
-      charGrid.appendChild(card);
-    }
-
-    // ⑤ 放送リスト異常回（残る）
-    var episodeTable = document.querySelector('.episode-table tbody, .info-table tbody');
-    if (episodeTable && window.location.pathname.includes('episodes')) {
-      var row = document.createElement('tr');
-      row.style.color = '#a33';
-      row.innerHTML = '<td>???</td><td>████.██.██</td><td style="color:#a33;">████████████████</td>';
-      episodeTable.appendChild(row);
-    }
-
-    // ⑥ スタッフopacity低下（残る）
-    var redacteds = document.querySelectorAll('.redacted');
-    redacteds.forEach(function(el) { el.style.opacity = '0.7'; });
-
-    return; // 汚染エフェクトは実行しない
+    return;
   }
 
   // ランダムグリッチ（30〜60秒間隔）
@@ -147,40 +146,6 @@
   var counter = document.querySelector('.counter-number, .counter');
   if (counter) counter.textContent = '99999999';
 
-  // ③ 更新履歴に追加
-  var historyList = document.querySelector('.history-list, .update-list');
-  if (historyList) {
-    var entry = document.createElement('div');
-    entry.className = historyList.children[0] ? historyList.children[0].className : '';
-    entry.innerHTML = '<span style="color:#888;">????/??/??</span> ■■■■■■■■';
-    entry.style.color = '#444';
-    historyList.insertBefore(entry, historyList.firstChild);
-  }
-
-  // ④ 5体目シルエット（Night6 ARG導線）
-  var charGrid = document.querySelector('.char-grid');
-  if (charGrid && !document.querySelector('.char-card-shisaku')) {
-    var card = document.createElement('div');
-    card.className = 'char-card char-card-shisaku';
-    card.innerHTML = '<div class="char-thumb-wrapper"><div style="width:120px;height:120px;background:#111;border-radius:50%;margin:0 auto;"></div></div><h3>？？？</h3><p style="color:#666;">データが破損しています</p><a href="/official/night6_arg/SYSTEM_LOG_INDEX.html" style="color:#a33;">→ アクセスする</a>';
-    charGrid.appendChild(card);
-  }
-
-  // ⑤ 放送リストに存在しない回
-  var episodeTable = document.querySelector('.episode-table tbody, .info-table tbody');
-  if (episodeTable && window.location.pathname.includes('episodes')) {
-    var row = document.createElement('tr');
-    row.style.color = '#a33';
-    row.innerHTML = '<td>???</td><td>████.██.██</td><td style="color:#a33;">████████████████</td>';
-    episodeTable.appendChild(row);
-  }
-
-  // ⑥ スタッフ塗りつぶしopacity低下
-  var redacteds = document.querySelectorAll('.redacted');
-  redacteds.forEach(function(el) {
-    el.style.opacity = '0.7';
-  });
-
   // ⑦ おしらせに「まだ ここに います」
   var newsList = document.querySelector('.news-list');
   if (newsList && window.location.pathname.includes('official/index')) {
@@ -192,7 +157,7 @@
     newsList.appendChild(item);
   }
 
-  // ⑧ 掲示板リンクに [!] 点滅を追加（Night5クリア後、ファンサイト上のみ）
+  // ⑧ 掲示板リンクに [!] 点滅を追加
   var bbsLinks = document.querySelectorAll('.nav-menu a[href*="bbs"], .sidebar a[href*="bbs"]');
   bbsLinks.forEach(function(link) {
     if (link.textContent.trim() === '掲示板') {
